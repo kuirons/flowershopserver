@@ -1,0 +1,21 @@
+# Tomcat配置
+server:
+  # 8080经常被占用
+  port: 8090
+  tomcat:
+    basedir: D:\spring-boot-log
+    max-threads: 200
+    uri-encoding: utf-8
+logging:
+  path: D:\spring-boot-log
+  file: fss.log
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/fss
+    username: fss
+    password: fss
+    name: fss
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  config-location: classpath:mybatis/config/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapping/*.xml
