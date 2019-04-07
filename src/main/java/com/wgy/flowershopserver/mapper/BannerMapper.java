@@ -12,4 +12,6 @@ public interface BannerMapper {
   void baseInsert(BannerBean bannerBean);
 
   List<BannerBean> selectAll();
+
+  void deleteById(int id);
 }

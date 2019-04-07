@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface BannerService {
   List<BannerBean> getAllBannerInfos();
+
+  void deleteById(int id);
+
+  void baseInsert(BannerBean bannerBean);
 }

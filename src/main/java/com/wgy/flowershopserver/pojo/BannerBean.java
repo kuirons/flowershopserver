@@ -9,6 +9,8 @@ public class BannerBean {
   /** 图片地址 */
   private String imgUrl;
 
+  private int type;
+
   public int getId() {
     return id;
   }
@@ -29,7 +31,16 @@ public class BannerBean {
     return imgUrl;
   }
 
+  public int getType() {
+    return type;
+  }
+
+  public void setType(int type) {
+    this.type = type;
+  }
+
   public void setImgUrl(String imgUrl) {
+
     this.imgUrl = imgUrl;
   }
 }

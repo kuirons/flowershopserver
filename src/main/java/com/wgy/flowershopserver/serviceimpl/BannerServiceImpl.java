@@ -17,4 +17,14 @@ public class BannerServiceImpl implements BannerService {
     List<BannerBean> allInfos = bannerMapper.selectAll();
     return allInfos;
   }
+
+  @Override
+  public void deleteById(int id) {
+    bannerMapper.deleteById(id);
+  }
+
+  @Override
+  public void baseInsert(BannerBean bannerBean) {
+    bannerMapper.baseInsert(bannerBean);
+  }
 }

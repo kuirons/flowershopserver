@@ -6,17 +6,18 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="imgurl" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
     </resultMap>
 
     <insert id="baseInsert" parameterType="BannerBean">
-        insert into banner(id, name, imgurl)
-        values(#{id}, #{name}, #{imgUrl})
+        insert into banner(name, imgurl)
+        values(#{name}, #{imgUrl})
     </insert>
 
-    <!--<delete id="deleteByType" parameterType="java.lang.Integer">-->
-    <!--delete from project_category-->
-    <!--where category_type = #{type, jdbcType=INTEGER}-->
-    <!--</delete>-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from banner
+        where id = #{id}
+    </delete>
 
     <!--<update id="updateByType" parameterType="ProjectCategory">-->
     <!--update project_category-->
