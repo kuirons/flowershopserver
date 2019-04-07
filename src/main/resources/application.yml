@@ -7,8 +7,8 @@ server:
     max-threads: 200
     uri-encoding: utf-8
 logging:
-  path: D:\spring-boot-log
-  file: fss.log
+  path: logs
+  file: logs/fss.log
 spring:
   datasource:
     #    必须添加后面的参数，新版驱动就这样
