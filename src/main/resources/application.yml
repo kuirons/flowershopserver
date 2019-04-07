@@ -11,7 +11,8 @@ logging:
   file: fss.log
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/fss
+    #    必须添加后面的参数，新版驱动就这样
+    url: jdbc:mysql://localhost:3306/fss?serverTimezone=UTC
     username: fss
     password: fss
     name: fss
@@ -19,3 +20,4 @@ spring:
 mybatis:
   config-location: classpath:mybatis/config/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapping/*.xml
+  type-aliases-package: com.wgy.flowershopserver.pojo

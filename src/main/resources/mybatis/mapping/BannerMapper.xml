@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.BannerMapper">
+
+    <resultMap id="AllInfoResultMap" type="BannerBean">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="imgurl" property="imgUrl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="baseInsert" parameterType="BannerBean">
+        insert into banner(id, name, imgurl)
+        values(#{id}, #{name}, #{imgUrl})
+    </insert>
+
+    <!--<delete id="deleteByType" parameterType="java.lang.Integer">-->
+    <!--delete from project_category-->
+    <!--where category_type = #{type, jdbcType=INTEGER}-->
+    <!--</delete>-->
+
+    <!--<update id="updateByType" parameterType="ProjectCategory">-->
+    <!--update project_category-->
+    <!--set category_name = #{categoryName}-->
+    <!--where category_type = #{categoryType}-->
+    <!--</update>-->
+
+    <select id="selectAll" resultMap="AllInfoResultMap">
+        select * from banner
+    </select>
+</mapper>
