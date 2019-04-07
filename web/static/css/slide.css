@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+.slide-preview {
+    width: 100%;
+}
+
+
+.slide-box {
+    padding: 20px;
+}
+
+.slide-box input[type=file] {
+    display: none;
+}
+
+.slide-item {
+    width: 120px;
+    max-height: 240px;
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.slide-item:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.slide-item img {
+    height: 84px;
+}
+
+/*.slide-item.add-new {
+    background: url('../admin/img/upload.png');
+}
+
+*/

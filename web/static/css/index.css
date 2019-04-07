@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: '宋体';
+}
+
+/* 标签页 */
+.login-tab {
+    width: 100%;
+    height: 100%;
+    margin-right: 40px;
+    display: inline-block;
+    transition: margin .5s ease;
+}
+
+/* 更换标签页 */
+.change-tab {
+    bottom: 0px;
+    color: white;
+    padding: 10px 5px;
+    position: absolute;
+    transition: all .5s ease;
+    background: rgba(255, 255, 255, 0.15);
+}
+.change-tab:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.right-tab {
+    right: 0px;
+}
+.left-tab {
+    left: 0px;
+}
+.right-tab:hover {
+    right: 1em;
+}
+.left-tab:hover {
+    left: 1em;
+}
+
+.J_codeimg {
+    width: 36%;
+    z-index: 1;
+    height: 100%;
+    position: relative;
+    vertical-align: top;
+}
+.J_codetext {
+    vertical-align: top;
+}
