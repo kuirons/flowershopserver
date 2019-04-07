@@ -21,3 +21,4 @@ mybatis:
   config-location: classpath:mybatis/config/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapping/*.xml
   type-aliases-package: com.wgy.flowershopserver.pojo
+# 配置图片上传相关参数
