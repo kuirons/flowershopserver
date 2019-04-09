@@ -32,8 +32,8 @@ public class BannerController {
   @RequestMapping("/insert")
   public void insert(HttpServletRequest request) {
     String name = request.getParameter("name");
-    String imgUrl = customConfig.getFfsaddress() + "/static/images/" + name;
     MultipartFile multipartFile = ((MultipartHttpServletRequest) request).getFile("file");
+    String imgUrl = customConfig.getFfsaddress() + "/" + multipartFile.getOriginalFilename();
     bannerService.dealFile(multipartFile);
     BannerBean bannerBean = new BannerBean();
     bannerBean.setImgUrl(imgUrl);
