@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wgy.flowershopserver.mapper.BannerMapper">
+<mapper namespace="com.wgy.flowershopserver.mapper.GoodsinfoMapper">
 
     <resultMap id="AllInfoResultMap" type="BannerBean">
         <id column="id" property="id" jdbcType="INTEGER"/>
@@ -17,6 +17,11 @@
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from goodsinfo
         where id = #{id}
+    </delete>
+
+    <delete id="deleteByBelong2Title" parameterType="java.lang.String">
+        delete from goodsinfo
+        where belong2Title = #{belong2Title}
     </delete>
 
     <!--<update id="updateByType" parameterType="ProjectCategory">-->

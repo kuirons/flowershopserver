@@ -57,4 +57,9 @@ public class GoodsInfoController {
           goodsInfoService.baseInsert(goodsInfoBean);
         });
   }
+
+  @RequestMapping("/deleteByBelong2Title")
+  public void deleteByBelong2Title(@RequestParam("belong2Title") String belong2Title) {
+    goodsInfoService.deleteByBelong2Title(belong2Title);
+  }
 }

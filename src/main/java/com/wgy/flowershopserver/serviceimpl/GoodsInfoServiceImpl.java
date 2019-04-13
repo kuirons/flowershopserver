@@ -58,4 +58,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
             .collect(Collectors.toList());
     return goodsInfoDtos;
   }
+
+  @Override
+  public void deleteByBelong2Title(String belong2Title) {
+    goodsinfoMapper.deleteByBelong2Title(belong2Title);
+  }
 }

@@ -16,6 +16,6 @@ public interface GoodsInfoService {
   void dealFile(List<MultipartFile> multipartFiles);
 
   List<GoodsInfoDto> mapGoodsInfos2Dto();
+
+  void deleteByBelong2Title(String belong2Title);
 }
-
-

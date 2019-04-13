@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.CategoryMapper">
+
+    <resultMap id="AllInfoResultMap" type="CategoryBean">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sort" property="imgUrl" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="baseInsert" parameterType="CategoryBean">
+        insert into category(id, name, sort)
+        values(#{id}, #{name}, #{sort})
+    </insert>
+
+    <delete id="deleteAll">
+        delete from category
+    </delete>
+
+    <!--<update id="updateByType" parameterType="ProjectCategory">-->
+    <!--update project_category-->
+    <!--set category_name = #{categoryName}-->
+    <!--where category_type = #{categoryType}-->
+    <!--</update>-->
+
+    <select id="selectAll" resultMap="AllInfoResultMap">
+        select * from category
+    </select>
+</mapper>
