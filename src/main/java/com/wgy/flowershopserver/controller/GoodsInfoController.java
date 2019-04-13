@@ -50,6 +50,11 @@ public class GoodsInfoController {
         JsonUtil.getInstance().toList(insertObjectsJson, GoodsInfoBean.class);
     List<MultipartFile> multipartFiles = ((MultipartHttpServletRequest) request).getFiles("file");
     goodsInfoService.dealFile(multipartFiles);
-    goodsInfoBeans.forEach(goodsInfoBean -> goodsInfoService.baseInsert(goodsInfoBean));
+    goodsInfoBeans.forEach(
+        goodsInfoBean -> {
+          goodsInfoBean.setImgUrl(
+              CustomConfig.attributeMap.get("ffsaddress") + "/" + goodsInfoBean.getImgUrl());
+          goodsInfoService.baseInsert(goodsInfoBean);
+        });
   }
 }

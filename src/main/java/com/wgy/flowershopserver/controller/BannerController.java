@@ -35,10 +35,9 @@ public class BannerController {
     MultipartFile multipartFile = ((MultipartHttpServletRequest) request).getFile("file");
     // 反序列化
     BannerBean bannerBean = JsonUtil.getInstance().toObject(infoJson, BannerBean.class);
-    String imgUrl =
-        CustomConfig.attributeMap.get("ffsaddress") + "/" + multipartFile.getOriginalFilename();
     bannerService.dealFile(multipartFile);
-    bannerBean.setImgUrl(imgUrl);
+    bannerBean.setImgUrl(
+        CustomConfig.attributeMap.get("ffsaddress") + "/" + bannerBean.getImgUrl());
     bannerService.baseInsert(bannerBean);
   }
 }
