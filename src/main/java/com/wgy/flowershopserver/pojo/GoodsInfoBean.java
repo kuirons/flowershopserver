@@ -2,16 +2,16 @@ package com.wgy.flowershopserver.pojo;
 
 /** 首页商品信息 */
 public class GoodsInfoBean {
-  private String id;
+  private int id;
   private String title;
   private String imgUrl;
   private String belong2Title;
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(int id) {
     this.id = id;
   }
 
