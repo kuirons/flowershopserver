@@ -1,5 +1,7 @@
 package com.wgy.flowershopserver.pojo;
 
+import com.wgy.flowershopserver.utils.JsonUtil;
+
 /** 首页轮播图bean */
 public class BannerBean {
   /** id 自增 */
@@ -42,5 +44,12 @@ public class BannerBean {
   public void setImgUrl(String imgUrl) {
 
     this.imgUrl = imgUrl;
+  }
+
+  public static void main(String[] args) {
+    BannerBean bannerBean = new BannerBean();
+    bannerBean.setName("teset");
+    bannerBean.setImgUrl("aaaa");
+    System.out.println(JsonUtil.getInstance().toString(bannerBean));
   }
 }

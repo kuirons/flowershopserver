@@ -3,6 +3,7 @@ package com.wgy.flowershopserver.controller;
 import com.wgy.flowershopserver.pojo.BannerBean;
 import com.wgy.flowershopserver.serviceimpl.BannerServiceImpl;
 import com.wgy.flowershopserver.utils.CustomConfig;
+import com.wgy.flowershopserver.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +18,6 @@ import java.util.List;
 @RequestMapping("/banner")
 public class BannerController {
   @Autowired private BannerServiceImpl bannerService;
-  @Autowired private CustomConfig customConfig;
 
   @RequestMapping("/allinfos")
   public List<BannerBean> getAllBannerInfos() {
@@ -31,13 +31,14 @@ public class BannerController {
 
   @RequestMapping("/insert")
   public void insert(HttpServletRequest request) {
-    String name = request.getParameter("name");
+    String infoJson = request.getParameter("bannerInfo");
     MultipartFile multipartFile = ((MultipartHttpServletRequest) request).getFile("file");
-    String imgUrl = customConfig.getFfsaddress() + "/" + multipartFile.getOriginalFilename();
+    // 反序列化
+    BannerBean bannerBean = JsonUtil.getInstance().toObject(infoJson, BannerBean.class);
+    String imgUrl =
+        CustomConfig.attributeMap.get("ffsaddress") + "/" + multipartFile.getOriginalFilename();
     bannerService.dealFile(multipartFile);
-    BannerBean bannerBean = new BannerBean();
     bannerBean.setImgUrl(imgUrl);
-    bannerBean.setName(name);
     bannerService.baseInsert(bannerBean);
   }
 }

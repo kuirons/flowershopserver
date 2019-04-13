@@ -1,31 +1,25 @@
 package com.wgy.flowershopserver.utils;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
-@Component
-@PropertySource(value = "config.properties")
 public class CustomConfig {
-  @Value("${ffsaddress}")
-  private String ffsaddress;
+  public static Map<String, String> attributeMap = initAttribute();
 
-  @Value("${imgUrl}")
-  private String imgUrl;
+  private static Map<String, String> initAttribute() {
+    Map<String, String> result = new HashMap<>();
+    Properties properties = new Properties();
+    try (FileInputStream in = new FileInputStream("config.properties")) {
+      properties.load(in);
 
-  public String getFfsaddress() {
-    return ffsaddress;
-  }
-
-  public void setFfsaddress(String ffsaddress) {
-    this.ffsaddress = ffsaddress;
-  }
-
-  public String getImgUrl() {
-    return imgUrl;
-  }
-
-  public void setImgUrl(String imgUrl) {
-    this.imgUrl = imgUrl;
+      result.put("ffsaddress", properties.getProperty("ffsaddress"));
+      result.put("imgUrl", "imgUrl");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return result;
   }
 }

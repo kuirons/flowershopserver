@@ -85,4 +85,77 @@ public class MathUtil {
     }
     return (int) r;
   }
+
+  /**
+   * 安全相乘,越界返回long最大值
+   *
+   * @param x
+   * @param y
+   * @return
+   */
+  public static long safelyMulti(long x, long y) {
+    long r = x * y;
+    long ax = Math.abs(x);
+    long ay = Math.abs(y);
+    if (((ax | ay) >>> 31 != 0)) {
+      if (((y != 0) && (r / y != x)) || (x == Long.MIN_VALUE && y == -1)) {
+        return Long.MAX_VALUE;
+      }
+    }
+    return r;
+  }
+  /**
+   * @param x 除数
+   * @param y 被除数
+   * @return 向上取整的结果
+   */
+  public static int ceilDiv(int x, int y) {
+    return x / y + ((x % y) > 0 ? 1 : 0);
+  }
+
+  public static int safeValue(int v, int min, int max) {
+    return v > max ? max : v < min ? min : v;
+  }
+
+  public static long safeValue(long v, long min, long max) {
+    return v > max ? max : v < min ? min : v;
+  }
+
+  public static int square(int v) {
+    return Math.multiplyExact(v, v);
+  }
+
+  public static int proportionOf(int v, int proportion) {
+    // TODO       return Math.multiplyExact(v, proportion) / 10000;
+    return (int) (proportion * 0.0001D * v);
+  }
+
+  public static long proportionOf(long v, long proportion) {
+    // TODO    return Math.multiplyExact(v, proportion) / 10000;
+    return (long) (proportion * 0.0001D * v);
+  }
+
+  public static int proportion(int v, int total) {
+    return (int) ((long) v * W / total);
+  }
+
+  public static int proportion(long v, long total) {
+    return (int) (Math.multiplyExact(v, W) / total);
+  }
+
+  public static short sign(short v) {
+    return (short) (v == 0 ? 0 : Math.abs(v) / v);
+  }
+
+  public static int sign(int v) {
+    return v == 0 ? 0 : Math.abs(v) / v;
+  }
+
+  public static long sign(long v) {
+    return v == 0 ? 0 : Math.abs(v) / v;
+  }
+
+  public static boolean between(int v, int min, int max) {
+    return v >= min && v <= max;
+  }
 }
