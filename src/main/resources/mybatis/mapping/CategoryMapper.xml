@@ -17,11 +17,16 @@
         delete from category
     </delete>
 
-    <!--<update id="updateByType" parameterType="ProjectCategory">-->
-    <!--update project_category-->
-    <!--set category_name = #{categoryName}-->
-    <!--where category_type = #{categoryType}-->
-    <!--</update>-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from category
+        where id = #{id}
+    </delete>
+
+    <update id="updateById" parameterType="ProjectCategory">
+    update category
+    set sort = #{sort}
+    where id = #{id}
+    </update>
 
     <select id="selectAll" resultMap="AllInfoResultMap">
         select * from category

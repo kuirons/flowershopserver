@@ -26,4 +26,14 @@ public class CategoryServiceImpl implements CategoryService {
   public void baseInsert(CategoryBean categoryBean) {
     categoryMapper.baseInsert(categoryBean);
   }
+
+  @Override
+  public void updateById(CategoryBean categoryBean) {
+    categoryMapper.updateById(categoryBean);
+  }
+
+  @Override
+  public void deleteById(int id) {
+    categoryMapper.deleteById(id);
+  }
 }

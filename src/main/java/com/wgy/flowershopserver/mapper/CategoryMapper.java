@@ -14,4 +14,8 @@ public interface CategoryMapper {
   List<CategoryBean> selectAll();
 
   void deleteAll();
+
+  void updateById(CategoryBean categoryBean);
+
+  void deleteById(int id);
 }

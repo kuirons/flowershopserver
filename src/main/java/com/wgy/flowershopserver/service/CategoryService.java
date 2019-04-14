@@ -10,6 +10,8 @@ public interface CategoryService {
   void delete();
 
   void baseInsert(CategoryBean categoryBean);
+
+  void updateById(CategoryBean categoryBean);
+
+  void deleteById(int id);
 }
-
-
