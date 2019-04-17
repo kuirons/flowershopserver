@@ -32,8 +32,8 @@ public class GoodsInfoDto {
                 })
             .collect(Collectors.toList());
     goodsInfoDto.setCpOne(campaigns.get(0));
-    goodsInfoDto.setCpOne(campaigns.get(1));
-    goodsInfoDto.setCpOne(campaigns.get(2));
+    goodsInfoDto.setCpTwo(campaigns.get(1));
+    goodsInfoDto.setCpThree(campaigns.get(2));
     return goodsInfoDto;
   }
 

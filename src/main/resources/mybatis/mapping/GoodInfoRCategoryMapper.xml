@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wgy.flowershopserver.mapper.GoodsinfoMapper">
+<mapper namespace="com.wgy.flowershopserver.mapper.GoodsInfoRCategoryMapper">
 
-    <resultMap id="AllInfoResultMap" type="GoodsInfoBean">
+    <resultMap id="AllInfoResultMap" type="GoodsInfoRCategoryBean">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
-        <result column="imgUrl" property="imgUrl" jdbcType="VARCHAR"/>
-        <result column="belong2Title" property="belong2Title" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <insert id="baseInsert" parameterType="GoodsInfoBean">
-        insert into goodsinfo(title, imgurl,belong2Title)
-        values(#{title}, #{imgurl},#{belong2Title})
+    <insert id="baseInsert" parameterType="java.lang.String">
+        insert into goodsrcategory(title)
+        values(#{title})
     </insert>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
-        delete from goodsinfo
+        delete from goodsrcategory
         where id = #{id}
     </delete>
 
-    <delete id="deleteByBelong2Title" parameterType="java.lang.String">
-        delete from goodsinfo
-        where belong2Title = #{belong2Title}
-    </delete>
 
     <!--<update id="updateByType" parameterType="ProjectCategory">-->
     <!--update project_category-->
@@ -31,6 +25,11 @@
     <!--</update>-->
 
     <select id="selectAll" resultMap="AllInfoResultMap">
-        select * from goodsinfo
+        select * from goodsrcategory
+    </select>
+
+    <select id="selectByTitle"  resultMap="AllInfoResultMap">
+        select * from goodsrcategory
+        where title = #{title}
     </select>
 </mapper>

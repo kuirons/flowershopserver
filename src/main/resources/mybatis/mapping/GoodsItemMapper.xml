@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.GoodsItemMapper">
+
+    <resultMap id="AllInfoResultMap" type="GoodsItemBean">
+        <id column="tid" property="id" jdbcType="INTEGER"/>
+        <result column="categoryid" property="categoryId" jdbcType="INTEGER"/>
+        <result column="campaignid" property="campaignId" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="timgurl" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DOUBLE"/>
+        <result column="sale" property="sale" jdbcType="DOUBLE"/>
+        <collection property="detailInfosImgUrl" ofType="GoodsItemRImg" javaType="list">
+            <id column="iid" property="id" jdbcType="INTEGER"/>
+            <id column="goodsitemid" property="goodsItemId" jdbcType="INTEGER"/>
+            <id column="iimgurl" property="imgUrl" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <!--<insert id="baseInsert" parameterType="GoodsItemBean">-->
+    <!--insert into banner(name, imgurl)-->
+    <!--values(#{name}, #{imgUrl})-->
+    <!--</insert>-->
+
+    <!--<delete id="deleteById" parameterType="java.lang.Integer">-->
+    <!--delete from banner-->
+    <!--where id = #{id}-->
+    <!--</delete>-->
+
+    <!--<update id="updateByType" parameterType="ProjectCategory">-->
+    <!--update project_category-->
+    <!--set category_name = #{categoryName}-->
+    <!--where category_type = #{categoryType}-->
+    <!--</update>-->
+
+    <!--<select id="selectAll" resultMap="AllInfoResultMap">-->
+    <!--select * from banner-->
+    <!--</select>-->
+    <select id="selectByCampaignId" parameterType="java.lang.Integer" resultMap="AllInfoResultMap">
+        SELECT goodsitem.id tid,goodsitem.categoryid,goodsitem.campaignid,goodsitem.name,goodsitem.imgurl timgurl,goodsitem.price,goodsitem.sale,goodsritemimg.id iid,goodsritemimg.goodsitemid,goodsritemimg.imgurl iimgurl
+        FROM goodsitem LEFT JOIN goodsritemimg
+        ON goodsitem.id=goodsritemimg.goodsitemid
+        WHERE goodsitem.campaignid=#{campaignid}
+    </select>
+
+    <select id="selectByCategoryId" parameterType="java.lang.Integer" resultMap="AllInfoResultMap">
+        SELECT goodsitem.id tid,goodsitem.categoryid,goodsitem.campaignid,goodsitem.name,goodsitem.imgurl timgurl,goodsitem.price,goodsitem.sale,goodsritemimg.id iid,goodsritemimg.goodsitemid,goodsritemimg.imgurl iimgurl
+        FROM goodsitem LEFT JOIN goodsritemimg
+        ON goodsitem.id=goodsritemimg.goodsitemid
+        WHERE goodsitem.categoryid=#{categoryid}
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="AllInfoResultMap">
+        SELECT goodsitem.id tid,goodsitem.categoryid,goodsitem.campaignid,goodsitem.name,goodsitem.imgurl timgurl,goodsitem.price,goodsitem.sale,goodsritemimg.id iid,goodsritemimg.goodsitemid,goodsritemimg.imgurl iimgurl
+        FROM goodsitem LEFT JOIN goodsritemimg
+        ON goodsitem.id=goodsritemimg.goodsitemid
+        WHERE goodsitem.id=#{id}
+    </select>
+</mapper>

@@ -1,6 +1,7 @@
 package com.wgy.flowershopserver.serviceimpl;
 
 import com.wgy.flowershopserver.dto.GoodsInfoDto;
+import com.wgy.flowershopserver.mapper.GoodsInfoRCategoryMapper;
 import com.wgy.flowershopserver.mapper.GoodsinfoMapper;
 import com.wgy.flowershopserver.pojo.GoodsInfoBean;
 import com.wgy.flowershopserver.service.GoodsInfoService;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class GoodsInfoServiceImpl implements GoodsInfoService {
   @Autowired private GoodsinfoMapper goodsinfoMapper;
+  @Autowired private GoodsInfoRCategoryMapper goodsInfoRCategoryMapper;
 
   @Override
   public List<GoodsInfoBean> getAllGoodsInfos() {
@@ -45,7 +47,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
     Map<String, List<GoodsInfoBean>> infosByTitle =
         goodsInfoBeans.stream().collect(Collectors.groupingBy(GoodsInfoBean::getBelong2Title));
     // 注意这里要用线程安全的计数器
-    AtomicInteger counter = new AtomicInteger(1);
+    //    AtomicInteger counter = new AtomicInteger(1);
     // 这里要过滤一下长度不为3的
     List<GoodsInfoDto> goodsInfoDtos =
         infosByTitle.entrySet().stream()
@@ -54,7 +56,15 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
                   if (entry.getValue().size() < 3) return false;
                   return true;
                 })
-            .map(entry -> GoodsInfoDto.getInstance(entry.getValue(), counter.getAndIncrement()))
+            .map(
+                entry -> {
+                  int id =
+                      goodsInfoRCategoryMapper
+                          .selectByTitle(entry.getValue().get(0).getBelong2Title())
+                          .get(0)
+                          .getId();
+                  return GoodsInfoDto.getInstance(entry.getValue(), id);
+                })
             .collect(Collectors.toList());
     return goodsInfoDtos;
   }

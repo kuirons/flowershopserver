@@ -5,7 +5,7 @@
     <resultMap id="AllInfoResultMap" type="CategoryBean">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="sort" property="imgUrl" jdbcType="INTEGER"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
     </resultMap>
 
     <insert id="baseInsert" parameterType="CategoryBean">
@@ -22,7 +22,7 @@
         where id = #{id}
     </delete>
 
-    <update id="updateById" parameterType="ProjectCategory">
+    <update id="updateById" parameterType="CategoryBean">
     update category
     set sort = #{sort}
     where id = #{id}
