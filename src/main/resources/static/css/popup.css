@@ -1,0 +1,239 @@
+@charset "utf-8";
+* {
+    margin: 0px;
+    padding: 0px;
+}
+.popup-box, .upload-box {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    opacity: 0;
+    position: fixed;
+}
+.popup-box {
+    margin: auto;
+    overflow: hidden;
+    background: #f6f6f6;
+    white-space: nowrap;
+}
+.popup-box-open {
+    opacity: 1;
+    z-index: 100000;
+    width: 600px;
+    height: 460px;
+}
+.popup-box-mobile-open {
+    opacity: 1;
+    z-index: 100000;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+.popup-box-close {
+    width: 0px;
+    height: 0px;
+    z-index: -99;
+}
+
+.popup-box .order-tab {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.popup-box .order-tab h5 {
+    white-space: normal;
+}
+
+.popup-box #check-phone-form {
+    background: white;
+}
+
+.popup-box #check-phone-target-page{
+    top: 10px;
+    left: 10px;
+    color: #cecece;
+    cursor: pointer;
+    position: absolute;
+}
+
+.popup-box h5 {
+    margin: 30px 0px;
+    text-align: center;
+}
+.popup-box .popup-enquiry-row {
+    display: block;
+    margin: 0px auto;
+    position: relative;
+}
+.popup-box .required-row:before {
+    content: '*';
+    top: 0px;
+    bottom: 0px;
+    left: -15px;
+    height: 14px;
+    color: #d1191a;
+    margin: auto 0px;
+    position: absolute;
+    transform: scale(1.5);
+}
+.popup-box #input-message-form .popup-enquiry-row {
+    width: 500px;
+    position: relative;
+}
+.popup-box  #input-message-form .popup-enquiry-row textarea{
+    width: 500px;
+    resize: none;
+    height: 260px;
+    color: #7f7f7f;
+}
+#input-message-form .popup-enquiry-row textarea::-webkit-input-placeholder {
+    color: #a6a6a6;
+}
+#input-message-form .popup-enquiry-row textarea:-moz-placeholder {
+    color:#a6a6a6;
+}
+#input-message-form .popup-enquiry-row textarea::-moz-placeholder {
+    color:#a6a6a6;
+}
+#input-message-form .popup-enquiry-row textarea:-ms-input-placeholder {
+    color:#a6a6a6;
+}
+
+#send-message-text {
+    height: 275px;
+    position: relative;
+}
+
+.popup-box-mobile-open #input-message-form .popup-enquiry-row {
+    width: 100%;
+}
+.popup-box-mobile-open #input-message-form .popup-enquiry-row textarea{
+    width: 100%;
+}
+
+.popup-box #check-phone-form .popup-enquiry-row {
+    width: 300px;
+    height: 36px;
+    text-align: justify;
+    text-justify: distribute;
+    border: 1px solid #cecece;
+}
+.popup-box #check-phone-form .popup-enquiry-row *{
+    height: 100%;
+    display: inline-block;
+}
+.popup-box #check-phone-form .popup-enquiry-row span {
+    width: 80px;
+    font-size: 12px;
+    line-height: 36px;
+}
+.popup-box #check-phone-form .popup-enquiry-row .text-both-justify {
+    padding: 0px 15px;
+    white-space: normal;
+}
+.popup-box #check-phone-form .popup-enquiry-row span i {
+    height: 0px;
+}
+.popup-box #check-phone-form .popup-enquiry-row input{
+    border: 0px;
+    width: 215px;
+    font-size: 12px;
+    vertical-align: top;
+}
+.popup-box #check-phone-form #check-phone-sign-box input{
+    width: 120px;
+}
+.popup-box #check-phone-form #check-phone-sign-box a {
+    color: #333;
+    width: 98px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 36px;
+    vertical-align: top;
+    border-left: 1px solid #cecece;
+}
+.popup-box #check-phone-form #check-phone-sign-box a:hover {
+    background: #cecece;
+}
+
+.popup-box .popup-enquiry-row-remind {
+    margin: 0 auto;
+    display: block;
+    color: #a6a6a6;
+    min-height: 20px;
+    padding: 5px 0px;
+    font-size: 12.5px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    white-space: normal;
+}
+.popup-box #input-message-form .popup-enquiry-row-remind {
+    width: 500px;
+}
+.popup-box #check-phone-form .popup-enquiry-row-remind {
+    width: 300px;
+}
+.popup-box-mobile-open #input-message-form .popup-enquiry-row-remind {
+    width: 95%;
+}
+#check-phone-sign-get {
+    font-size: 0.8em;
+}
+
+#check-phone-sign-box .not-allow-get-sign {
+    cursor: default;
+}
+#check-phone-sign-box .not-allow-get-sign:hover {
+    background: white;
+}
+
+.popup-box .enquiry-submit-btn {
+    color: white;
+    width: 300px;
+    display: block;
+    padding: 9px 0px;
+    text-align: center;
+    background: #d1191a;
+}
+
+#input-message-form .enquiry-submit-btn {
+    margin: 15px auto;
+}
+#check-phone-form .enquiry-submit-btn {
+    margin: 10px auto;
+}
+
+/* 控件容器样式 (必须添加 position) */
+.word-count {
+    position: relative;
+}
+
+/* 文本域样式 */
+.word-count textarea {
+    resize: none;
+    height: 100px;
+    overflow-y: hidden;
+    padding: 0.75em 1em;
+}
+
+/* 字数统计容器样式 */
+.word-count-view-box {
+    font-size: 14px;
+    position: absolute;
+    white-space: nowrap;
+}
+
+/* 当前字数样式 */
+.word-count-view-now {}
+
+/* 最大字数样式 */
+.word-count-view-max {}
+
+/* 接近最大字数样式 */
+.count-will-full {
+    color: #d1191a;
+}

@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+/* modal global */
+* {
+    margin: 0px;
+    padding: 0px;
+}
+.modal-mask, .modal-box {
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    right: 0px;
+    bottom: 0px;
+    position: fixed;
+}
+.modal-mask {
+    background: rgba(0, 0, 0, 0.45);
+}
+.modal-mask-close {
+    opacity: 0;
+    z-index: -100;
+}
+.modal-mask-open {
+    opacity: 1;
+    z-index: 99999;
+}
+
+/* confirm */
+.confirm-box {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 0px;
+    opacity: 0;
+    height: 0px;
+    bottom: 0px;
+    margin: auto;
+    position: fixed;
+    overflow: hidden;
+    background: white;
+    white-space: nowrap;
+}
+
+.confirm-box-open {
+    opacity: 1;
+    width: 380px;
+    height: 200px;
+    z-index: 100001;
+}
+.confirm-box-close {
+    width: 0px;
+    height: 0px;
+    z-index: -99;
+}
+.confirm-content, .confirm-operating {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+.confirm-content {
+    height: 80%;
+}
+.confirm-operating {
+    height: 20%;
+    border: 1px solid #e5e5e5;
+}
+.confirm-operating a {
+    width: 50%;
+    height: 100%;
+    line-height: 280%;
+    vertical-align: top;
+    display: inline-block;
+}
+.confirm-cancel {
+    color: #bfbfbf;
+}
+.confirm-cancel:hover, .confirm-cancel:focus {
+    color: #bfbfbf;
+}
+.confirm-yes {
+    color: #d1191a;
+}
+.confirm-yes:hover, .confirm-yes:focus {
+    color: #d1191a;
+}
+.confirm-operating a:first-child{
+    border-right: 1px solid #e5e5e5;
+}
+
+

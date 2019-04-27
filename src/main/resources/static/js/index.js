@@ -1,79 +1,85 @@
 "use strict";
 
-$(document).ready(function() {
+$(function () {
+    //菜单点击
+    $(".J_menuItem").on('click',function(){
+        var url = $(this).attr('href');
+        $("#J_iframe").attr('src',url);
+        return false;
+    });
+
     //粒子背景特效
-    $('body').particleground({
-        dotColor: '#5cbdaa',
-        lineColor: '#5cbdaa'
-    });
-
-    // 验证码刷新
-    
-
-    // 登陆页面切换
-    $('.login-tab .change-tab').on('click', function () {
-        let firstTab = $(this).parents('.admin_login').children('.login-tab:first-child');
-        if ($(this).hasClass('right-tab')) {
-            firstTab.css('margin-left', 'calc(-100% - 40px)');
-        } else {
-            firstTab.removeAttr('style');
-        }
-    });
-
-    $('.submit_btn').on('click', function () {
-        // 登陆请求url
-        let requestUrl = '';
-        let formData = new FormData();
-        // 当前选择登陆Tab
-        let loginTab = $(this).parents('.login-tab');
-        // 提交前校验
-        let user = loginTab.find('.J_username');
-        let passwd = loginTab.find('.J_password');
-        let checkCode = loginTab.find('.J_codetext');
-        let checkCodeBox = loginTab.find('.J_codeimg');
-
-        if (user.val().trim().length == 0) {
-            alert('用户名不能为空.');
-            return false;
-        }
-        if (passwd.val().trim().length == 0) {
-            alert('密码不能为空.');
-            return false;
-        }
-        if (checkCode.val().trim().length == 0) {
-            alert('验证码不能为空.');
-            return false;
-        }
-        if (checkCode.val().trim() != checkCodeBox.attr('data-check-code')) {
-            alert('请输入正确的验证码!');
-            return false;
-        }
-        // 校验完成登陆
-        // 获取表单数据
-        formData.append('username', user.val());
-        formData.append('password', passwd.val());
-        formData.append('checkCode', checkCode.val());
-        $.ajax({
-           type: 'POST',
-           url: requestUrl,
-           data: formData,
-           success: function(msg){
-                alert( "Data Saved: " + msg );
-           },
-           error: function (xhr, textStatus, errorThrown) {
-                alert('error: ' + textStatus);
-           }
+    if (typeof $('body').particleground != 'undefined') {
+        $('body').particleground({
+            dotColor: '#5cbdaa',
+            lineColor: '#5cbdaa'
         });
-    });
 
-    let codeList = document.querySelectorAll('.J_codeimg');
-    createCode(codeList[0]);
-    createCode(codeList[1]);
+        // 登陆页面切换
+        $('.login-tab .change-tab').on('click', function () {
+            var firstTab = $(this).parents('.admin_login').children('.login-tab:first-child');
+            if ($(this).hasClass('right-tab')) {
+                firstTab.css('margin-left', 'calc(-100% - 40px)');
+            } else {
+                firstTab.removeAttr('style');
+            }
+        });
 
-    // 验证码刷新
-    $('.J_codeimg').on('click', function () {
-        createCode(this);
-    });
+        $('.submit_btn').on('click', function () {
+            // 登陆请求url
+            var requestUrl = '';
+            var formData = new FormData();
+            // 当前选择登陆Tab
+            var loginTab = $(this).parents('.login-tab');
+            // 提交前校验
+            var user = loginTab.find('.J_username');
+            var passwd = loginTab.find('.J_password');
+            var checkCode = loginTab.find('.J_codetext');
+            var checkCodeBox = loginTab.find('.J_codeimg');
+
+            if (user.val().trim().length == 0) {
+                alert('用户名不能为空.');
+                return false;
+            }
+            if (passwd.val().trim().length == 0) {
+                alert('密码不能为空.');
+                return false;
+            }
+            if (checkCode.val().trim().length == 0) {
+                alert('验证码不能为空.');
+                return false;
+            }
+            if (checkCode.val().trim() != checkCodeBox.attr('data-check-code')) {
+                alert('请输入正确的验证码!');
+                return false;
+            }
+            // 校验完成登陆
+            // 获取表单数据
+            formData.append('username', user.val());
+            formData.append('password', passwd.val());
+            formData.append('checkCode', checkCode.val());
+            $.ajax({
+                type: 'POST',
+                url: requestUrl,
+                data: formData,
+                success: function(msg){
+                    alert( "Data Saved: " + msg );
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('error: ' + textStatus);
+                }
+            });
+        });
+
+        var codeList = document.querySelectorAll('.J_codeimg');
+        createCode(codeList[0]);
+        createCode(codeList[1]);
+
+        // 验证码刷新
+        $('.J_codeimg').on('click', function () {
+            createCode(this);
+        });
+    }
 
 });
 

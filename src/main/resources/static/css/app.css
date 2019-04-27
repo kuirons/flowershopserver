@@ -1,0 +1,1206 @@
+@charset "UTF-8";
+/* successful */
+#information-box {
+    left: 50%;
+    width: 400px;
+    height: 460px;
+    padding: 20px;
+    margin-top: 25px;
+    text-align: center;
+    position: relative;
+    margin-left: -200px;
+    border: 1px solid #cecece;
+}
+
+#information-box * {
+    margin: 15px auto;
+}
+
+#information-box h4 i{
+    color: #55b332;
+    font-size: 1.35em;
+    vertical-align: middle;
+}
+
+#information-box pre {
+    width: 80%;
+    font-size: 12px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+#information-box #wx-QR {
+    width: 162px;
+    height: 162px;
+}
+
+#information-box #wx-QR img{
+    margin: 0px;
+}
+
+#information-box p {
+    font-size: 16px;
+    margin: 5px auto;
+}
+
+#information-box #view-reply {
+    width: 90%;
+    color: white;
+    padding: 6px 0px;
+    font-size: 1.15em;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background: #d1191a;
+}
+
+/* user-controller */
+#my-consultative-list-box {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid #cecece;
+}
+
+#empty-reply-img {
+    text-align: center;
+}
+
+#my-consultative-list {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.my-consultative-item {
+    width: 100%;
+    background: #fff;
+    list-style: none;
+    margin: 0px auto;
+    padding: 15px 0px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+
+.my-consultative-item:hover {
+    background: #f6f6f6;
+}
+
+.consultative-category-enquiry {
+    color: #ff9800;
+}
+.consultative-category-consultative {
+    color: #1975d2;
+}
+.my-consultative-item-info {
+    width: 87%;
+    position: relative;
+    display: inline-block;
+}
+.consultative-item-title {
+    width: 90%;
+    font-size: 16px;
+    overflow: hidden;
+    margin: 10px auto;
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+}
+
+.consultative-item-brief, .consultative-item-related-information{
+    width: 90%;
+    color: #999;
+    font-size: 14px;
+    margin: 10px auto;
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+
+.consultative-has-new-reply {
+    color: #1975d2;
+    text-decoration: none;
+}
+
+.consultative-not-allow {
+    color: #d1191a;
+}
+
+.consultative-item-view-more {
+    color: #bfbfbf;
+    background: white;
+    border: 1px solid #bfbfbf;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.consultative-item-view-more:hover {
+    color: white;
+    background: #d1191a;
+}
+
+.consultative-item-view-more {
+    top: 0px;
+    right: 30px;
+    bottom: 0px;
+    height: 30px;
+    margin: auto 0px;
+    line-height: 30px;
+    padding: 0px 30px;
+    position: absolute;
+}
+
+#send-new-consultative {
+    width: 90%;
+    height: 36px;
+    color: #bfbfbf;
+    display: block;
+    margin: 20px auto;
+    line-height: 36px;
+    text-align: center;
+    border: 1px solid #cecece;
+}
+
+/* consultative-single */
+
+#consultative-single-box {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: #fff;
+    border: 1px solid #cecece;
+}
+
+#my-consultative {
+    height: 200px;
+    background: #fff;
+    padding: 10px 0px;
+}
+#my-consultative-info {
+    width: 100%;
+    height: 80%;
+    font-size: 0px;
+    margin: 10px auto;
+    position: relative;
+}
+#my-consultative-info-message {
+    width: 60%;
+    height: 100%;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 0px 10px;
+    vertical-align: top;
+    display: inline-block;
+    border-right: 1px dashed #a6a6a6;
+}
+#my-consultative-info-content {
+    width: 40%;
+    height: 100%;
+    font-size: 16px;
+    display: inline-block;
+}
+#my-consultative .consultative-item-title {
+    width: 95%;
+}
+
+.info-content-item {
+    color: #7f7f7f;
+    font-size: 12px;
+    text-align: justify;
+    text-justify: distribute;
+    margin: 10px 0px 10px 35px;
+}
+.info-content-item span {
+    vertical-align: middle;
+}
+.info-content-item span:first-child {
+    width: 65px;
+    height: 14px;
+    line-height: 14px;
+    display: inline-block;
+}
+.info-content-item span:first-child i {
+    width: 100%;
+    display: inline-block;
+}
+.info-content-item a {
+    color: white;
+    font-size: 10px;
+    margin-left: 10px;
+    background: #d1191a;
+    white-space: nowrap;
+    padding: 2.5px 10px;
+    vertical-align: middle;
+}
+.info-content-item a:hover, .info-content-item a:focus {
+    color: white;
+    background: #d1191a;
+}
+#my-consultative-more-info {
+    width: 100%;
+    height: 10%;
+    font-size: 0px;
+}
+.more-info-item {
+    float: left;
+    width: 20%;
+    color: #a6a6a6;
+    font-size: 12px;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    display: inline-block;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+#my-consultative .consultative-item-brief, #my-consultative .consultative-item-related-information{
+    width: 95%;
+    color: #7f7f7f;
+    font-size: 14px;
+}
+
+#my-consultative .consultative-item-related-information * {
+    color: #9f9f9f;
+    font-size: 14px;
+}
+
+#my-consultative hr {
+    width: 98%;
+    height: 1px;
+    border: 0px;
+    color: #c7e9ff;
+    margin: 0 auto;
+    background: #c7e9ff;
+}
+
+.consultative-status-answered, .consultative-status-answered i{
+    color: #6eb92b;
+}
+
+.consultative-status-unanswered, .consultative-status-unanswered i{
+    color: #d1191a;
+}
+
+#consultative-not-allow {
+    width: 90%;
+    height: 36px;
+    color: #d1191a;
+    display: block;
+    line-height: 36px;
+    text-align: center;
+    border: 1px solid #d1191a;
+    margin: 30px auto 50px auto;
+}
+/* consultative-reply */
+
+#consultative-reply-box {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.consultative-reply-item {
+    list-style: none;
+    position: relative;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.reply-name {
+    color: #1975d2;
+}
+.reply-name:hover, .reply-name:focus {
+    color: #1975d2;
+}
+.reply-time, .reply-phone {
+    color: #bfbfbf;
+}
+.reply-phone span {
+    color: #d1191a;
+}
+.reply-character, .my-adopt-title {
+    padding: 5px;
+    cursor: default;
+    font-size: 14px;
+    vertical-align: middle;
+}
+.reply-character {
+    color: white;
+    background: #1975d2;
+}
+.reply-content, .my-adopt-content {
+    font-size: 14px;
+    margin-left: 10px;
+    vertical-align: middle;
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+.my-adopt-title {
+    color: #1975d2;
+    background: #ffffff;
+    border: 1px solid #1975d2;
+}
+.consultative-reply-user-avatar, .consultative-reply-user-info {
+    vertical-align: top;
+    display: inline-block;
+}
+.consultative-reply-user-info {
+    width: calc(100% - 64px);
+}
+.consultative-reply-user-avatar {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    line-height: 60px;
+    text-align: center;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.consultative-reply-user-avatar img{
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.consultative-reply-user-info-item {
+    margin-top: 15px;
+}
+
+.consultative-reply-operating {
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+    background: #d1191a;
+}
+
+.consultative-reply-operating:hover, .consultative-reply-operating:focus {
+    color: white;
+    background: #b1191a;
+}
+
+.reply-adopt-text-box {
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.reply-adopt-content {
+    width: 100%;
+    resize: none;
+    font-size: 14px;
+    min-height: 100px;
+    padding: 0.75em 1em;
+    border: 1px solid #dbdbdb;
+}
+.reply-adopt-text-box p {
+    width: 100%;
+    text-align: right;
+}
+
+.reply-adopt-submit {
+    font-size: 1.3rem;
+    padding: 8px 40px;
+    margin-right: 0px;
+}
+
+.reply-adopted {
+    top: 0px;
+    right: 20px;
+    width: 72px;
+    height: 72px;
+    position: absolute;
+    transform: rotate(30deg);
+}
+
+/* 供人查看单页面 */
+.enquiry-content {
+    background: white;
+}
+.single-enquiry-bread-crumbs {
+    width: 100%;
+    font-size: 12px;
+    margin: 10px auto;
+}
+.single-enquiry-bread-crumbs a, .single-enquiry-bread-crumbs a:hover, .single-enquiry-bread-crumbs a:focus {
+    color: black;
+}
+
+#user-reply {
+    width: 100%;
+    /*font-size: 0px;*/
+    margin: 30px auto;
+    position: relative;
+}
+#user-reply * {
+    /*vertical-align: top;*/
+}
+#reply-user-avatar-box {
+    width: 60px;
+    /*overflow: hidden;*/
+    text-align: left;
+    margin-right: 10px;
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+}
+#reply-user-avatar-box img {
+    width: 60px;
+    height: 60px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+#reply-user-avatar-box span {
+    color: #bfbfbf;
+    display: block;
+    text-align: center;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    font-size: 1.15rem;
+}
+#reply-textarea-content {
+    resize: none;
+    height: 100px;
+    font-size: 14px;
+    padding: 0.75em 1em;
+    background: #f7f7f7;
+    width: calc(100% - 75px);
+    border: 1px solid #f5f5f5;
+}
+#reply-textarea-submit {
+    float: right;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-right: 0px;
+    padding: 8px 45px;
+}
+
+#sales-reply-textarea-submit {
+    float: right;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-right: 0px;
+    padding: 6px 45px;
+}
+
+#single-reply-box {
+    width: 100%;
+    padding: 0px;
+}
+
+.single-reply-item {
+    width: 100%;
+    font-size: 0px;
+    list-style: none;
+    margin: 0px auto;
+    padding: 20px 0px;
+    position: relative;
+    /*border-bottom: 1px solid #e5e5e5;*/
+    padding-bottom: 0;
+}
+
+.single-reply-user-avatar, .single-reply-user-info{
+    font-size: 12px;
+    vertical-align: top;
+    display: inline-block;
+}
+.single-reply-user-avatar {
+    width: 60px;
+    text-align: center;
+}
+.single-reply-user-avatar img {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.single-reply-user-info {
+    width: calc(100% - 75px);
+}
+.consultative-online {
+    color: #9f9f9f;
+    display: block;
+    font-size: 12px;
+    margin: 10px 0px;
+    padding: 1px 5px;
+    border: 1px solid #9f9f9f;
+}
+.consultative-online:hover, .consultative-online:focus {
+    color: #9f9f9f;
+}
+.single-reply-user-info {
+    margin-left: 15px;
+}
+.single-reply-user-info h5 {
+    margin: 0px;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+.single-reply-user-info-item {
+    font-size: 0px;
+    margin: 10px 0px;
+}
+.single-reply-user-info .single-reply-user-info-item span{
+    width: 50%;
+    padding: 0px;
+    height: 17px;
+    color: #7f7f7f;
+    font-size: 12px;
+    line-height: 17px;
+    vertical-align: top;
+    display: inline-block;
+}
+.single-reply-message {
+    width: 100%;
+    /*min-height: 100px;*/
+    padding: 10px;
+    font-size: 14px;
+    position: relative;
+    background: #f4f9fd;
+    border: 1px solid #8fd3ff;
+}
+.single-reply-message p {
+    color: black;
+}
+.single-reply-message time {
+    right: 10px;
+    bottom: 5px;
+    color: #9f9f9f;
+    font-size: 12px;
+    position: absolute;
+}
+.user-adopted-box {
+    margin: 25px 75px;
+    width: calc(100% - 75px);
+}
+.user-adopted-content {
+    font-size: 14px;
+    min-height: 100px;
+    position: relative;
+    background: #fafdf5;
+    display: inline-block;
+    width: calc(100% - 75px);
+    border: 1px solid #e8f8d1;
+    padding: 10px 5px 20px 5px;
+}
+.user-adopted-content time {
+    right: 10px;
+    bottom: 5px;
+    color: #9f9f9f;
+    font-size: 12px;
+    position: absolute;
+}
+
+/*询价单手机样式*/
+.box-shadow {
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    background-color: #fff;
+}
+.s-c333 {
+    color: #333!important;
+}
+.f14 {
+    font-size: 14px!important;
+}
+.f11 {
+    font-size: 12px;
+}
+
+.mt5 {
+    margin-top: .25rem;
+}
+.s-cbbb {
+    color: #bbb!important;
+}
+.mt10 {
+    margin-top: .5rem;
+}
+
+.mui-content.bg-fff, .bg-fff {
+    background-color: #fff;
+}
+.pad-tb20-lr15 {
+    padding: 15px;
+}
+
+.tc {
+    text-align: center!important;
+}
+.f16 {
+    font-size: 16px!important;
+}
+.reply-list {
+    padding: 10px;
+}
+ol, ul, li {
+    list-style: none;
+    padding: 0;
+}
+.lawyer-card li {
+    position: relative;
+    padding: 1rem .75rem 1rem 6.5rem;
+    border-bottom: 1px solid #eee;
+}
+.borb0 {
+    border-bottom: 0!important;
+}
+.lawyer-card .mui-btn {
+    position: absolute;
+    top: 5px;
+    right: .75rem;
+    width: 65px;
+    padding: 0;
+    text-align: center;
+    font-size: 12px!important;
+    z-index: 11;
+}
+
+.btn-sl, .btn-r2-sl .mui-btn, .btn-r3-sl .mui-btn {
+    padding: 0 .6rem;
+    height: 1rem;
+    font-size: .6rem!important;
+    vertical-align: middle;
+}
+.btn-gn-line {
+    background-color: #fff!important;
+    border-color: #d1191a!important;
+    color: #d1191a!important;
+}
+.lawyer-card .lr-photo {
+    top: 1rem;
+    width: 50px;
+    height: 50px;
+    left: .75rem;
+    position: absolute;
+}
+.lr-photo a{
+    border-radius: 50%;
+}
+body, a {
+    color: #333;
+}
+ins, a {
+    text-decoration: none;
+}
+.lr-photo img {
+    border-radius: 50%;
+}
+
+.img-block {
+    display: block;
+    height: 100%;
+}
+.lawyer-card .lr-name {
+    width: 75%;
+    font-size: 16px;
+    margin-top: -7px;
+}
+.lawyer-card .lr-other {
+    height: 15px;
+    line-height: 15px;
+    font-size: 12px;
+    color: #999;
+    overflow: hidden;
+}
+.s-c666 {
+    color: #666!important;
+}
+.opre-btn {
+    position: relative;
+    height: 2.5rem;
+}
+
+.opre-btn .op-btn-r {
+    float: left;
+}
+.opre-btn span {
+    /*position: absolute;*/
+    top: 0;
+    width: 50%;
+    text-align: center;
+}
+.zw-list .pr .icon-unie919 {
+    position: absolute;
+    left: 20%;
+    top: -15px;
+    color: #eee;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    border-width: 10px;
+    border-style: solid dashed dashed dashed;
+    border-color: #eee transparent transparent transparent;
+    transform: rotate(-180deg);
+}
+.icon-hualv {
+    font-family: ico-hualv;
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    vertical-align: text-bottom;
+}
+.zw-list .text-area {
+    height: 10rem;
+    width: 100%;
+    border: 0;
+}
+.text-area {
+    padding: 10px;
+    height: 6rem;
+    border-radius: .2rem;
+    background-color: #f7f7f7;
+    font-size: 12px;
+    line-height: 20px;
+}
+.btn-gn {
+    background-color: #d1191a!important;
+    border-color: #d1191a!important;
+    color: #fff!important;
+}
+.mui-btn, input.input-text {
+    display: inline-block;
+    height: 2rem;
+    padding: 0 1.2rem;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2rem;
+    font-size: .7rem!important;
+    box-sizing: border-box;
+}
+.mui-btn-block {
+    font-size: 18px;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 15px 0;
+}
+.zw-list{
+    padding: 7px;
+}
+.pr{
+    position: relative;
+}
+.opre-btn .mui-btn{
+    width: 65px;
+    height: 22px;
+    line-height: 20px;
+    font-size: 12px!important;
+}
+#zw_button{
+    margin-top: 20px;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px!important;
+}
+.mr10 {
+    margin-right: 10px;
+}
+.lawyer-card .lr-other .fl{
+    margin-right: 10px;
+}
+.event-single-foot{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background: #fff;
+    width: 100%;
+    height: 45px;
+    z-index: 1001;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    padding: 0;
+}
+#hf_btn{
+    border-radius: 40px;
+    width: 91%;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    background: #ddd;
+    border: 0;
+    font-size: 12px;
+    padding-left: 15px;
+}
+
+.xs_reply{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999999;
+    display: none;
+    background: #fff;
+    padding: 15px;
+}
+.xs_reply textarea{
+    width: 100%;
+    border: 0;
+}
+input[disabled],input:disabled{
+    background-color:#eee!important;
+    color:#ddd!important;
+}
+.ovfHiden{overflow: hidden;height: 100%;}
+
+/*、、、*/
+
+/*询价列表*/
+.m_list{
+    padding: 20px .75rem;
+    border-bottom: 1px solid #eee;
+}
+.m_title{
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.s-oe{
+    color: #fabf40!important;
+    font-style: normal;
+    font-weight: 500;
+}
+.m_tag{
+    margin-top: .75rem;
+    color: #bbb!important;
+}
+.mr-15{
+    margin-right: 1rem;
+}
+.answer-lawyer {
+    height: 2rem;
+    color: #bbb!important;
+}
+.ml10 {
+    margin-left: .5rem;
+}
+
+.f12 {
+    /*font-size: .6rem!important;*/
+}
+.zx_tag{
+    color: #1975d2;
+
+}
+.xj_tag{
+    color: #ff9800;
+}
+
+.mobile-reply-item {
+    color: #bbb;
+}
+.added-reply span:first-child {
+    color: #00b050;
+}
+.adv-reply span:first-child {
+    color: #1975d2;
+}
+.mobile-reply-item span:last-child {
+    color: black;
+}
+/* vendor-consultant-list */
+.consultant-item-card {
+    display: block;
+    margin: 10px 0px;
+    background: white;
+    padding: 10px 0px;
+    border: 1px solid #ccc;
+}
+
+.consultant-item-inline {
+    display: inline-block;
+}
+
+.consultant-avatar-box {
+    text-align: center;
+}
+
+.consultant-avatar-box * {
+    display: block;
+}
+
+.consultant-avatar-box img {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.consultant-avatar-box .consultative-online {
+    margin-top: 13px;
+    padding: 2.5px 5px;
+}
+
+.consultant-avatar-box span {
+    color: #5f5f5f;
+    margin-top: 16px;
+}
+
+.consultant-info-box h4 {
+    margin: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px;
+}
+
+.consultant-info-box h4 span {
+    color: white;
+    font-size: 14px;
+    margin-left: 5px;
+    padding: 2px 10px;
+    font-weight: normal;
+    background: #1975d2;
+    vertical-align: 1px;
+}
+
+.consultant-info-box p {
+    color: #5f5f5f;
+    font-size: 14px;
+}
+
+.consultant-info-box p .telephone {
+    color: #d1191a;
+}
+
+.consultant-qr-box {
+    text-align: center;
+}
+
+.consultant-qr-box * {
+    display: block;
+}
+
+.consultant-qr-box img {
+    width: 65%;
+    height: auto;
+    margin: 0 auto;
+}
+.consultant-qr-box span {
+    color: #5f5f5f;
+    margin-top: 5px;
+}
+
+/* Mobile */
+.consultant-item-mobile-card {
+    /*padding: 10px;*/
+    display: block;
+    margin: 15px auto;
+    border: 1px solid #ccc;
+}
+.consultant-avatar-mobile-box {
+    margin: 20px 0px 10px 0px;
+}
+.consultant-avatar-mobile-box img {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    display: block;
+}
+.consultant-item-mobile-info {
+    width: 95%;
+    margin: 0 auto;
+    text-align: left;
+}
+.consultant-item-mobile-info * {
+    margin: 10px 0px;
+}
+.consultant-item-mobile-info h4 {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+.consultant-item-mobile-info .proof {
+    color: white;
+    font-size: 14px;
+    margin: 10px auto;
+    padding: 2px 10px;
+    font-weight: normal;
+    background: #1975d2;
+}
+.consultant-item-mobile-info .telephone {
+    color: #d1191a;
+}
+.consultant-item-mobile-info p {
+    font-size: 14px;
+}
+.consultant-bottom-mobile-box {
+    width: 90%;
+    height: 32px;
+    color: white;
+    display: block;
+    font-size: 16px;
+    line-height: 32px;
+    text-align: center;
+    background: #d1191a;
+    margin: 0 auto 15px auto;
+}
+
+.tag-tips {
+    cursor: default;
+    font-size: 12px;
+    margin-right: 5px;
+    font-weight: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.tips_msg{
+    padding: 0px!important;
+    font-size: 12px;
+    margin-top: 10px;
+    color: #999;
+}
+.enquiry-content{
+    background: #fff;
+    margin: 10px auto;
+}
+.reply_time{
+    color: #a6a6a6;
+    margin: 10px 0 0;
+    text-align: right;
+}
+.dashed{
+    border-top: 1px silver dashed;
+    position: absolute;
+    width: 65%;
+    margin-left: 25%;
+    top: 9px;
+    margin-right: 20%;
+}
+
+.archive-enquiry-item-info {
+    font-size: 12px;
+}
+
+.archive-enquiry-item-title a span:last-child, .archive-enquiry-item-title a span:last-child:hover, .archive-enquiry-item-title a span:last-child:focus {
+    width: 82%;
+    color: black;
+    overflow: hidden;
+    font-weight: normal;
+    white-space: nowrap;
+    vertical-align: top;
+    display: inline-block;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+.text-both-justify:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+/* single-enquiry-mobile */
+.consultative-item-title-mobile {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px auto;
+}
+.consultative-item-related-information {
+    width: 100%;
+    word-break: break-all;
+}
+
+.consultative-item-related-information * {
+    color: #7f7f7f;
+    font-size: 14px;
+}
+.info-content-item-mobile {
+    margin: 0px;
+    color: #a6a6a6;
+    font-size: 14px;
+    text-align: justify;
+    text-justify: distribute;
+}
+.info-content-item-mobile span {
+    font-size: 14px;
+    vertical-align: middle;
+}
+.info-content-item-mobile span:first-child {
+    width: 60px;
+    height: 14px;
+    line-height: 14px;
+    display: inline-block;
+}
+.info-content-item-mobile span:first-child i {
+    width: 100%;
+    display: inline-block;
+}
+.info-content-item-mobile a {
+    color: #d1191a;
+    font-size: 12px;
+    margin: 0px 10px;
+    padding: 2.5px 5px;
+    white-space: nowrap;
+    background: #f2f2f2;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+.info-content-item-mobile a:hover, .info-content-item-mobile a:focus {
+    color: white;
+    background: #d1191a;
+}
+.info-content-item-mobile .custom-phone-call, .info-content-item-mobile .custom-phone-call:hover, .info-content-item-mobile .custom-phone-call:focus {
+    margin: 0px;
+    padding: 0px;
+    color: #d1191a;
+    background: transparent;
+}
+#my-consultative-more-info-mobile {
+    width: 100%;
+    font-size: 0px;
+    min-height: 20px;
+}
+.more-info-item-mobile {
+    color: #999;
+    font-size: 12px;
+    margin-top: 15px;
+    padding: 1px 10px;
+    vertical-align: middle;
+}
+.container .bg-fff.mt10 {
+    margin: 20px 0px;
+    position: relative;
+}
+.container .bg-fff.mt10:last-child {
+    margin: 20px 0px 60px 0px;
+}
+
+
+/* 提交等待动画 */
+.submit-loader {
+    position: relative;
+}
+.submit-loader:before {
+    content: '';
+    width: 25px;
+    height: 25px;
+    border: 3px solid;
+    border-radius: 50%;
+    position: absolute;
+    border-top-color: #d1191a;
+    border-left-color: #d1191a;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+
+    animation: loop-rotation 1s ease 0s infinite;
+}
+
+@keyframes loop-rotation {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg);}
+}
