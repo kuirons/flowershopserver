@@ -1,20 +1,94 @@
 @charset "utf-8";
 
 /* 配置盒子 */
+.config-box {
+    padding: 20px;
+}
+.config-box * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.config-box .config-box-title:before {
+    content: '';
+    width: 5px;
+    height: 25px;
+    border: none;
+    margin-right: 10px;
+    display: inline-block;
+    background: limegreen;
+    vertical-align: middle;
+}
 
+.config-box .config-box-title {
+    padding: 0px;
+    height: 30px;
+    font-size: 18px;
+    margin: 15px 0px;
+    line-height: 30px;
+}
 
 /* 导航列表 */
-.nav-config-box {
-
+.nav-list-box {
+    width: 95%;
+    height: 70px;
+    margin: 0 auto;
+    overflow-x: auto;
+    position: relative;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
+.nav-list-box .nav-list-item {
+    width: 150px;
+    height: 50px;
+    cursor: default;
+    overflow-x: auto;
+    list-style: none;
+    line-height: 50px;
+    margin: 0px 2.5px;
+    background: white;
+    text-align: center;
+    overflow-y: hidden;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transition: background .5s ease;
+    -moz-transition: background .5s ease;
+    -ms-transition: background .5s ease;
+    -o-transition: background .5s ease;
+    transition: background .5s ease;
+}
+
+.nav-list-box .nav-list-order-item-delete {
+    top: 0px;
+    right: 0px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+}
+
+.nav-list-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.nav-list-box .add-nav-item {
+    font-size: 40px;
+    color: transparent;
+    font-weight: bolder;
+    -webkit-text-stroke: 1px #cecece;
+}
+.nav-list-box .nav-list-order-item-edit {
+    width: 80%;
+    height: 50%;
+    outline: none;
+    border: 1px solid #cecece;
+}
+
 
 /* 首页轮播配置 */
 .slide-preview {
     width: 100%;
-}
-
-.slide-config-box {
-    padding: 20px;
 }
 
 .slide-config-box input[type=file] {

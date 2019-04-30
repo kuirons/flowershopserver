@@ -23,52 +23,71 @@
     <link rel="stylesheet" href="../js/plugins/layer/skin/layer.css" id="layui_layer_skinlayercss" style="">
 </head>
 <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox">
-                    <div class="nav-config-box config-box">
-                        <h2 class="config-box-title">导航列表</h2>
-                        <div class="slide-item add-new image-upload" data-target="/banner/insert" data-proportion="[16, 9]" data-max-file-size="4194304" data-allow-mime-type="image/*">
-                            <img src="../img/upload.png" alt="添加图片">
-                            <h4>点击添加</h4>
-                        </div>
-                    </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="nav-config-box config-box">
+                    <h2 class="config-box-title">导航列表</h2>
+                    <ul class="nav-list-box">
+                        <li class="nav-list-item nav-list-order-item d-1" data-list-id="0">
+                            <i class="fa fa-close nav-list-order-item-delete"></i>
+                            <span>测试数据0</span>
+                        </li>
+                        <li class="nav-list-item nav-list-order-item d-2" data-list-id="1">
+                            <i class="fa fa-close nav-list-order-item-delete"></i>
+                            <span>测试数据1</span>
+                        </li>
+                        <li class="nav-list-item nav-list-order-item d-3" data-list-id="2">
+                            <i class="fa fa-close nav-list-order-item-delete"></i>
+                            <span>测试数据2</span>
+                        </li>
+                        <li class="nav-list-item nav-list-order-item d-4" data-list-id="3">
+                            <i class="fa fa-close nav-list-order-item-delete"></i>
+                            <span>测试数据3</span>
+                        </li>
+                        <li class="nav-list-item add-nav-item">
+                            <span>+</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox">
-                    <div class="slide-config-box config-box">
-                        <h2 class="config-box-title">首页轮播</h2>
-                        <!--
-                        <div class="slide-preview" data-ratio="16:9">
-                            <span class="slide-previous">&lt;</span>
-                            <div class="slide-preview-list">
-                                <div class="slide-preview-item">
-                                    <h4></h4>
-                                    <p></p>
-                                </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="slide-config-box config-box">
+                    <h2 class="config-box-title">首页轮播</h2>
+                    <!--
+                    <div class="slide-preview" data-ratio="16:9">
+                        <span class="slide-previous">&lt;</span>
+                        <div class="slide-preview-list">
+                            <div class="slide-preview-item">
+                                <h4></h4>
+                                <p></p>
                             </div>
-                            <span class="slide-next">&gt;</span>
                         </div>
-                         -->
-                        <div class="slide-item add-new image-upload" data-target="/banner/insert" data-proportion="[16, 9]" data-max-file-size="4194304" data-allow-mime-type="image/*">
-                            <img src="../img/upload.png" alt="添加图片">
-                            <h4>点击添加</h4>
-                        </div>
+                        <span class="slide-next">&gt;</span>
+                    </div>
+                     -->
+                    <div class="slide-item add-new image-upload" data-target="/banner/insert" data-proportion="[16, 9]"
+                         data-max-file-size="4194304" data-allow-mime-type="image/*">
+                        <img src="../img/upload.png" alt="添加图片">
+                        <h4>点击添加</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 <!-- 全局js -->
 <script src="../js/jquery.min.js?v=2.1.4"></script>
 <script src="../js/bootstrap.min.js?v=3.3.6"></script>
 <script src="../js/plugins/layer/layer.min.js"></script>
+
 <!-- Peity -->
 <script src="../js/plugins/peity/jquery.peity.min.js"></script>
 
@@ -76,39 +95,14 @@
 <script src="../js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
 <script src="../js/plugins/jqgrid/jquery.jqGrid.min.js?0820"></script>
 
+<!-- 拖拽 -->
+<script src="../js/drag.min.js"></script>
+
 <!-- 自定义js -->
 <script src="../js/app.js"></script>
 <script src="../js/Bootstrap.js"></script>
 <script src="../js/Control.js"></script>
 <script src="../js/Modal.js"></script>
 <script src="../js/Tools.js"></script>
-<script>
-    // 初始化轮播管理
-    $(document).ready(function () {
-        $.get(Carousel.list_url, function (data) {
-            if (typeof data != 'undefined' && data.length != 0) {
-                Carousel.list = data;
-                for (var key in Carousel.__init) {
-                    Carousel.__init[key]();
-                }
-            }
-        });
-
-        // $('.slide-box input[type=file]').on('change', function () {
-        //     var img = this.files[0];
-        //     var formData = new FormData();
-        //     formData.append('file', img);
-        //     formData.append('name', '测试图片');
-        //     Carousel.__action.add(formData, function (data, textStatus, jqXHR) {
-        //         if (data.length == 0)
-        //             alert('上传成功!');
-        //         else
-        //             alert('上传失败!');
-        //     }, function (data) {
-        //         alert('上传失败!');
-        //         console.log(data);
-        //     })
-        // });
-    });
-</script>
+<script src="../js/carousel_admin.js"></script>
 </html>

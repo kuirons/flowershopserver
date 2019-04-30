@@ -95,7 +95,7 @@ var Carousel = {
     __init: {
         list: function () {
             var html = '';
-            var slideBox = document.querySelector('.slide-box');
+            var slideBox = document.querySelector('.slide-config-box');
             for (var i = 0; i < Carousel.list.length; i++) {
                 var slideItemArgs = [
                     {
