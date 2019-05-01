@@ -62,10 +62,20 @@
 
 .nav-list-box .nav-list-order-item-delete {
     top: 0px;
+    opacity: 0;
     right: 0px;
     width: 16px;
     height: 16px;
     position: absolute;
+    -webkit-transition: opacity .8s ease;
+    -moz-transition: opacity .8s ease;
+    -ms-transition: opacity .8s ease;
+    -o-transition: opacity .8s ease;
+    transition: opacity .8s ease;
+}
+
+.nav-list-box .nav-list-item:hover .nav-list-order-item-delete {
+    opacity: 1;
 }
 
 .nav-list-item:hover {

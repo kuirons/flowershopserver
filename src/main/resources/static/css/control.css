@@ -187,6 +187,18 @@
     display: inline-block;
     vertical-align: middle;
 }
+.upload-image-name-ipt {
+    width: 160px;
+    height: 30px;
+    outline: none;
+    margin-top: 9px;
+    text-align: left;
+    line-height: 30px;
+    border-radius: 5px;
+    margin-right: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
 #image-submit-btn, #image-crop-btn, #image-crop-get-base64 {
     color: white;
     background: #0099e9;

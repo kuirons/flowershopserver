@@ -143,7 +143,8 @@ FlowerShop.Control.prototype.init = {
             var imageUploadBoxDom = FlowerShop.Tools.prototype.createDom(imageUploadBoxArgs);
             for (var item in imageUploadBoxDom) {
                 topDocument.body.appendChild(imageUploadBoxDom[item]);
-            };
+            }
+            ;
         }
     },
 };
@@ -270,10 +271,19 @@ FlowerShop.Control.prototype.listen = function () {
 
     if (window.self === window.top) {
         $(topDocument).off('click', '#image-crop-btn').on('click', '#image-crop-btn', function () {
+            // 增加填写图片名称的输入框
+            var imgNameIptArgs = [
+                {
+                    nodeType: 'input',
+                    placeholder: '请输入图片名称',
+                    class: 'upload-image-name-ipt'
+                }
+            ];
+            var imgNameIpt = FlowerShop.Tools.prototype.createDom(imgNameIptArgs)[0];
+            this.parentNode.insertBefore(imgNameIpt, this);
             // 点击裁剪按钮切换为上传按钮.
             this.innerHTML = '上传';
             this.id = 'image-submit-btn';
-            this.parentNode.insertBefore();
             var cas = $('.upload-image-crop-box .crop-view-image').cropper('getCroppedCanvas');
             // self.get('Tools').strToDom('<image src="">');
             // var base64url = cas.toDataURL('image/png');
@@ -297,19 +307,21 @@ FlowerShop.Control.prototype.listen = function () {
 
     if (window.self === window.top) {
         $(topDocument).off('click', '#image-submit-btn').on('click', '#image-submit-btn', function () {
+            var file = topDocument.querySelector('.image-upload-hidden-input').files[0];
+            var imgName = this.parentNode.querySelector('input.upload-image-name-ipt');
             // 上传
             var cas = topDocument.querySelector('.crop-image-preview');
             // 获取裁剪的图像blob并且格式化上传的数据.
             cas.toBlob(function (blob) {
                 var formObj = document.querySelector('.image-upload');
                 if (formObj === null || typeof formObj === "undefined") {
-                    formObj = topDocument.querySelector('#mainframe').contentDocument.querySelector('.image-upload');
+                    formObj = topDocument.querySelector('#J_iframe').contentDocument.querySelector('.image-upload');
                 }
+                var id = formObj.getAttribute('data-id') ? 0 : formObj.getAttribute('data-id');
                 var ajaxTarget = formObj.getAttribute('data-target');
-                var id = formObj.getAttribute('data-id');
                 var formData = new FormData();
 
-                if (ajaxTarget == null || id == null) {
+                if (ajaxTarget == null) {
                     layer.alert('出现了一点小问题, 请刷新页面重试.',
                         {
                             icon: 0,
@@ -319,9 +331,31 @@ FlowerShop.Control.prototype.listen = function () {
                     return false;
                 }
 
-                // 获取数据.
-                formData.append('id', id);
-                formData.append('imgFile', blob);
+                // 获取数据并插入.
+                if (!imgName.value) {
+                    layer.alert('请填写图片名称', {
+                        icon: 0,
+                        shadeClose: true,
+                        title: '警告'
+                    });
+                    return false;
+                }
+                var bannerInfo = {
+                    id: id,
+                    type: 0,
+                    imgUrl: '',
+                    name: imgName.value.trim()
+                };
+                var newFile = new File(
+                    [blob],
+                    file.name.trim(),
+                    {
+                        type: blob.type,
+                        lastModified: Date.now()
+                    }
+                );
+                formData.append('file', newFile);
+                formData.append('bannerInfo', JSON.stringify(bannerInfo));
 
                 $.ajax({
                     type: 'post',
@@ -331,7 +365,7 @@ FlowerShop.Control.prototype.listen = function () {
                     contentType: false,
                     complete: function (xhr, textStatus) {
                         var status = xhr.status;
-                        var resData = JSON.parse(xhr.responseText);
+                        var resData = xhr.responseText.length != 0 ? JSON.parse(xhr.responseText) : null;
                         if (status == 200) {
                             layer.alert('上传成功!',
                                 {
@@ -340,16 +374,16 @@ FlowerShop.Control.prototype.listen = function () {
                                     title: '成功'
                                 });
                             // 实时刷新上传的图片
-                            // 供应商banner
-                            var vendor_banner = document.querySelector('#update_banner');
-                            if (vendor_banner !== null && typeof vendor_banner !== "undefined") {
-                                vendor_banner.previousElementSibling.src = resData[1];
-                            }
-                            // 用户个人头像
-                            var user_avatar = topDocument.querySelector('#mainframe');
-                            if (user_avatar !== null && typeof user_avatar !== "undefined") {
-                                user_avatar.contentDocument.querySelector('#xmTanImg img').src = resData[1];
-                            }
+                            // // 供应商banner
+                            // var vendor_banner = document.querySelector('#update_banner');
+                            // if (vendor_banner !== null && typeof vendor_banner !== "undefined") {
+                            //     vendor_banner.previousElementSibling.src = resData[1];
+                            // }
+                            // // 用户个人头像
+                            // var user_avatar = topDocument.querySelector('#mainframe');
+                            // if (user_avatar !== null && typeof user_avatar !== "undefined") {
+                            //     user_avatar.contentDocument.querySelector('#xmTanImg img').src = resData[1];
+                            // }
 
                             // 关闭上传窗口
                             var closeBtn = topDocument.querySelector('.close-upload-btn');
@@ -360,7 +394,7 @@ FlowerShop.Control.prototype.listen = function () {
                                 self.closeUpload();
                             }
                         } else {
-                            layer.alert(resData[1],
+                            layer.alert('上传失败, 请重试或联系管理员',
                                 {
                                     icon: 2,
                                     shadeClose: true,
@@ -404,7 +438,7 @@ FlowerShop.Control.prototype.createFilterDom = function () {
     var filterBox = document.querySelector('.filter-control-box');
     var activeSlug = filterBox.getAttribute('data-active-slug');
     var activeParentSlug = filterBox.getAttribute('data-active-parent-slug');
-    if (typeof  filterBox == "undefined" || filterBox == null) {
+    if (typeof filterBox == "undefined" || filterBox == null) {
         return false;
     }
     var filterType = filterBox.getAttribute('data-filter-type');
