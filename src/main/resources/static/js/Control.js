@@ -109,6 +109,11 @@ FlowerShop.Control.prototype.init = {
                                     class: 'upload-image-btn-box',
                                     innerHTML: [
                                         {
+                                            nodeType: 'input',
+                                            placeholder: '请输入图片名称',
+                                            class: 'upload-image-name-ipt'
+                                        },
+                                        {
                                             nodeType: 'a',
                                             innerText: '裁剪',
                                             id: 'image-crop-btn',
@@ -271,16 +276,6 @@ FlowerShop.Control.prototype.listen = function () {
 
     if (window.self === window.top) {
         $(topDocument).off('click', '#image-crop-btn').on('click', '#image-crop-btn', function () {
-            // 增加填写图片名称的输入框
-            var imgNameIptArgs = [
-                {
-                    nodeType: 'input',
-                    placeholder: '请输入图片名称',
-                    class: 'upload-image-name-ipt'
-                }
-            ];
-            var imgNameIpt = FlowerShop.Tools.prototype.createDom(imgNameIptArgs)[0];
-            this.parentNode.insertBefore(imgNameIpt, this);
             // 点击裁剪按钮切换为上传按钮.
             this.innerHTML = '上传';
             this.id = 'image-submit-btn';
@@ -413,7 +408,9 @@ FlowerShop.Control.prototype.listen = function () {
             var cropBox = topDocument.querySelector('.upload-image-crop-box');
             var imageUploadForm = topDocument.querySelector('#image-upload-box');
             var uploadBtn = topDocument.querySelector('.upload-image-btn-box #image-submit-btn');
+            var imageNameIpt = topDocument.querySelector('.upload-image-btn-box .upload-image-name-ipt');
 
+            imageNameIpt.value = '';
             cropBox.innerHTML = '<img class="crop-view-image">';
             if (uploadBtn !== null && typeof uploadBtn !== "undefined") {
                 uploadBtn.innerHTML = '裁剪';
