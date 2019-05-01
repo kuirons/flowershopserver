@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.UserMapper">
+
+    <resultMap id="AllInfoResultMap" type="UserBean">
+        <id column="userName" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="logo_url" property="logo_url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="baseInsert" parameterType="UserBean">
+        insert into ffsuser(userName, password,type,logo_url)
+        values(#{userName}, #{password},#{type},#{logo_url})
+    </insert>
+
+    <delete id="deleteByUserName" parameterType="java.lang.String">
+        delete from ffsuser
+        where userName = #{userName}
+    </delete>
+
+    <!--<update id="updateByType" parameterType="ProjectCategory">-->
+    <!--update project_category-->
+    <!--set category_name = #{categoryName}-->
+    <!--where category_type = #{categoryType}-->
+    <!--</update>-->
+
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="AllInfoResultMap">
+        select * from ffsuser
+        where userName=#{userName}
+    </select>
+</mapper>

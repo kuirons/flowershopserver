@@ -14,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /** 主要用来做序列化和反序列化 使用jackson而不是fastjson的原因是jackson可定制化功能更强大而且代码质量更高 单例 */
 public class JsonUtil {
@@ -94,4 +96,13 @@ public class JsonUtil {
     }
   }
 
+  public <K, V> Map<K, V> toMap(String json, Class<K> clazzK, Class<V> clazzV) {
+    JavaType type = mapper.getTypeFactory().constructParametricType(Map.class, clazzK, clazzV);
+    try {
+      return mapper.readValue(json, type);
+    } catch (IOException e) {
+      logger.error("序列化错误，错误为：" + e);
+      return null;
+    }
+  }
 }
