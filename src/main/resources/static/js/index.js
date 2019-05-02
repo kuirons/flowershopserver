@@ -2,9 +2,9 @@
 
 $(function () {
     //菜单点击
-    $(".J_menuItem").on('click',function(){
+    $(".J_menuItem").on('click', function () {
         var url = $(this).attr('href');
-        $("#J_iframe").attr('src',url);
+        $("#J_iframe").attr('src', url);
         return false;
     });
 
@@ -27,10 +27,11 @@ $(function () {
 
         $('.submit_btn').on('click', function () {
             // 登陆请求url
-            var requestUrl = '';
+            var requestUrl = '/ffsuser/login';
             var formData = new FormData();
             // 当前选择登陆Tab
             var loginTab = $(this).parents('.login-tab');
+            var loginType = loginTab.attr('data-type-login') == 'admin' ? 0 : 2;
             // 提交前校验
             var user = loginTab.find('.J_username');
             var passwd = loginTab.find('.J_password');
@@ -55,15 +56,25 @@ $(function () {
             }
             // 校验完成登陆
             // 获取表单数据
+            formData.append('type', loginType);
             formData.append('username', user.val());
             formData.append('password', passwd.val());
-            formData.append('checkCode', checkCode.val());
             $.ajax({
                 type: 'POST',
                 url: requestUrl,
                 data: formData,
-                success: function(msg){
-                    alert( "Data Saved: " + msg );
+                success: function (msg) {
+                    alert("Data Saved: " + msg);
+                    switch (loginType) {
+                        case 0:
+                            window.location.href = '/admin/index.html';
+                            break;
+                        case 2:
+                            window.location.href = '/seller/index.html';
+                            break;
+                        default:
+                            break;
+                    }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert('error: ' + textStatus);
@@ -86,15 +97,15 @@ $(function () {
 
 function createCode(canvas) {
     var show_num = [];
-    var canvas_width=$('.J_codeimg').width();
-    var canvas_height=$('.J_codeimg').height();
+    var canvas_width = $('.J_codeimg').width();
+    var canvas_height = $('.J_codeimg').height();
     var context = canvas.getContext("2d");//获取到canvas画图的环境，演员表演的舞台
     canvas.width = canvas_width;
     canvas.height = canvas_height;
     var sCode = "a,b,c,d,e,f,g,h,i,j,k,m,n,p,q,r,s,t,u,v,w,x,y,z,A,B,C,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0";
     var aCode = sCode.split(",");
     var aLength = aCode.length;//获取到数组的长度
-    
+
     for (var i = 0; i < 6; i++) {  //这里的for循环可以控制验证码位数（如果想显示6位数，4改成6即可）
         var j = Math.floor(Math.random() * aLength);//获取到随机的索引值
         // var deg = Math.random() * 30 * Math.PI / 180;//产生0~30之间的随机弧度
