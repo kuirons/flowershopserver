@@ -92,6 +92,9 @@ $(document).ready(function () {
             }
         }
     });
+
+    // 分类列表编辑
+    $('.category-select-box').selectpicker({});
 });
 
 // 首页导航调整.
