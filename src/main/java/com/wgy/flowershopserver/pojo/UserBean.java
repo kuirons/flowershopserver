@@ -9,6 +9,8 @@ public class UserBean {
   private String password;
   /** 用户类型 1.普通用户 2.卖家 */
   private int type;
+  // 模拟货币
+  private int money = 10000;
 
   private String logo_url;
 
@@ -42,6 +44,14 @@ public class UserBean {
 
   public void setType(int type) {
     this.type = type;
+  }
+
+  public int getMoney() {
+    return money;
+  }
+
+  public void setMoney(int money) {
+    this.money = money;
   }
 
   public static void main(String[] args) {

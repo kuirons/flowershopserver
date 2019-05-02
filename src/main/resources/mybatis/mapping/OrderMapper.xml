@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.OrderMapper">
+
+<resultMap id="AllInfoResultMap" type="OrderBean">
+    <id column="id" property="id" jdbcType="INTEGER"/>
+    <result column="userName" property="userName" jdbcType="VARCHAR"/>
+    <result column="items" property="items" jdbcType="VARCHAR"/>
+    <result column="payChannel" property="payChannel" jdbcType="VARCHAR"/>
+    <result column="address" property="address" jdbcType="VARCHAR"/>
+    <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+    <result column="amount" property="amount" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="VARCHAR"/>
+    <result column="consigneeMsg" property="consigneeMsg" jdbcType="VARCHAR"/>
+</resultMap>
+
+<insert id="baseInsert" parameterType="OrderBean">
+        insert into ffsorder(userName,items,payChannel,address,amount,status)
+        values(#{userName},#{items},#{payChannel},#{address},#{amount},#{status})
+    </insert>
+
+<select id="selectByUserName" parameterType="java.lang.String" resultMap="AllInfoResultMap">
+        select * from ffsorder
+        where userName=#{userName}
+    </select>
+
+<select id="selectAll" resultMap="AllInfoResultMap">
+        select * from ffsorder
+    </select>
+</mapper>

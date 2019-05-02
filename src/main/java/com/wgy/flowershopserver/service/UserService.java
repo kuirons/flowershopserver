@@ -8,6 +8,6 @@ public interface UserService {
   void deleteByUserName(String userName);
 
   UserBean selectByUserName(String userName);
+
+  void updateMoney(UserBean userBean);
 }
-
-

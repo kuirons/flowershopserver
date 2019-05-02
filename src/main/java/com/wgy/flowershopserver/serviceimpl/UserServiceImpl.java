@@ -1,15 +1,10 @@
 package com.wgy.flowershopserver.serviceimpl;
 
 import com.wgy.flowershopserver.mapper.UserMapper;
-import com.wgy.flowershopserver.pojo.BannerBean;
 import com.wgy.flowershopserver.pojo.UserBean;
-import com.wgy.flowershopserver.service.BannerService;
 import com.wgy.flowershopserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,5 +23,10 @@ public class UserServiceImpl implements UserService {
   @Override
   public UserBean selectByUserName(String userName) {
     return userMapper.selectByUserName(userName);
+  }
+
+  @Override
+  public void updateMoney(UserBean userBean) {
+    userMapper.updateMoney(userBean);
   }
 }
