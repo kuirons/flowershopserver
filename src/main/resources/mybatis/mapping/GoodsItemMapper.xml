@@ -56,4 +56,12 @@
         ON goodsitem.id=goodsritemimg.goodsitemid
         WHERE goodsitem.id=#{id}
     </select>
+
+    <select id="search" resultMap="AllInfoResultMap">
+        SELECT goodsitem.id tid,goodsitem.categoryid,goodsitem.campaignid,goodsitem.name,goodsitem.imgurl timgurl,goodsitem.price,goodsitem.sale,goodsritemimg.id iid,goodsritemimg.goodsitemid,goodsritemimg.imgurl iimgurl
+        FROM goodsitem LEFT JOIN goodsritemimg
+        ON goodsitem.id=goodsritemimg.goodsitemid
+        WHERE name like CONCAT(CONCAT('%',#{searchContent}),'%')
+    </select>
+
 </mapper>

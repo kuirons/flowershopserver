@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.CommentMapper">
+
+    <resultMap id="AllInfoResultMap" type="CommentBean">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <id column="goodsId" property="goodsId" jdbcType="INTEGER"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+        <result column="createUser" property="createUser" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="baseInsert" parameterType="BannerBean">
+        insert into comment(goodsId, comment,createTime,createUser)
+        values(#{goodsId}, #{comment},#{createTime},#{createUser})
+    </insert>
+
+    <select id="selectAll" resultMap="AllInfoResultMap">
+        select * from comment
+    </select>
+
+    <select id="selectByGoodsId" resultMap="AllInfoResultMap" parameterType="java.lang.Integer">
+        select * from comment
+        where goodsId=#{goodsId}
+    </select>
+</mapper>

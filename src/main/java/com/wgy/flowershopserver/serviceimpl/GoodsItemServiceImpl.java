@@ -47,4 +47,9 @@ public class GoodsItemServiceImpl implements GoodsItemService {
   public List<GoodsItemBean> selectById(int id) {
     return goodsItemMapper.selectById(id);
   }
+
+  @Override
+  public List<GoodsItemBean> search(String searchContent) {
+    return goodsItemMapper.search(searchContent);
+  }
 }

@@ -37,4 +37,11 @@ public class GoodsItemController {
     if (goodsItemBeans.size() <= 0) return null;
     return goodsItemBeans.get(0);
   }
+
+  @RequestMapping("/search")
+  public HotGoodsDto search(String searchContent) {
+    List<GoodsItemBean> goodsItemBeans = goodsItemService.search(searchContent);
+    if (goodsItemBeans == null || goodsItemBeans.size() <= 0) return null;
+    return HotGoodsDto.getInstance(goodsItemBeans);
+  }
 }

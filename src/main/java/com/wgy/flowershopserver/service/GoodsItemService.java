@@ -12,4 +12,6 @@ public interface GoodsItemService {
   List<GoodsItemBean> sort(List<GoodsItemBean> goodsItemBeans, int orderBy);
 
   List<GoodsItemBean> selectById(int id);
+
+  List<GoodsItemBean> search(String searchContent);
 }

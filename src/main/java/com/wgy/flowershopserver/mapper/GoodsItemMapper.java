@@ -9,15 +9,11 @@ import java.util.List;
 @Repository
 @Mapper
 public interface GoodsItemMapper {
-  //  void baseInsert(BannerBean bannerBean);
-  //
-  //  List<BannerBean> selectAll();
-  //
-  //  void deleteById(int id);
   List<GoodsItemBean> selectByCampaignId(int campaignid);
 
   List<GoodsItemBean> selectByCategoryId(int categoryid);
 
   List<GoodsItemBean> selectById(int id);
 
+  List<GoodsItemBean> search(String searchContent);
 }

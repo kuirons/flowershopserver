@@ -12,9 +12,9 @@ logging:
 spring:
   datasource:
     #    必须添加后面的参数，新版驱动就这样
-    url: jdbc:mysql://192.168.1.3:3306/fss?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: kuirons
+    url: jdbc:mysql://localhost:3306/fss?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: fss
+    password: fss
     name: fss
     driver-class-name: com.mysql.cj.jdbc.Driver
   resources:

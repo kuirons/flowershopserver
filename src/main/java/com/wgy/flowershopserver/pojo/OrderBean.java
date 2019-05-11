@@ -1,7 +1,5 @@
 package com.wgy.flowershopserver.pojo;
 
-import java.util.List;
-
 public class OrderBean {
   private int id;
   private String userName;
@@ -13,10 +11,19 @@ public class OrderBean {
   // 置空
   private String createTime = "";
   private int amount;
-  // 1成功，-2失败，0，待支付
+  // 1成功，-2失败，0，订单完成
   private String status;
   // 库存信息，默认字段，置空
   private String consigneeMsg = "";
+  private String deliveryStatus = "未发货";
+
+  public String getDeliveryStatus() {
+    return deliveryStatus;
+  }
+
+  public void setDeliveryStatus(String deliveryStatus) {
+    this.deliveryStatus = deliveryStatus;
+  }
 
   public int getId() {
     return id;
