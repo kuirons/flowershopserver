@@ -12,11 +12,11 @@ public class CustomConfig {
   private static Map<String, String> initAttribute() {
     Map<String, String> result = new HashMap<>();
     Properties properties = new Properties();
-    try (FileInputStream in = new FileInputStream("config.properties")) {
+    try (FileInputStream in = new FileInputStream("src/main/resources/config.properties")) {
       properties.load(in);
 
       result.put("ffsaddress", properties.getProperty("ffsaddress"));
-      result.put("imgUrl", "imgUrl");
+      result.put("imgUrl", properties.getProperty("imgUrl"));
     } catch (IOException e) {
       e.printStackTrace();
     }

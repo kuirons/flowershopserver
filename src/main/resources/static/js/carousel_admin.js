@@ -95,6 +95,20 @@ $(document).ready(function () {
 
     // 分类列表编辑
     $('.category-select-box').selectpicker({});
+
+    // 添加分类
+    $('.add-category-item').click(function () {
+        layer.prompt({
+            title: '新增分类',
+            shadeClose: true,
+            yes: function(val, index){
+                // todo 调用ajax创建新的分类
+
+
+                layer.close(index);
+            }
+        });
+    });
 });
 
 // 首页导航调整.
