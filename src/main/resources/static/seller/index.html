@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title>后台管理- 主页</title>
+    <title>seller- 主页</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -15,25 +15,31 @@
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
 
-    <link rel="shortcut icon" href="../img/favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/img/favicon.ico">
+    <link href="../assets/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../assets/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="../assets/css/animate.css" rel="stylesheet">
+    <link href="../assets/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/config-panel.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/popup.css">
+    <link rel="stylesheet" href="../assets/css/modal.css">
+    <link rel="stylesheet" href="../assets/css/control.css">
     <script>
-        // let cookie = document.cookie;
-        // if (cookie.indexOf('userType') < 0) {
-        //     alert('请先登录.');
-        //     window.location.href = '../index.html';
-        // } else if (cookie.indexOf('userType=seller') < 0) {
-        //     alert('即将跳转到管理员页面.');
-        //     window.location.href = '../admin/index.html';
-        // }
+        let cookie = document.cookie;
+        if (cookie.indexOf('userType') < 0) {
+            alert('请先登录.');
+            window.location.href = '../index.html';
+        } else if (cookie.indexOf('userType=admin') < 0) {
+            alert('即将跳转到卖家页面.');
+            window.location.href = '../seller/index.html';
+        }
     </script>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <div id="wrapper">
-        <!--左侧导航开始-->
+        <!--左侧导航开始--> 
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="nav-close"><i class="fa fa-times-circle"></i>
             </div>
@@ -45,17 +51,17 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">sellerAdmin</strong>
+                                        <strong class="font-bold">seller - admin</strong>
                                     </span>
                                 </span>
                             </a>
                         </div>
-                        <div class="logo-element">sellerAdmin
+                        <div class="logo-element">admin
                         </div>
                     </li>
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                         <span class="ng-scope">分类</span>
-                    </li>
+                    </li>   
                     <li>
                         <a class="J_menuItem" href="index_v1.html">
                             <i class="fa fa-home"></i>
@@ -63,295 +69,25 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">统计图表</span>
-                            <span class="fa arrow"></span>
-                        </a>
+                        <a href="goods_admin.html"><i class="fa fa-table"></i> <span class="nav-label">商品 </span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">百度ECharts</a>
+                                <a class="J_menuItem" href="goods_admin.html"><i class="fa fa-caret-right"></i> 商品管理</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="graph_flot.html">Flot</a>
+                                <a class="J_menuItem" href="order_admin.html"><i class="fa fa-caret-right"></i> 订单管理</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="graph_morris.html">Morris.js</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="graph_rickshaw.html">Rickshaw</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="graph_peity.html">Peity</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="graph_sparkline.html">Sparkline</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="graph_metrics.html">图表组合</a>
+                                <a class="J_menuItem" href="comments_admin.html"><i class="fa fa-caret-right"></i> 评论管理</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="line dk"></li>
-                    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                        <span class="ng-scope">分类</span>
-                    </li>
-                    <li>
-                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="mailbox.html">收件箱</a>
-                            </li>
-                            <li><a class="J_menuItem" href="mail_detail.html">查看邮件</a>
-                            </li>
-                            <li><a class="J_menuItem" href="mail_compose.html">写信</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">表单</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="form_basic.html">基本表单</a>
-                            </li>
-                            <li><a class="J_menuItem" href="form_validate.html">表单验证</a>
-                            </li>
-                            <li><a class="J_menuItem" href="form_advanced.html">高级插件</a>
-                            </li>
-                            <li><a class="J_menuItem" href="form_wizard.html">表单向导</a>
-                            </li>
-                            <li>
-                                <a href="#">文件上传 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="form_webuploader.html">百度WebUploader</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="form_file_upload.html">DropzoneJS</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">编辑器 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="form_editors.html">富文本编辑器</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="form_simditor.html">simditor</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="form_markdown.html">MarkDown编辑器</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="code_editor.html">代码编辑器</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="layerdate.html">日期选择器layerDate</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">页面</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="contacts.html">联系人</a>
-                            </li>
-                            <li><a class="J_menuItem" href="profile.html">个人资料</a>
-                            </li>
-                            <li>
-                                <a href="#">项目管理 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="projects.html">项目</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="project_detail.html">项目详情</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="teams_board.html">团队管理</a>
-                            </li>
-                            <li><a class="J_menuItem" href="social_feed.html">信息流</a>
-                            </li>
-                            <li><a class="J_menuItem" href="clients.html">客户管理</a>
-                            </li>
-                            <li><a class="J_menuItem" href="file_manager.html">文件管理器</a>
-                            </li>
-                            <li><a class="J_menuItem" href="calendar.html">日历</a>
-                            </li>
-                            <li>
-                                <a href="#">博客 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="blog.html">文章列表</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="article.html">文章详情</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="faq.html">FAQ</a>
-                            </li>
-                            <li>
-                                <a href="#">时间轴 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="timeline.html">时间轴</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="timeline_v2.html">时间轴v2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="pin_board.html">标签墙</a>
-                            </li>
-                            <li>
-                                <a href="#">单据 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="invoice.html">单据</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="invoice_print.html">单据打印</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="search_results.html">搜索结果</a>
-                            </li>
-                            <li><a class="J_menuItem" href="forum_main.html">论坛</a>
-                            </li>
-                            <li>
-                                <a href="#">即时通讯 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="chat_view.html">聊天窗口</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">登录注册相关 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a href="login.html" target="_blank">登录页面</a>
-                                    </li>
-                                    <li><a href="login_v2.html" target="_blank">登录页面v2</a>
-                                    </li>
-                                    <li><a href="register.html" target="_blank">注册页面</a>
-                                    </li>
-                                    <li><a href="lockscreen.html" target="_blank">登录超时</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="404.html">404页面</a>
-                            </li>
-                            <li><a class="J_menuItem" href="500.html">500页面</a>
-                            </li>
-                            <li><a class="J_menuItem" href="empty_page.html">空白页</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="line dk"></li>
-                    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                        <span class="ng-scope">分类</span>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">UI元素</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="typography.html">排版</a>
-                            </li>
-                            <li>
-                                <a href="#">字体图标 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a class="J_menuItem" href="fontawesome.html">Font Awesome</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="glyphicons.html">Glyphicon</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="iconfont.html">阿里巴巴矢量图标库</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">拖动排序 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="draggable_panels.html">拖动面板</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="agile_board.html">任务清单</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="buttons.html">按钮</a>
-                            </li>
-                            <li><a class="J_menuItem" href="tabs_panels.html">选项卡 &amp; 面板</a>
-                            </li>
-                            <li><a class="J_menuItem" href="notifications.html">通知 &amp; 提示</a>
-                            </li>
-                            <li><a class="J_menuItem" href="badges_labels.html">徽章，标签，进度条</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="grid_options.html">栅格</a>
-                            </li>
-                            <li><a class="J_menuItem" href="plyr.html">视频、音频</a>
-                            </li>
-                            <li>
-                                <a href="#">弹框插件 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="layer.html">Web弹层组件layer</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="modal_window.html">模态窗口</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="sweetalert.html">SweetAlert</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">树形视图 <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="jstree.html">jsTree</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="tree_view.html">Bootstrap Tree View</a>
-                                    </li>
-                                    <li><a class="J_menuItem" href="nestable_list.html">nestable</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a class="J_menuItem" href="toastr_notifications.html">Toastr通知</a>
-                            </li>
-                            <li><a class="J_menuItem" href="diff.html">文本对比</a>
-                            </li>
-                            <li><a class="J_menuItem" href="spinners.html">加载动画</a>
-                            </li>
-                            <li><a class="J_menuItem" href="widgets.html">小部件</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">表格</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="table_basic.html">基本表格</a>
-                            </li>
-                            <li><a class="J_menuItem" href="table_data_tables.html">DataTables</a>
-                            </li>
-                            <li><a class="J_menuItem" href="table_jqgrid.html">jqGrid</a>
-                            </li>
-                            <li><a class="J_menuItem" href="table_foo_table.html">Foo Tables</a>
-                            </li>
-                            <li><a class="J_menuItem" href="table_bootstrap.html">Bootstrap Table
-                                <span class="label label-danger pull-right">推荐</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="line dk"></li>
-                    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                        <span class="ng-scope">分类</span>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">相册</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="basic_gallery.html">基本图库</a>
-                            </li>
-                            <li><a class="J_menuItem" href="carousel.html">图片切换</a>
-                            </li>
-                            <li><a class="J_menuItem" href="blueimp.html">Blueimp相册</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="css_animation.html"><i class="fa fa-magic"></i> <span class="nav-label">CSS动画</span></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">工具 </span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="form_builder.html">表单构建器</a>
-                            </li>
-                        </ul>
-                    </li>
-
+                    <!--<li>-->
+                        <!--<a class="J_menuItem" href="./goods_admin.html">-->
+                            <!--<i class="fa fa-user"></i> -->
+                            <!--<span class="nav-label">评论管理</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
                 </ul>
             </div>
         </nav>
@@ -376,7 +112,7 @@
                                 <li class="m-t-xs">
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/a7.jpg">
+                                            <img alt="image" class="img-circle" src="../assets/img/a7.jpg">
                                         </a>
                                         <div class="media-body">
                                             <small class="pull-right">46小时前</small>
@@ -390,7 +126,7 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/a4.jpg">
+                                            <img alt="image" class="img-circle" src="../assets/img/a4.jpg">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right text-navy">25小时前</small>
@@ -454,19 +190,23 @@
     </div>
 
     <!-- 全局js -->
-    <script src="js/jquery.min.js?v=2.1.4"></script>
-    <script src="js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="js/plugins/layer/layer.min.js"></script>
+    <script src="../assets/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../assets/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../assets/js/plugin/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../assets/js/plugin/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../assets/js/plugin/layer/layer.min.js"></script>
 
     <!-- 自定义js -->
-    <script src="js/sellerAdmin.js?v=4.1.0"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script src="../assets/js/admin.js?v=4.1.0"></script>
+    <script type="text/javascript" src="../assets/js/index.js"></script>
 
     <!-- 第三方插件 -->
-    <script src="js/plugins/pace/pace.min.js"></script>
-
+    <script src="../assets/js/plugin/pace/pace.min.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/Bootstrap.js"></script>
+    <script src="../assets/js/Control.js"></script>
+    <script src="../assets/js/Modal.js"></script>
+    <script src="../assets/js/Tools.js"></script>
 </body>
 
 </html>
