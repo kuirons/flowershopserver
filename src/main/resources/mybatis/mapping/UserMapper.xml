@@ -30,4 +30,8 @@
         select * from ffsuser
         where userName=#{userName}
     </select>
+
+    <select id="selectAll" resultMap="AllInfoResultMap">
+        select * from ffsuser
+    </select>
 </mapper>

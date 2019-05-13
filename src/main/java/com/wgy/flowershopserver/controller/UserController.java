@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @RestController
 @RequestMapping("/ffsuser")
 public class UserController {
@@ -29,7 +32,8 @@ public class UserController {
   }
 
   @RequestMapping("/login")
-  public RegisterMessage login(@RequestParam(value = "userinfo") String userinfo) {
+  public RegisterMessage login(
+      HttpServletRequest request, @RequestParam(value = "userinfo") String userinfo) {
     RegisterMessage result = new RegisterMessage();
     UserBean userBean = JsonUtil.getInstance().toObject(userinfo, UserBean.class);
     UserBean queryUser = userService.selectByUserName(userBean.getUserName());
@@ -48,7 +52,24 @@ public class UserController {
       result.setMessage("当前登陆用户类型错误");
       return result;
     }
+    request.getSession().setAttribute("userName", queryUser.getUserName());
     result.setResult("success");
     return result;
+  }
+
+  @RequestMapping(value = "/getAllUser")
+  public List<UserBean> getAllUser() {
+    return userService.selectAll();
+  }
+
+  @RequestMapping(value = "/deleteUserByName")
+  public void deleteUserByName(String userName) {
+    userService.deleteByUserName(userName);
+  }
+
+  @RequestMapping(value = "/updateUserInfo")
+  public void updateUserInfo(String userInfoJson) {
+    UserBean userBean = JsonUtil.getInstance().toObject(userInfoJson, UserBean.class);
+    userService.baseInsert(userBean);
   }
 }

@@ -4,6 +4,8 @@ import com.wgy.flowershopserver.pojo.UserBean;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface UserMapper {
@@ -14,4 +16,6 @@ public interface UserMapper {
   UserBean selectByUserName(String userName);
 
   void updateMoney(UserBean userBean);
+
+  List<UserBean> selectAll();
 }
