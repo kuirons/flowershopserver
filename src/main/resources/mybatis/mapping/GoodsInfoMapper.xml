@@ -33,4 +33,9 @@
     <select id="selectAll" resultMap="AllInfoResultMap">
         select * from goodsinfo
     </select>
+
+    <select id="selectByBelong2Title" resultMap="AllInfoResultMap">
+        select * from goodsinfo
+        where belong2Title=#{belong2Title}
+    </select>
 </mapper>

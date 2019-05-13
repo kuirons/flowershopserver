@@ -16,4 +16,10 @@ public interface GoodsItemMapper {
   List<GoodsItemBean> selectById(int id);
 
   List<GoodsItemBean> search(String searchContent);
+
+  void updateCampaignid(int campaignid);
+
+  void updateCategoryid(int categoryid);
+
+  void baseInsert(GoodsItemBean goodsItemBean);
 }

@@ -28,11 +28,6 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public void updateById(CategoryBean categoryBean) {
-    categoryMapper.updateById(categoryBean);
-  }
-
-  @Override
   public void deleteById(int id) {
     categoryMapper.deleteById(id);
   }

@@ -11,7 +11,5 @@ public interface CategoryService {
 
   void baseInsert(CategoryBean categoryBean);
 
-  void updateById(CategoryBean categoryBean);
-
   void deleteById(int id);
 }

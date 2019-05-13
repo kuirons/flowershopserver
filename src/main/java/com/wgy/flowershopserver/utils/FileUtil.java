@@ -20,4 +20,6 @@ public class FileUtil {
       e.printStackTrace();
     }
   }
+
+  public static void deleteFile() {}
 }

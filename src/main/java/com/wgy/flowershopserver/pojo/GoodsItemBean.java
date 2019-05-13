@@ -17,6 +17,8 @@ public class GoodsItemBean {
   private double price;
   /** 销量 */
   private double sale;
+  /** 所属商家 */
+  private String vendor;
   /** 主页详细信息图片列表 */
   List<GoodsItemRImg> detailInfosImgUrl;
 
@@ -82,5 +84,13 @@ public class GoodsItemBean {
 
   public void setDetailInfosImgUrl(List<GoodsItemRImg> detailInfosImgUrl) {
     this.detailInfosImgUrl = detailInfosImgUrl;
+  }
+
+  public String getVendor() {
+    return vendor;
+  }
+
+  public void setVendor(String vendor) {
+    this.vendor = vendor;
   }
 }

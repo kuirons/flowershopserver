@@ -15,7 +15,5 @@ public interface CategoryMapper {
 
   void deleteAll();
 
-  void updateById(CategoryBean categoryBean);
-
   void deleteById(int id);
 }

@@ -16,4 +16,6 @@ public interface GoodsinfoMapper {
   void deleteById(int id);
 
   void deleteByBelong2Title(String belong2Title);
+
+  List<GoodsInfoBean> selectByBelong2Title(String belong2Title);
 }

@@ -73,4 +73,9 @@ public class GoodsInfoServiceImpl implements GoodsInfoService {
   public void deleteByBelong2Title(String belong2Title) {
     goodsinfoMapper.deleteByBelong2Title(belong2Title);
   }
+
+  @Override
+  public List<GoodsInfoBean> selectByBelong2Title(String belong2Title) {
+    return goodsinfoMapper.selectByBelong2Title(belong2Title);
+  }
 }

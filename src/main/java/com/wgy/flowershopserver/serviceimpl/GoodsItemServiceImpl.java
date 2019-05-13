@@ -52,4 +52,19 @@ public class GoodsItemServiceImpl implements GoodsItemService {
   public List<GoodsItemBean> search(String searchContent) {
     return goodsItemMapper.search(searchContent);
   }
+
+  @Override
+  public void updateCampaignid(int campaignid) {
+    goodsItemMapper.updateCampaignid(campaignid);
+  }
+
+  @Override
+  public void updateCategoryid(int categoryid) {
+    goodsItemMapper.updateCategoryid(categoryid);
+  }
+
+  @Override
+  public void baseInsert(GoodsItemBean goodsItemBean) {
+    goodsItemMapper.baseInsert(goodsItemBean);
+  }
 }

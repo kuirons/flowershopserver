@@ -3,7 +3,6 @@ package com.wgy.flowershopserver.pojo;
 public class CategoryBean {
   private int id;
   private String name;
-  private int sort;
 
   public int getId() {
     return id;
@@ -19,13 +18,5 @@ public class CategoryBean {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public int getSort() {
-    return sort;
-  }
-
-  public void setSort(int sort) {
-    this.sort = sort;
   }
 }

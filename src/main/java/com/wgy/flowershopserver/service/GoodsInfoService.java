@@ -18,4 +18,6 @@ public interface GoodsInfoService {
   List<GoodsInfoDto> mapGoodsInfos2Dto();
 
   void deleteByBelong2Title(String belong2Title);
+
+  List<GoodsInfoBean> selectByBelong2Title(String belong2Title);
 }
