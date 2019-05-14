@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.OrderRVendorMapper">
+
+    <resultMap id="AllInfoResultMap" type="OrderRVendorBean">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="orderId" property="orderId" jdbcType="INTEGER"/>
+        <result column="vendor" property="vendor" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="buyUser" property="buyUser" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="amount" property="amount" jdbcType="INTEGER"/>
+        <result column="payChannel" property="payChannel" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="baseInsert" parameterType="OrderRVendorBean">
+        insert into orderrvendor(orderId, vendor,buyUser,address,amount,payChannel)
+        values(#{orderId}, #{vendor},#{buyUser},#{address},#{amount},#{payChannel})
+    </insert>
+
+    <!--<delete id="deleteById" parameterType="java.lang.Integer">-->
+        <!--delete from banner-->
+        <!--where id = #{id}-->
+    <!--</delete>-->
+
+    <!--<update id="updateByType" parameterType="ProjectCategory">-->
+    <!--update project_category-->
+    <!--set category_name = #{categoryName}-->
+    <!--where category_type = #{categoryType}-->
+    <!--</update>-->
+
+    <select id="selectByVendor" resultMap="AllInfoResultMap">
+        select * from orderrvendor
+        where vendor=#{vendor}
+    </select>
+
+    <select id="selectByOrderId" resultMap="AllInfoResultMap">
+        select * from orderrvendor
+        where orderId=#{orderId}
+    </select>
+    
+    <update id="updateStatusById">
+        update orderrvendor
+        set status=1
+        where id=#{id}
+    </update>
+</mapper>

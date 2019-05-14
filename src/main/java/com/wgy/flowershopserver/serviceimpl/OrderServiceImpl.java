@@ -107,4 +107,9 @@ public class OrderServiceImpl implements OrderService {
     }
     return shoppingCartBeans;
   }
+
+  @Override
+  public void updateSatatus(int id) {
+    orderMapper.updateSatatus(id);
+  }
 }

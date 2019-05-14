@@ -38,6 +38,11 @@
         set deliveryStatus = #{deliveryStatus},status=0
         where id = #{id}
     </update>
+    <update id="updateSatatus">
+        update ffsorder
+        set status = 1
+        where id = #{id}
+    </update>
     <select id="selectById" resultMap="AllInfoResultMap">
         select * from ffsorder
         where id=#{id}

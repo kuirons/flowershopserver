@@ -21,4 +21,6 @@ public interface OrderMapper {
   void updateDeliverySatatus(@Param("id") int id, @Param("deliveryStatus") String deliveryStatus);
 
   List<OrderBean> selectById(@Param("id") int id);
+
+  void updateSatatus(int id);
 }

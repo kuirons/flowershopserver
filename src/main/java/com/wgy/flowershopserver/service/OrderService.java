@@ -23,4 +23,6 @@ public interface OrderService {
   List<OrderBean> selectById(@Param("id") int id);
 
   List<ShoppingCartBean> changeOrder2ShoppingCar(List<OrderBean> orderBeans);
+
+  void updateSatatus(int id);
 }
