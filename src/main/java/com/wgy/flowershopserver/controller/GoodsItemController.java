@@ -1,10 +1,12 @@
 package com.wgy.flowershopserver.controller;
 
-import com.jcraft.jsch.Session;
 import com.wgy.flowershopserver.dto.HotGoodsDto;
 import com.wgy.flowershopserver.pojo.GoodsItemBean;
-import com.wgy.flowershopserver.service.GoodsItemService;
+import com.wgy.flowershopserver.pojo.GoodsRItemImgBean;
 import com.wgy.flowershopserver.serviceimpl.GoodsItemServiceImpl;
+import com.wgy.flowershopserver.serviceimpl.GoodsRItemImgServiceImpl;
+import com.wgy.flowershopserver.utils.CustomConfig;
+import com.wgy.flowershopserver.utils.FileUtil;
 import com.wgy.flowershopserver.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,13 +17,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 
 @RestController
 @RequestMapping("/goodsitem")
 public class GoodsItemController {
   @Autowired private GoodsItemServiceImpl goodsItemService;
+  @Autowired private GoodsRItemImgServiceImpl goodsRItemImgService;
 
   @RequestMapping("/campaignid")
   public HotGoodsDto getHotGoodDtoByCampaignId(
@@ -61,11 +64,75 @@ public class GoodsItemController {
     // 从session中拿用户信息
     HttpSession session = request.getSession();
     String userName = (String) session.getAttribute("userName");
+    // 商品展示图片
+    MultipartFile goodsItemFile = ((MultipartHttpServletRequest) request).getFile("goodsitemfile");
+    FileUtil.writeFileToDir(goodsItemFile);
     GoodsItemBean goodsItemBean =
         JsonUtil.getInstance().toObject(goodsItemInfoJson, GoodsItemBean.class);
+    // 处理下imgurl
+    String gooditemImg =
+        CustomConfig.attributeMap.get("ffsaddress")
+            + File.separator
+            + goodsItemFile.getOriginalFilename();
     goodsItemBean.setVendor(userName);
+    goodsItemBean.setImgUrl(gooditemImg);
     goodsItemService.baseInsert(goodsItemBean);
-    // 处理上传的文件
-    MultipartFile multipartFile = ((MultipartHttpServletRequest) request).getFile("file");
+    // 插入后当前记录对应的主键
+    int id = goodsItemBean.getId();
+    // 处理上传的商品详细信息图片
+    List<MultipartFile> detailsInfos =
+        ((MultipartHttpServletRequest) request).getFiles("detailsInfos");
+    goodsItemService.dealWithFiles(detailsInfos);
+    detailsInfos.stream()
+        .map(
+            multipartFile -> {
+              String detailurl =
+                  CustomConfig.attributeMap.get("ffsaddress")
+                      + File.separator
+                      + multipartFile.getOriginalFilename();
+              GoodsRItemImgBean goodsRItemImgBean = new GoodsRItemImgBean();
+              goodsRItemImgBean.setGoodsitemid(id);
+              goodsRItemImgBean.setImgurl(detailurl);
+              return goodsRItemImgBean;
+            })
+        .forEach(goodsRItemImgService::baseInsert);
+  }
+
+  // 还是要操作两张表
+  @RequestMapping("/delete")
+  public void deleteById(String id) {
+    // todo 清除静态资源
+    // 清除goodsitem表
+    goodsItemService.deleteById(Integer.valueOf(id));
+    // 清除goodsritemimg表
+    goodsRItemImgService.deleteByGoodsItemId(Integer.valueOf(id));
+  }
+
+  // 把全部信息传递过来
+  @RequestMapping("/update")
+  public void updateById(HttpServletRequest request, String itemjson) {
+    // todo 资源清理
+    GoodsItemBean goodsItemBean = JsonUtil.getInstance().toObject(itemjson, GoodsItemBean.class);
+    MultipartFile goodsItemFile = ((MultipartHttpServletRequest) request).getFile("goodsitemfile");
+    if (goodsItemFile != null) {
+      String gooditemImg =
+          CustomConfig.attributeMap.get("ffsaddress")
+              + File.separator
+              + goodsItemFile.getOriginalFilename();
+      goodsItemBean.setImgUrl(gooditemImg);
+    }
+    goodsItemService.updateAll(goodsItemBean);
+    // 更新关联的goodsritemimg表
+    List<GoodsRItemImgBean> goodsRItemImgBeans = goodsItemBean.getDetailInfosImgUrl();
+    // 先删除再插入(这个逻辑肯定是要修改的)
+    goodsRItemImgService.deleteByGoodsItemId(goodsItemBean.getId());
+    goodsRItemImgBeans.forEach(goodsRItemImgService::baseInsert);
+  }
+
+  // 查询商家已发布产品
+  @RequestMapping("/selectByVendor")
+  public List<GoodsItemBean> selectByVendor(HttpServletRequest request) {
+    String userName = (String) request.getSession().getAttribute("userName");
+    return goodsItemService.selectByVendor(userName);
   }
 }

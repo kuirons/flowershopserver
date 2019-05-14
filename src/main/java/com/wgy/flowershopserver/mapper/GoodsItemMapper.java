@@ -22,4 +22,10 @@ public interface GoodsItemMapper {
   void updateCategoryid(int categoryid);
 
   void baseInsert(GoodsItemBean goodsItemBean);
+
+  void deleteById(int id);
+
+  void updateAll(GoodsItemBean goodsItemBean);
+
+  List<GoodsItemBean> selectByVendor(String vendor);
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wgy.flowershopserver.mapper.GoodsRItemImgMapper">
+
+    <resultMap id="AllInfoResultMap" type="GoodsRItemImgBean">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="goodsitemid" property="goodsitemid" jdbcType="INTEGER"/>
+        <result column="imgurl" property="imgurl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="baseInsert" parameterType="GoodsRItemImgBean">
+        insert into goodsritemimg(goodsitemid, imgurl)
+        values(#{goodsitemid}, #{imgurl})
+    </insert>
+
+    <delete id="deleteByGoodsItemId">
+        delete from goodsritemimg
+        where goodsitemid=#{goodsitemid}
+    </delete>
+
+    <!--<delete id="deleteById" parameterType="java.lang.Integer">-->
+    <!--delete from banner-->
+    <!--where id = #{id}-->
+    <!--</delete>-->
+
+    <!--<update id="updateByType" parameterType="ProjectCategory">-->
+    <!--update project_category-->
+    <!--set category_name = #{categoryName}-->
+    <!--where category_type = #{categoryType}-->
+    <!--</update>-->
+
+    <!--<select id="selectAll" resultMap="AllInfoResultMap">-->
+    <!--select * from banner-->
+    <!--</select>-->
+</mapper>

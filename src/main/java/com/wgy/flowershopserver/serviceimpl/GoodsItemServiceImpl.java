@@ -3,8 +3,10 @@ package com.wgy.flowershopserver.serviceimpl;
 import com.wgy.flowershopserver.mapper.GoodsItemMapper;
 import com.wgy.flowershopserver.pojo.GoodsItemBean;
 import com.wgy.flowershopserver.service.GoodsItemService;
+import com.wgy.flowershopserver.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -66,5 +68,25 @@ public class GoodsItemServiceImpl implements GoodsItemService {
   @Override
   public void baseInsert(GoodsItemBean goodsItemBean) {
     goodsItemMapper.baseInsert(goodsItemBean);
+  }
+
+  @Override
+  public void dealWithFiles(List<MultipartFile> multipartFiles) {
+    multipartFiles.forEach(multipartFile -> FileUtil.writeFileToDir(multipartFile));
+  }
+
+  @Override
+  public void deleteById(int id) {
+    goodsItemMapper.deleteById(id);
+  }
+
+  @Override
+  public void updateAll(GoodsItemBean goodsItemBean) {
+    goodsItemMapper.updateAll(goodsItemBean);
+  }
+
+  @Override
+  public List<GoodsItemBean> selectByVendor(String vendor) {
+    return goodsItemMapper.selectByVendor(vendor);
   }
 }

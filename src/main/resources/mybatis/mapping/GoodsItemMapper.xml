@@ -18,7 +18,7 @@
         </collection>
     </resultMap>
 
-    <insert id="baseInsert" parameterType="GoodsItemBean">
+    <insert id="baseInsert" parameterType="GoodsItemBean" useGeneratedKeys="true" keyProperty="id">
     insert into goodsitem(categoryid, campaignid,name,imgUrl,price,sale,vendor)
     values(#{categoryid},-1,#{name},#{imgUrl},#{price},#{sale},#{vendor})
     </insert>
@@ -77,4 +77,22 @@
         set categoryid = -1
         where categoryid = #{categoryid}
     </update>
+
+    <delete id="deleteById">
+        delete from goodsitem
+        where id=#{id}
+    </delete>
+
+    <update id="updateAll">
+        update goodsitem
+        set categoryid=#{categoryid},campaignid=#{campaignid},name=#{name},imgurl={#imgurl},price=#{price},sale=#{sale},vendor=#{vendor}
+        where id=#{id}
+    </update>
+
+    <select id="selectByVendor" parameterType="java.lang.Integer" resultMap="AllInfoResultMap">
+        SELECT goodsitem.id tid,goodsitem.categoryid,goodsitem.campaignid,goodsitem.name,goodsitem.imgurl timgurl,goodsitem.price,goodsitem.sale,goodsitem.vendor,goodsritemimg.id iid,goodsritemimg.goodsitemid,goodsritemimg.imgurl iimgurl
+        FROM goodsitem LEFT JOIN goodsritemimg
+        ON goodsitem.id=goodsritemimg.goodsitemid
+        WHERE goodsitem.vendor=#{vendor}
+    </select>
 </mapper>

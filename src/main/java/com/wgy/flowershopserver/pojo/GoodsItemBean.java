@@ -20,7 +20,7 @@ public class GoodsItemBean {
   /** 所属商家 */
   private String vendor;
   /** 主页详细信息图片列表 */
-  List<GoodsItemRImg> detailInfosImgUrl;
+  List<GoodsRItemImgBean> detailInfosImgUrl;
 
   public int getId() {
     return id;
@@ -78,11 +78,11 @@ public class GoodsItemBean {
     this.sale = sale;
   }
 
-  public List<GoodsItemRImg> getDetailInfosImgUrl() {
+  public List<GoodsRItemImgBean> getDetailInfosImgUrl() {
     return detailInfosImgUrl;
   }
 
-  public void setDetailInfosImgUrl(List<GoodsItemRImg> detailInfosImgUrl) {
+  public void setDetailInfosImgUrl(List<GoodsRItemImgBean> detailInfosImgUrl) {
     this.detailInfosImgUrl = detailInfosImgUrl;
   }
 
