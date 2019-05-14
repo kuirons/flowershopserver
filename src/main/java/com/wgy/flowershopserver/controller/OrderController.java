@@ -73,6 +73,9 @@ public class OrderController {
         JsonUtil.getInstance().toObject(json, OrderRVendorBean.class);
     // 先将当前订单状态改变
     orderRVendorService.updateStatusById(orderRVendorBean.getId());
+    // 卖家发货后钱直接进卖家账户
+    UserBean u = userService.selectByUserName(orderRVendorBean.getVendor());
+    u.setMoney(MathUtil.safeAdd(u.getMoney(), orderRVendorBean.getAmount()));
     // 检查是否全部拆分订单已完成
     List<OrderRVendorBean> all = orderRVendorService.selectByOrderId(orderRVendorBean.getOrderId());
     boolean flag = true;
@@ -82,14 +85,11 @@ public class OrderController {
         break;
       }
     }
+    userService.updateMoney(u);
     // 如果全部发货，则更新未拆分订单的状态
     if (flag) {
       orderService.updateDeliverySatatus(orderRVendorBean.getOrderId(), "已发货");
       orderService.updateSatatus(orderRVendorBean.getOrderId());
-      // 卖家发货后钱直接进卖家账户
-      UserBean u = userService.selectByUserName(orderRVendorBean.getVendor());
-      u.setMoney(MathUtil.safeAdd(u.getMoney(), orderRVendorBean.getAmount()));
-      userService.updateMoney(u);
     }
   }
 }
