@@ -1,8 +1,51 @@
 'use strict';
 
+var config = {
+    slider: {
+        add: '/banner/insert',
+        list: '/banner/allinfos',
+        delete: '/banner/deleteById'
+    },
+    classify: {
+        add: '/homepageclassify/insert',
+        list: '/homepageclassify/allinfos',
+        delete: '/homepageclassify/deleteById'
+    }
+};
+
 $(document).ready(function () {
     // 初始化首页导航列表
+    $.get(config.classify.list, function (response, status) {
+        for (var i = 0; i < response.length; i++) {
+            var navItemArgs = [
+                {
+                    nodeType: 'li',
+                    'data-list-id': response[i]['id'],
+                    class: 'nav-list-item nav-list-order-item d-' + response[i]['id'] + 1,
+                    innerHTML: [
+                        {
+                            nodeType: 'i',
+                            class: 'fa fa-close nav-list-order-item-delete'
+                        },
+                        {
+                            nodeType: 'span',
+                            innerText: response[i]['title']
+                        }
+                    ]
+                }
+            ];
+            var navItem = FlowerShop.Tools.prototype.createDom(navItemArgs)[0];
+            document.querySelector('.nav-list-item.add-nav-item').insertBefore(navItem, this);
+        }
+    }, 'json');
     $('.nav-list-order-item').arrangeable();
+    /*
+                        <li class="nav-list-item nav-list-order-item d-1" data-list-id="0">
+                            <i class="fa fa-close nav-list-order-item-delete"></i>
+                            <span>测试数据0</span>
+                        </li>
+    * */
+
     // 绑定添加事件
     $('.add-nav-item').on('click', function () {
         var navIndex = document.querySelectorAll('.add-nav-item').length;
@@ -69,14 +112,17 @@ $(document).ready(function () {
                 shadeClose: true,
                 title: '编辑导航条目',
             }, function (val, index, element) {
-                var bool = true;
+                var jsonData = JSON.stringify({id: 0, title: val});
                 // todo 调用ajax修改导航条目
-
-                // 成功则回调更改原条目
-                if (bool) {
-                    itemIpt.innerText = val;
+                $.get(config.classify.add, {classinfos: jsonData}, function (response, status) {
+                    // 成功则回调更改原条目
+                    if (status == 200) {
+                        itemIpt.innerText = val;
+                    } else {
+                        layer.msg('插入失败!');
+                    }
                     layer.close(index);
-                }
+                });
             }
         );
     });
@@ -114,6 +160,15 @@ $(document).ready(function () {
             }
         }
     });
+    // 删除轮播图片
+    $('.slide-config-box').on('click', '.slider-list-item-delete', function () {
+        var sliderItem = this.parentNode;
+        var sliderId = this.parentNode.getAttribute('data-slider-id');
+        $.get(Carousel.delete_url, {bannerId: sliderId}, function (data) {
+            sliderItem.parentNode.removeChild(sliderItem);
+            console.log(data);
+        });
+    });
 
     // 分类列表编辑
     $('.category-select-box').selectpicker({});
@@ -137,25 +192,25 @@ $(document).ready(function () {
 function changeNav() {
 }
 
-// 首页导航重置单个
-function resetNavItem(itemDom, value) {
-    var navItemArgs = [
-        {
-            nodeType: 'i',
-            class: 'fa fa-close nav-list-order-item-delete'
-        },
-        {
-            nodeType: 'span',
-            innerText: value
-        }
-    ];
-
-    var navItem = FlowerShop.Tools.prototype.createDom(navItemArgs);
-    while (itemDom.hasChildNodes())
-        itemDom.removeChild(itemDom.firstChild);
-    for (var i = 0; i < navItem.length; i++)
-        itemDom.appendChild(navItem[i]);
-}
+// 首页导航重置单个(行内编辑)
+// function resetNavItem(itemDom, value) {
+//     var navItemArgs = [
+//         {
+//             nodeType: 'i',
+//             class: 'fa fa-close nav-list-order-item-delete'
+//         },
+//         {
+//             nodeType: 'span',
+//             innerText: value
+//         }
+//     ];
+//
+//     var navItem = FlowerShop.Tools.prototype.createDom(navItemArgs);
+//     while (itemDom.hasChildNodes())
+//         itemDom.removeChild(itemDom.firstChild);
+//     for (var i = 0; i < navItem.length; i++)
+//         itemDom.appendChild(navItem[i]);
+// }
 
 // 首页轮播图片上传
 

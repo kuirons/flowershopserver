@@ -113,6 +113,28 @@
     display: inline-block;
     transition: background .5s ease;
 }
+.slide-item .slider-list-item-delete {
+    top: -6px;
+    opacity: 0;
+    width: 24px;
+    right: -10px;
+    height: 24px;
+    font-size: 18px;
+    position: absolute;
+    -webkit-transition: opacity .8s ease;
+    -moz-transition: opacity .8s ease;
+    -ms-transition: opacity .8s ease;
+    -o-transition: opacity .8s ease;
+    transition: opacity .8s ease;
+}
+
+.slide-item:hover .slider-list-item-delete {
+    opacity: 1;
+}
+
+.slide-item h4 {
+    font-weight: normal;
+}
 
 .slide-item:hover {
     background: rgba(0, 0, 0, 0.05);

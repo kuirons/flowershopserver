@@ -3380,7 +3380,7 @@ body.full-height-layout #page-wrapper {
 }
 
 body.boxed-layout {
-    background: url('hattered.png');
+    background: url('./patterns/shattered.png');
 }
 
 body.boxed-layout #wrapper {
@@ -7249,7 +7249,7 @@ body.rtls.top-navigation .footer.fixed {
 
 .skin-1 .nav-header {
     background: #0e9aef;
-    background: url('eader-profile-skin-1.png');
+    background: url('./patterns/header-profile-skin-1.png');
 }
 
 .skin-1.mini-navbar .nav-second-level {
@@ -7402,7 +7402,7 @@ body.boxed-layout.skin-3 #wrapper {
 
 .skin-3 .nav-header {
     background: #ecba52;
-    background: url('eader-profile-skin-3.png');
+    background: url('./patterns/header-profile-skin-3.png');
 }
 
 .skin-3.mini-navbar .nav-second-level {
@@ -7935,4 +7935,13 @@ body.skin-3 {
     overflow: hidden;
     font-size: 0;
     background-color: #131e26;
+}
+
+
+/* 修改bootstrap-select 样式 */
+.bootstrap-select .dropdown-menu.inner {
+    padding: 0px 4px;
+}
+.dropdown-menu > li > a {
+    margin: 4px 0px;
 }
