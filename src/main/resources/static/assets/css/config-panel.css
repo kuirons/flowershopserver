@@ -206,3 +206,7 @@
     position: relative;
 }
 
+.good-preview-image {
+    width: 20%;
+    height: auto;
+}

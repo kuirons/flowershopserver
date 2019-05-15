@@ -74,8 +74,8 @@ FlowerShop.Tools.prototype.inObject = function (needle, haystack) {
     return false;
 };
 
+// 自定义
 function imgLoadFailed(image) {
     image.src = '../assets/img/404.png';
     image.parentNode.classList.add('fadeInDown');
 }
-

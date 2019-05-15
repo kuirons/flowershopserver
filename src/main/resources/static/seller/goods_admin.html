@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <title>卖家 - 商品管理</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -12,7 +10,6 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link href="../assets/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="../assets/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap-select.min.css">
     <link href="../assets/css/plugins/jqgrid/ui.jqgrid.css?0820" rel="stylesheet">
 
 
@@ -23,6 +20,13 @@
     <link rel="stylesheet" href="../assets/css/modal.css">
     <link rel="stylesheet" href="../assets/css/control.css">
     <link rel="stylesheet" href="../assets/css/config-panel.css">
+    <style>
+        /* 强制修改jqGrid表格的样式 */
+        .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+            border: 0px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -42,10 +46,9 @@
 </div>
 </body>
 <!-- 全局js -->
-<script src="../assets/js/jquery.min.js?v=2.1.4"></script>
-<script src="../assets/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/plugin/bootstrap/bootstrap.min.js"></script>
 <script src="../assets/js/plugin/layer/layer.min.js"></script>
-<script src="../assets/js/bootstrap-select.min.js"></script>
 
 <!-- Peity -->
 <script src="../assets/js/plugin/peity/jquery.peity.min.js"></script>
@@ -58,6 +61,7 @@
 <script src="../assets/js/drag.min.js"></script>
 
 <!-- 自定义js -->
+<script src="../apphtml/js/config.js"></script>
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/Bootstrap.js"></script>
 <script src="../assets/js/Control.js"></script>

@@ -1,21 +1,8 @@
 'use strict';
 
-var config = {
-    slider: {
-        add: '/banner/insert',
-        list: '/banner/allinfos',
-        delete: '/banner/deleteById'
-    },
-    classify: {
-        add: '/homepageclassify/insert',
-        list: '/homepageclassify/allinfos',
-        delete: '/homepageclassify/deleteById'
-    }
-};
-
 $(document).ready(function () {
     // 初始化首页导航列表
-    $.get(config.classify.list, function (response, status) {
+    $.get(url.classify.list, function (response, status) {
         for (var i = 0; i < response.length; i++) {
             var navItemArgs = [
                 {
@@ -35,7 +22,7 @@ $(document).ready(function () {
                 }
             ];
             var navItem = FlowerShop.Tools.prototype.createDom(navItemArgs)[0];
-            document.querySelector('.nav-list-item.add-nav-item').insertBefore(navItem, this);
+            document.querySelector('.nav-list-box').insertBefore(navItem, document.querySelector('.nav-list-item.add-nav-item'));
         }
     }, 'json');
     $('.nav-list-order-item').arrangeable();
@@ -114,9 +101,9 @@ $(document).ready(function () {
             }, function (val, index, element) {
                 var jsonData = JSON.stringify({id: 0, title: val});
                 // todo 调用ajax修改导航条目
-                $.get(config.classify.add, {classinfos: jsonData}, function (response, status) {
+                $.get(url.classify.add, {classinfos: jsonData}, function (response, status, xhr) {
                     // 成功则回调更改原条目
-                    if (status == 200) {
+                    if (xhr.status == 200) {
                         itemIpt.innerText = val;
                     } else {
                         layer.msg('插入失败!');

@@ -14,8 +14,8 @@ public class FlowershopserverApplication extends SpringBootServletInitializer {
     SpringApplication.run(FlowershopserverApplication.class, args);
   }
 
-  @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-    return application.sources(FlowershopserverApplication.class);
-  }
+//  @Override
+//  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//    return application.sources(FlowershopserverApplication.class);
+//  }
 }
