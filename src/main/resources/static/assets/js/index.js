@@ -27,8 +27,8 @@ $(function () {
 
         $('.submit_btn').on('click', function () {
             // 登陆请求url
-            var requestUrl = '/ffsuser/login';
             var formData = new FormData();
+            var requestUrl = '/ffsuser/login';
             // 当前选择登陆Tab
             var loginTab = $(this).parents('.login-tab');
             var loginType = loginTab.attr('data-type-login') == 'admin' ? 0 : 2;
@@ -39,45 +39,88 @@ $(function () {
             var checkCodeBox = loginTab.find('.J_codeimg');
 
             if (user.val().trim().length == 0) {
-                alert('用户名不能为空.');
+                layer.alert('用户名不能为空.',
+                    {
+                        icon: 1,
+                        shadeClose: true,
+                        title: '警告'
+                    }
+                );
                 return false;
             }
             if (passwd.val().trim().length == 0) {
-                alert('密码不能为空.');
+                layer.alert('密码不能为空.',
+                    {
+                        icon: 1,
+                        shadeClose: true,
+                        title: '警告'
+                    }
+                );
                 return false;
             }
             if (checkCode.val().trim().length == 0) {
-                alert('验证码不能为空.');
+                layer.alert('验证码不能为空.',
+                    {
+                        icon: 1,
+                        shadeClose: true,
+                        title: '警告'
+                    }
+                );
                 return false;
             }
             if (checkCode.val().trim() != checkCodeBox.attr('data-check-code')) {
-                alert('请输入正确的验证码!');
+                layer.alert('请输入正确的验证码.',
+                    {
+                        icon: 1,
+                        shadeClose: true,
+                        title: '警告'
+                    }
+                );
                 return false;
             }
             // 校验完成登陆
             // 获取表单数据
-            formData.append('type', loginType);
-            formData.append('username', user.val());
-            formData.append('password', passwd.val());
+            var userInfo = {
+                type: loginType,
+                userName: user.val().trim(),
+                password: passwd.val().trim()
+            };
+            formData.append('userinfo', userInfo);
             $.ajax({
                 type: 'POST',
-                url: requestUrl,
                 data: formData,
-                success: function (msg) {
-                    alert("Data Saved: " + msg);
-                    switch (loginType) {
-                        case 0:
-                            window.location.href = '/admin/index.html';
-                            break;
-                        case 2:
-                            window.location.href = '/seller/index.html';
-                            break;
-                        default:
-                            break;
+                url: requestUrl,
+                dataType: 'json',
+                success: function (response, status, xhr) {
+                    if (xhr.status == 200 && response.result != 'failed') {
+                        switch (loginType) {
+                            case 0:
+                                window.location.href = '/admin/index.html';
+                                break;
+                            case 2:
+                                window.location.href = '/seller/index.html';
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        layer.alert(response.message,
+                            {
+                                icon: 2,
+                                shadeClose: true,
+                                title: '登陆失败'
+                            }
+                        );
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    alert('error: ' + textStatus);
+                    layer.alert(errorThrown,
+                        {
+                            icon: 2,
+                            shadeClose: true,
+                            title: '登陆错误'
+                        }
+                    );
                 }
             });
         });
