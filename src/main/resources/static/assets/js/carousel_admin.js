@@ -146,7 +146,7 @@ $(document).ready(function () {
                 Carousel.__init[key]();
             }
         }
-    });
+    },"json");
     // 删除轮播图片
     $('.slide-config-box').on('click', '.slider-list-item-delete', function () {
         var sliderItem = this.parentNode;

@@ -1,7 +1,10 @@
 package com.wgy.flowershopserver.utils;
 
-import java.io.FileInputStream;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -12,7 +15,8 @@ public class CustomConfig {
   private static Map<String, String> initAttribute() {
     Map<String, String> result = new HashMap<>();
     Properties properties = new Properties();
-    try (FileInputStream in = new FileInputStream("src/main/resources/config.properties")) {
+    Resource resource = new ClassPathResource("config.properties");
+    try (InputStream in = resource.getInputStream()) {
       properties.load(in);
 
       result.put("ffsaddress", properties.getProperty("ffsaddress"));

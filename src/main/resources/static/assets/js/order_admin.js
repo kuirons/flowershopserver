@@ -92,7 +92,7 @@ $(document).ready(function () {
                 reloadAfterSubmit: true,
                 formatter: function (value, grid, rows, state) {
                     if ("-1" == rows.status)
-                        return '<a href="javascript:void(0)" style="color:#f60" onclick="sendGoods('+JSON.stringify(rows).replace(/"/g, '&quot;')+','+JSON.stringify(grid).replace(/"/g, '&quot;')+')">确认发货</a>';
+                        return '<a href="javascript:void(0)" style="color:#f60" onclick="sendGoods(' + JSON.stringify(rows).replace(/"/g, '&quot;') + ',' + JSON.stringify(grid).replace(/"/g, '&quot;') + ')">确认发货</a>';
                     return ''
                 }
             }
@@ -138,12 +138,12 @@ function sendGoods(rows, grid) {
         contentType: "application/json",
         dataType: "json",
         success: function (msg) {
-            alert("确认发货成功，等待买家收货")
+            layer.msg("确认发货成功，等待买家收货")
             $("#order-list").setCell(grid.rowId, 3, "1")
             $("#order-list").setCell(grid.rowId, 8, "1")
         },
         error: function (msg) {
-            alert("确认发货失败，请联系管理员")
+            layer.msg("确认发货失败，请联系管理员")
         }
     });
 }

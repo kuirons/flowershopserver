@@ -30,14 +30,15 @@ public class BannerController {
   }
 
   @RequestMapping("/insert")
-  public void insert(HttpServletRequest request) {
+  public BannerBean insert(HttpServletRequest request) {
     String infoJson = request.getParameter("bannerInfo");
     MultipartFile multipartFile = ((MultipartHttpServletRequest) request).getFile("file");
     // 反序列化
     BannerBean bannerBean = JsonUtil.getInstance().toObject(infoJson, BannerBean.class);
     bannerService.dealFile(multipartFile);
     bannerBean.setImgUrl(
-        CustomConfig.attributeMap.get("ffsaddress") + "/" + bannerBean.getImgUrl());
+        CustomConfig.attributeMap.get("ffsaddress") + "/" + multipartFile.getOriginalFilename());
     bannerService.baseInsert(bannerBean);
+    return bannerBean;
   }
 }
