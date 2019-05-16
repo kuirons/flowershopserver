@@ -12,7 +12,7 @@ $(document).ready(function () {
         datatype: "local",
         shrinkToFit: true,
         rowList: [20, 50, 100],
-        colNames: ['序号', '缩略图', '名称', '分类'],
+        colNames: ['序号', '图片', '名称', '分类'],
         colModel: [
             {
                 key: true,
@@ -24,7 +24,8 @@ $(document).ready(function () {
             {
                 name: 'imgUrl',
                 editable: true,
-                edittype: 'image',
+                edittype: 'file',
+                editoptions: {enctype: 'multipart/form-data'},
                 index: 'previewImg',
                 formatter: function (cellValue, options, rowObject) {
                     return '<img src="' + cellValue + '" class="good-preview-image" onerror="imgLoadFailed(this)">';
@@ -45,8 +46,8 @@ $(document).ready(function () {
             {
                 align: "left",
                 editable: true,
-                name: 'classify',
-                index: 'classify',
+                name: 'belong2Title',
+                index: 'belong2Title',
                 edittype: 'select',
                 editoptions: {
                     value: function () {
@@ -96,9 +97,9 @@ $(document).ready(function () {
 
             // Setup buttons
             $("#goods-list").jqGrid('navGrid', '#paper-goods-list', {
-                edit: true,
-                add: true,
-                del: true,
+                edit: false,
+                add: false,
+                del: false,
                 search: true
             }, {
                 height: 200,
@@ -113,3 +114,10 @@ $(document).ready(function () {
         }
     }, 'json');
 });
+
+
+// 添加商品
+// 使用Layer弹窗
+function showAddGoods() {
+
+}

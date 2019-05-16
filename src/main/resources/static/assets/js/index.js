@@ -27,7 +27,6 @@ $(function () {
 
         $('.submit_btn').on('click', function () {
             // 登陆请求url
-            var formData = new FormData();
             var requestUrl = '/ffsuser/login';
             // 当前选择登陆Tab
             var loginTab = $(this).parents('.login-tab');
@@ -41,7 +40,7 @@ $(function () {
             if (user.val().trim().length == 0) {
                 layer.alert('用户名不能为空.',
                     {
-                        icon: 1,
+                        icon: 0,
                         shadeClose: true,
                         title: '警告'
                     }
@@ -51,7 +50,7 @@ $(function () {
             if (passwd.val().trim().length == 0) {
                 layer.alert('密码不能为空.',
                     {
-                        icon: 1,
+                        icon: 0,
                         shadeClose: true,
                         title: '警告'
                     }
@@ -61,7 +60,7 @@ $(function () {
             if (checkCode.val().trim().length == 0) {
                 layer.alert('验证码不能为空.',
                     {
-                        icon: 1,
+                        icon: 0,
                         shadeClose: true,
                         title: '警告'
                     }
@@ -71,7 +70,7 @@ $(function () {
             if (checkCode.val().trim() != checkCodeBox.attr('data-check-code')) {
                 layer.alert('请输入正确的验证码.',
                     {
-                        icon: 1,
+                        icon: 0,
                         shadeClose: true,
                         title: '警告'
                     }
@@ -85,10 +84,11 @@ $(function () {
                 userName: user.val().trim(),
                 password: passwd.val().trim()
             };
-            formData.append('userinfo', userInfo);
             $.ajax({
                 type: 'POST',
-                data: formData,
+                data: {
+                    userinfo: JSON.stringify(userInfo)
+                },
                 url: requestUrl,
                 dataType: 'json',
                 success: function (response, status, xhr) {
@@ -149,7 +149,7 @@ function createCode(canvas) {
     var aCode = sCode.split(",");
     var aLength = aCode.length;//获取到数组的长度
 
-    for (var i = 0; i < 6; i++) {  //这里的for循环可以控制验证码位数（如果想显示6位数，4改成6即可）
+    for (var i = 0; i < 5; i++) {  //这里的for循环可以控制验证码位数（如果想显示6位数，4改成6即可）
         var j = Math.floor(Math.random() * aLength);//获取到随机的索引值
         // var deg = Math.random() * 30 * Math.PI / 180;//产生0~30之间的随机弧度
         var deg = Math.random() - 0.5; //产生一个随机弧度
