@@ -1,5 +1,7 @@
 package com.wgy.flowershopserver.controller;
 
+import com.sun.xml.internal.ws.server.sei.EndpointResponseMessageBuilder;
+import com.wgy.flowershopserver.dto.MessageDto;
 import com.wgy.flowershopserver.dto.OrderMsgDto;
 import com.wgy.flowershopserver.pojo.OrderBean;
 import com.wgy.flowershopserver.pojo.OrderRVendorBean;
@@ -10,11 +12,15 @@ import com.wgy.flowershopserver.serviceimpl.OrderServiceImpl;
 import com.wgy.flowershopserver.serviceimpl.UserServiceImpl;
 import com.wgy.flowershopserver.utils.JsonUtil;
 import com.wgy.flowershopserver.utils.MathUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -62,15 +68,15 @@ public class OrderController {
   }
 
   @RequestMapping("/selectVendorOrder")
-  public List<OrderRVendorBean> slectVendorOrder(String vendor) {
+  public List<OrderRVendorBean> slectVendorOrder(HttpServletRequest request) {
+    String vendor = (String) request.getSession().getAttribute("userName");
+    if (StringUtils.isEmpty(vendor)) vendor = "test";
     return orderRVendorService.selectByVendor(vendor);
   }
 
   // 卖家发货
-  @RequestMapping("/sendGoods")
-  public void sendGoods(String json) {
-    OrderRVendorBean orderRVendorBean =
-        JsonUtil.getInstance().toObject(json, OrderRVendorBean.class);
+  @RequestMapping(value = "/sendGoods", method = RequestMethod.POST)
+  public MessageDto sendGoods(@RequestBody OrderRVendorBean orderRVendorBean) {
     // 先将当前订单状态改变
     orderRVendorService.updateStatusById(orderRVendorBean.getId());
     // 卖家发货后钱直接进卖家账户
@@ -91,5 +97,8 @@ public class OrderController {
       orderService.updateDeliverySatatus(orderRVendorBean.getOrderId(), "已发货");
       orderService.updateSatatus(orderRVendorBean.getOrderId());
     }
+    MessageDto messageDto = new MessageDto();
+    messageDto.setResult("success");
+    return messageDto;
   }
 }
