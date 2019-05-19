@@ -4,11 +4,18 @@ var vendorOrder = baseUrl + "/order/selectVendorOrder"
 var sendGoodss = baseUrl + "/order/sendGoods"
 var detail = baseUrl + "/goodsitem/queryById"
 var url = {
+    user: {
+        add: '/ffsuser/create',
+        login: '/ffsuser/login',
+        list: '/ffsuser/getAllUser',
+        update: '/ffsuser/updateUserInfo',
+        delete: '/ffsuser/deleteUserByName',
+    },
     goods: {
-        add: '/goodsinfo/insert',
-        edit: '',
-        list: '/goodsinfo/allinfos',
-        delete: '/goodsinfo/deleteByBelong2Title'
+        add: '/goodsitem/create',
+        edit: '/goodsitem/',
+        list: '/goodsitem/selectByVendor',
+        delete: '/goodsitem/delete'
     },
     slider: {
         add: '/banner/insert',

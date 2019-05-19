@@ -74,6 +74,24 @@ FlowerShop.Tools.prototype.inObject = function (needle, haystack) {
     return false;
 };
 
+/**
+ * 实例化图片, 在onload事件中回调
+ *
+ * @param target File
+ * @param 图片加载完成后执行的回调
+ */
+FlowerShop.Tools.prototype.getImage = function (target, callback) {
+    if (target instanceof File) {
+        var image = null, imageUrl = null;
+        imageUrl = window.URL.createObjectURL(target);
+        image = new Image();
+        image.src = imageUrl;
+        image.onload = function () {
+            callback(image);
+        };
+    }
+};
+
 // 自定义
 function imgLoadFailed(image) {
     image.src = '../assets/img/404.png';

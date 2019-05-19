@@ -163,6 +163,10 @@ FlowerShop.Control.prototype.listen = function () {
 
     $(document).off('click', '.image-upload').on('click', '.image-upload', function () {
         var uploadBox = topDocument.querySelector('#image-upload-box');
+        if (!uploadBox) {
+            self.init.ImageUploadControlDom();
+            uploadBox = topDocument.querySelector('#image-upload-box');
+        }
         if (uploadBox !== null && typeof uploadBox !== "undefined" && uploadBox.classList.contains('upload-box-open')) {
             self.closeUpload();
         } else {
@@ -368,6 +372,7 @@ FlowerShop.Control.prototype.listen = function () {
                                     shadeClose: true,
                                     title: '成功'
                                 });
+
                             // 实时刷新上传的图片
                             // // 供应商banner
                             // var vendor_banner = document.querySelector('#update_banner');
@@ -648,7 +653,6 @@ FlowerShop.Control.prototype.pageJump = function (index) {
     var xMargin = aloneWidth * index;
     uploadOrderTab.style.cssText += 'margin-left: -' + xMargin + 'px';
 };
-
 
 
 // 轮播控件
