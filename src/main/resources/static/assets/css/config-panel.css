@@ -99,7 +99,6 @@
     border: 1px solid #cecece;
 }
 
-
 /* 首页轮播配置 */
 .slide-preview {
     width: 100%;
@@ -110,12 +109,13 @@
 }
 
 .slide-item {
-    width: 120px;
+    width: auto;
     max-height: 240px;
     text-align: center;
     vertical-align: top;
     display: inline-block;
     transition: background .5s ease;
+    position: relative;
 }
 
 .slide-item .slider-list-item-delete {
@@ -139,6 +139,7 @@
 
 .slide-item h4 {
     font-weight: normal;
+    text-align: center;
 }
 
 .slide-item:hover {

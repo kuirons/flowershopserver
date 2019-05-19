@@ -660,15 +660,15 @@ var Carousel = {
     // 获取到的轮播图片列表
     list: {},
     // 请求url
-    add_url: '/banner/insert',
-    list_url: '/banner/allinfos',
-    delete_url: '/banner/deleteById',
+    add_url: url.slider.add,
+    list_url: url.slider.list,
+    delete_url: url.slider.delete,
     // 默认设置
     config: {
         interval: 4000, // 图片切换时间, 单位微秒
-        ratio: 16 / 9, // 图片长宽比
+        ratio: 21 / 9, // 图片长宽比
         height: 720, // 图片默认高度
-        width: 1280, // 图片默认宽度
+        width: 1680, // 图片默认宽度
         unit: 'px' // 单位
     },
     // 初始化方法

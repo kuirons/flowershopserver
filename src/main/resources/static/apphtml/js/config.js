@@ -18,9 +18,9 @@ var url = {
         delete: '/goodsitem/delete'
     },
     slider: {
-        add: '/banner/insert',
-        list: '/banner/allinfos',
-        delete: '/banner/deleteById'
+        add: baseUrl + '/banner/insert',
+        list: baseUrl + '/banner/allinfos',
+        delete: baseUrl + '/banner/deleteById'
     },
     category: {
         add: '/category/create',
