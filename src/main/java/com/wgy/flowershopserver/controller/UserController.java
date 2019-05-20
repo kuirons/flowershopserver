@@ -36,7 +36,8 @@ public class UserController {
       HttpServletRequest request, @RequestParam(value = "userinfo") String userinfo) {
     RegisterMessage result = new RegisterMessage();
     UserBean userBean = JsonUtil.getInstance().toObject(userinfo, UserBean.class);
-    if(userBean.getUserName().equals("admin")||userBean.getPassword().equals("admin")){
+    // 管理员直接代码焊死，不校验用户类型，前端默认用户类型为0
+    if (userBean.getUserName().equals("admin") || userBean.getPassword().equals("admin")) {
       result.setResult("success");
       return result;
     }
@@ -58,6 +59,7 @@ public class UserController {
     }
     request.getSession().setAttribute("userName", queryUser.getUserName());
     result.setResult("success");
+    result.setMessage(queryUser.getUserName());
     return result;
   }
 

@@ -167,9 +167,15 @@ $(document).ready(function () {
             shadeClose: true,
             yes: function (val, index) {
                 // todo 调用ajax创建新的分类
-
-
-                layer.close(index);
+                $.get(url.classify.add, {classinfos: jsonData}, function (response, status, xhr) {
+                    // 成功则回调更改原条目
+                    if (xhr.status == 200) {
+                        itemIpt.innerText = val;
+                    } else {
+                        layer.msg('插入失败!');
+                    }
+                    layer.close(index);
+                });
             }
         });
     });
