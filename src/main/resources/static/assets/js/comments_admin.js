@@ -253,68 +253,48 @@ $(document).ready(function () {
         shrinkToFit: true,
         rowNum: 20,
         rowList: [10, 20, 30],
-        colNames: ['序号', '日期', '客户', '金额', '运费', '总额', '备注'],
+        colNames: ['序号', '商品名称', '评论用户', '评论时间', '评论内容'],
         colModel: [
             {
+                key: true,
                 name: 'id',
-                index: 'id',
-                editable: true,
-                width: 60,
-                sorttype: "int",
-                search: true
+                search: true,
+                editable: false,
+                sorttype: 'int',
             },
             {
-                name: 'invdate',
-                index: 'invdate',
-                editable: true,
-                width: 90,
+                name: 'goodsId',
+                index: 'goodName',
+                editable: false
+                // formatter:
+            },
+            {
+                name: 'createUser',
+                index: 'createUser',
+                editable: false
+            },
+            {
+                name: 'createTime',
+                index: 'createTime',
+                editable: false,
                 sorttype: "date",
-                formatter: "date"
+                formatter: function (cellValue, options, rowObject) {
+                    var date = new Date(parseInt(cellValue));
+                    var dateStr = date.getFullYear() + '年' + date.getMonth() + '月' + date.getDate() + '日 ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+                    return dateStr;
+                }
             },
             {
-                name: 'name',
-                index: 'name',
+                name: 'comment',
+                index: 'comment',
                 editable: true,
-                width: 100
+                edittype: 'text'
             },
-            {
-                name: 'amount',
-                index: 'amount',
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float",
-                formatter: "number"
-            },
-            {
-                name: 'tax',
-                index: 'tax',
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float"
-            },
-            {
-                name: 'total',
-                index: 'total',
-                editable: true,
-                width: 80,
-                align: "right",
-                sorttype: "float"
-            },
-            {
-                name: 'note',
-                index: 'note',
-                editable: true,
-                width: 100,
-                sortable: false
-            }
         ],
         pager: "#paper-comments-list",
         viewrecords: true,
-        caption: "评论管理",
-        add: true,
-        edit: true,
+        add: false,
+        edit: false,
         addtext: 'Add',
         edittext: 'Edit',
         hidegrid: false
@@ -325,8 +305,8 @@ $(document).ready(function () {
 
     // Setup buttons
     $("#comments-list").jqGrid('navGrid', '#paper-comments-list', {
-        edit: true,
-        add: true,
+        edit: false,
+        add: false,
         del: true,
         search: true
     }, {
