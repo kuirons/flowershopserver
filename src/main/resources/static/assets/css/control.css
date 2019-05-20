@@ -199,6 +199,10 @@
     display: inline-block;
     vertical-align: middle;
 }
+.hidden-dom{
+    display: none;
+}
+
 #image-submit-btn, #image-crop-btn, #image-crop-get-base64 {
     color: white;
     background: #0099e9;

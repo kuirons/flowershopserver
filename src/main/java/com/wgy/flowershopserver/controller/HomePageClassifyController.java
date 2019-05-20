@@ -27,7 +27,7 @@ public class HomePageClassifyController {
   }
 
   @RequestMapping("/deleteById")
-  public void deleteById(@RequestParam(value = "bannerId") int id) {
+  public void deleteById(@RequestParam(value = "id") int id) {
     goodsInfoRCategoryService.deleteById(id);
   }
 

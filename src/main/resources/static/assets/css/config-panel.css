@@ -110,12 +110,13 @@
 
 .slide-item {
     width: auto;
+    min-width: 120px;
     max-height: 240px;
+    position: relative;
     text-align: center;
     vertical-align: top;
     display: inline-block;
     transition: background .5s ease;
-    position: relative;
 }
 
 .slide-item .slider-list-item-delete {

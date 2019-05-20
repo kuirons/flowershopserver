@@ -25,6 +25,7 @@ FlowerShop.Control.prototype.init = {
         if (imageUploadBtn === null || typeof imageUploadBtn === "undefined") {
             return false;
         }
+        var isCategory = imageUploadBtn.classList.contains('category-image-box');
         var imageUploadBox = topDocument.querySelector('.image-upload-box');
         var maxFileSize = imageUploadBtn.getAttribute('data-max-file-size') !== null ? (parseInt(imageUploadBtn.getAttribute('data-max-file-size')) / 1048576) : '2';
         var promptSize = '图片大小不得超过' + maxFileSize + 'MB';
@@ -111,7 +112,7 @@ FlowerShop.Control.prototype.init = {
                                         {
                                             nodeType: 'input',
                                             placeholder: '请输入图片名称',
-                                            class: 'upload-image-name-ipt'
+                                            class: (isCategory ? 'hidden-dom ' : '') + 'upload-image-name-ipt'
                                         },
                                         {
                                             nodeType: 'a',
@@ -331,78 +332,128 @@ FlowerShop.Control.prototype.listen = function () {
                 }
 
                 // 获取数据并插入.
-                if (!imgName.value) {
-                    layer.alert('请填写图片名称', {
-                        icon: 0,
-                        shadeClose: true,
-                        title: '警告'
-                    });
-                    return false;
-                }
-                var bannerInfo = {
-                    id: id,
-                    type: 0,
-                    imgUrl: '',
-                    name: imgName.value.trim()
-                };
-                var newFile = new File(
-                    [blob],
-                    file.name.trim(),
-                    {
-                        type: blob.type,
-                        lastModified: Date.now()
+                if (!imgName.classList.contains('hidden-dom')) {
+                    if (!imgName.value) {
+                        layer.alert('请填写图片名称', {
+                            icon: 0,
+                            shadeClose: true,
+                            title: '警告'
+                        });
+                        return false;
                     }
-                );
-                formData.append('file', newFile);
-                formData.append('bannerInfo', JSON.stringify(bannerInfo));
-
-                $.ajax({
-                    type: 'post',
-                    data: formData,
-                    url: atob(ajaxTarget),
-                    processData: false,
-                    contentType: false,
-                    complete: function (xhr, textStatus) {
-                        var status = xhr.status;
-                        var resData = xhr.responseText.length != 0 ? JSON.parse(xhr.responseText) : null;
-                        if (status == 200) {
-                            layer.alert('上传成功!',
-                                {
-                                    icon: 1,
-                                    shadeClose: true,
-                                    title: '成功'
-                                });
-
-                            // 实时刷新上传的图片
-                            // // 供应商banner
-                            // var vendor_banner = document.querySelector('#update_banner');
-                            // if (vendor_banner !== null && typeof vendor_banner !== "undefined") {
-                            //     vendor_banner.previousElementSibling.src = resData[1];
-                            // }
-                            // // 用户个人头像
-                            // var user_avatar = topDocument.querySelector('#mainframe');
-                            // if (user_avatar !== null && typeof user_avatar !== "undefined") {
-                            //     user_avatar.contentDocument.querySelector('#xmTanImg img').src = resData[1];
-                            // }
-
-                            // 关闭上传窗口
-                            var closeBtn = topDocument.querySelector('.close-upload-btn');
-                            if (closeBtn !== null && typeof closeBtn !== "undefined") {
-                                closeBtn.click();
-                            } else {
-                                topDocument.querySelector('#image-reset-btn').click();
-                                self.closeUpload();
-                            }
-                        } else {
-                            layer.alert('上传失败, 请重试或联系管理员',
-                                {
-                                    icon: 2,
-                                    shadeClose: true,
-                                    title: '错误'
-                                });
+                    var bannerInfo = {
+                        id: id,
+                        type: 0,
+                        imgUrl: '',
+                        name: imgName.value.trim()
+                    };
+                    var newFile = new File(
+                        [blob],
+                        file.name.trim(),
+                        {
+                            type: blob.type,
+                            lastModified: Date.now()
                         }
-                    }
-                });
+                    );
+                    formData.append('file', newFile);
+                    formData.append('bannerInfo', JSON.stringify(bannerInfo));
+
+                    $.ajax({
+                        type: 'post',
+                        data: formData,
+                        url: atob(ajaxTarget),
+                        processData: false,
+                        contentType: false,
+                        complete: function (xhr, textStatus) {
+                            var status = xhr.status;
+                            var resData = xhr.responseText.length != 0 ? JSON.parse(xhr.responseText) : null;
+                            if (status == 200) {
+                                layer.alert('上传成功!',
+                                    {
+                                        icon: 1,
+                                        shadeClose: true,
+                                        title: '成功'
+                                    });
+
+                                // todo - 实时刷新上传的图片
+
+
+                                // 关闭上传窗口
+                                var closeBtn = topDocument.querySelector('.close-upload-btn');
+                                if (closeBtn !== null && typeof closeBtn !== "undefined") {
+                                    closeBtn.click();
+                                } else {
+                                    topDocument.querySelector('#image-reset-btn').click();
+                                    self.closeUpload();
+                                }
+                            } else {
+                                layer.alert('上传失败, 请重试或联系管理员',
+                                    {
+                                        icon: 2,
+                                        shadeClose: true,
+                                        title: '错误'
+                                    });
+                            }
+                        }
+                    });
+                } else {
+                    // todo - 三张图上传
+                    // var bannerInfo = {
+                    //     id: id,
+                    //     type: 0,
+                    //     imgUrl: '',
+                    //     name: imgName.value.trim()
+                    // };
+                    // var newFile = new File(
+                    //     [blob],
+                    //     file.name.trim(),
+                    //     {
+                    //         type: blob.type,
+                    //         lastModified: Date.now()
+                    //     }
+                    // );
+                    // formData.append('file', newFile);
+                    // formData.append('bannerInfo', JSON.stringify(bannerInfo));
+                    //
+                    // $.ajax({
+                    //     type: 'post',
+                    //     data: formData,
+                    //     url: atob(ajaxTarget),
+                    //     processData: false,
+                    //     contentType: false,
+                    //     complete: function (xhr, textStatus) {
+                    //         var status = xhr.status;
+                    //         var resData = xhr.responseText.length != 0 ? JSON.parse(xhr.responseText) : null;
+                    //         if (status == 200) {
+                    //             layer.alert('上传成功!',
+                    //                 {
+                    //                     icon: 1,
+                    //                     shadeClose: true,
+                    //                     title: '成功'
+                    //                 });
+                    //
+                    //             // todo - 实时刷新上传的图片
+                    //
+                    //
+                    //             // 关闭上传窗口
+                    //             var closeBtn = topDocument.querySelector('.close-upload-btn');
+                    //             if (closeBtn !== null && typeof closeBtn !== "undefined") {
+                    //                 closeBtn.click();
+                    //             } else {
+                    //                 topDocument.querySelector('#image-reset-btn').click();
+                    //                 self.closeUpload();
+                    //             }
+                    //         } else {
+                    //             layer.alert('上传失败, 请重试或联系管理员',
+                    //                 {
+                    //                     icon: 2,
+                    //                     shadeClose: true,
+                    //                     title: '错误'
+                    //                 });
+                    //         }
+                    //     }
+                    // });
+                }
             });
         });
     }

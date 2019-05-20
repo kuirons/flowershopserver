@@ -58,12 +58,25 @@ $(document).ready(function () {
     });
     // todo 绑定删除事件
     $('.nav-list-box').on('click', '.nav-list-order-item-delete', function () {
+        var self = this;
         var orderItemsList = this.parentNode.parentNode;
+        var id = this.parentNode.getAttribute('data-list-id');
         var orderItems = orderItemsList.querySelector('.nav-list-order-item');
-        this.parentNode.parentNode.removeChild(this.parentNode);
-        for (var i = 0; i < orderItems.length; i++) {
-            orderItems[i].className = 'nav-list-item nav-list-order-item d-' + (i + 1);
-        }
+        $.get(url.classify.delete, {id: id}, function (respnose, status, xhr) {
+            if (xhr.status == 200) {
+                self.parentNode.parentNode.removeChild(self.parentNode);
+                for (var i = 0; i < orderItems.length; i++) {
+                    orderItems[i].className = 'nav-list-item nav-list-order-item d-' + (i + 1);
+                }
+            } else {
+                layer.alert('删除导航条目失败, 请重试',
+                    {
+                        icon: 0,
+                        title: '错误',
+                        shadeClose: tru
+                    });
+            }
+        });
     });
 
     // todo 绑定修改事件
@@ -100,7 +113,6 @@ $(document).ready(function () {
                 title: '编辑导航条目',
             }, function (val, index, element) {
                 var jsonData = JSON.stringify({id: 0, title: val});
-                // todo 调用ajax修改导航条目
                 $.get(url.classify.add, {classinfos: jsonData}, function (response, status, xhr) {
                     // 成功则回调更改原条目
                     if (xhr.status == 200) {
@@ -146,14 +158,13 @@ $(document).ready(function () {
                 Carousel.__init[key]();
             }
         }
-    },"json");
+    }, "json");
     // 删除轮播图片
     $('.slide-config-box').on('click', '.slider-list-item-delete', function () {
         var sliderItem = this.parentNode;
         var sliderId = this.parentNode.getAttribute('data-slider-id');
         $.get(Carousel.delete_url, {bannerId: sliderId}, function (data) {
             sliderItem.parentNode.removeChild(sliderItem);
-            console.log(data);
         });
     });
 
@@ -166,11 +177,10 @@ $(document).ready(function () {
             title: '新增分类',
             shadeClose: true,
             yes: function (val, index) {
-                // todo 调用ajax创建新的分类
+                var jsonData = JSON.stringify({id: 0, title: val});
                 $.get(url.classify.add, {classinfos: jsonData}, function (response, status, xhr) {
-                    // 成功则回调更改原条目
                     if (xhr.status == 200) {
-                        itemIpt.innerText = val;
+                        // window.location.reload();
                     } else {
                         layer.msg('插入失败!');
                     }

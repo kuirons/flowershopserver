@@ -5,7 +5,7 @@ $(document).ready(function () {
     $.jgrid.defaults.styleUI = 'Bootstrap';
     // 初始化选项
     var options = {
-        data: null,
+        data: [],
         rowNum: 20,
         height: 640,
         autowidth: true,
@@ -75,7 +75,6 @@ $(document).ready(function () {
         hidegrid: false
     };
     $.get(url.goods.list, function (response, status, xhr) {
-        // if (xhr.status == 200) {
         if (xhr.status == 500) response = [];
         options.data = response;
 
@@ -124,7 +123,6 @@ $(document).ready(function () {
             var width = $('.jqGrid_wrapper').width();
             $('#goods-list').setGridWidth(width);
         });
-        // }
     }, 'json');
 });
 
