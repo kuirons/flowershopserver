@@ -92,6 +92,16 @@ FlowerShop.Tools.prototype.getImage = function (target, callback) {
     }
 };
 
+/**
+* 获取DOM字符串中的原数据(需要特定DOM结构)
+*
+* @param rowData
+*/
+FlowerShop.Tools.prototype.getSource = function (cellValue) {
+    var dom = this.strToDom(cellValue);
+    return dom[0].getAttribute('data-source');
+};
+
 // 自定义
 function imgLoadFailed(image) {
     image.src = '../assets/img/404.png';

@@ -26,12 +26,6 @@ $(document).ready(function () {
         }
     }, 'json');
     $('.nav-list-order-item').arrangeable();
-    /*
-                        <li class="nav-list-item nav-list-order-item d-1" data-list-id="0">
-                            <i class="fa fa-close nav-list-order-item-delete"></i>
-                            <span>测试数据0</span>
-                        </li>
-    * */
 
     // 绑定添加事件
     $('.add-nav-item').on('click', function () {
@@ -56,7 +50,8 @@ $(document).ready(function () {
         var navItem = FlowerShop.Tools.prototype.createDom(navItemArgs)[0];
         this.parentNode.insertBefore(navItem, this);
     });
-    // todo 绑定删除事件
+
+    // 绑定删除事件
     $('.nav-list-box').on('click', '.nav-list-order-item-delete', function () {
         var self = this;
         var orderItemsList = this.parentNode.parentNode;
@@ -79,7 +74,7 @@ $(document).ready(function () {
         });
     });
 
-    // todo 绑定修改事件
+    // 绑定修改事件
     $('.nav-list-box').on('dblclick', '.nav-list-order-item', function () {
         var id = this.getAttribute('data-id');
         var itemIpt = this.querySelector('span');
@@ -168,25 +163,46 @@ $(document).ready(function () {
         });
     });
 
-    // 分类列表编辑
-    $('.category-select-box').selectpicker({});
+    // 分类列表初始化
+    var categoryOptionArgs = function () {
+        return {
+            value: '',
+            innerText: '',
+            nodeType: 'option'
+        }
+    };
+    $.get(url.category.list, function (response, status, xhr) {
+        if (response) {
+            var optionsArgs = [];
+            for (var i = 0; i < response.length; i++) {
+                var optionItem = new categoryOptionArgs();
+                optionItem.value = response[i].id;
+                optionItem.innerText = response[i].name;
+                optionsArgs[i] = optionItem;
+            }
+            var optionsDom = FlowerShop.Tools.prototype.createDom(optionsArgs);
+            for (var i = 0; i < optionsDom.length; i++) {
+                document.querySelector('.goods-config-box .category-select-box').appendChild(optionsDom[i]);
+            }
+            $('.category-select-box').selectpicker({});
+        }
+    }, "json");
 
     // 添加分类
     $('.add-category-item').click(function () {
         layer.prompt({
             title: '新增分类',
             shadeClose: true,
-            yes: function (val, index) {
-                var jsonData = JSON.stringify({id: 0, title: val});
-                $.get(url.classify.add, {classinfos: jsonData}, function (response, status, xhr) {
-                    if (xhr.status == 200) {
-                        // window.location.reload();
-                    } else {
-                        layer.msg('插入失败!');
-                    }
-                    layer.close(index);
-                });
-            }
+        }, function (val, index, element) {
+            var jsonData = JSON.stringify({id: 0, name: val});
+            $.get(url.category.add, {infosJosn: jsonData}, function (response, status, xhr) {
+                if (xhr.status == 200) {
+                    window.location.reload();
+                } else {
+                    layer.msg('插入失败!');
+                }
+                layer.close(index);
+            });
         });
     });
 });

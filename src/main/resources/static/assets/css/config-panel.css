@@ -224,6 +224,46 @@
     height: auto;
 }
 
+/* 添加表单 */
+.layer-form {
+    width: 95%;
+    height: 100%;
+    margin: 10px auto;
+    position: relative;
+}
+
+.layer-form .layer-form-item {
+    width: 100%;
+    display: block;
+    margin: 15px 0px;
+}
+
+.layer-form .layer-form-item input, .layer-form .layer-form-item select {
+    width: 50%;
+    height: 30px;
+    font-size: 14px;
+    text-indent: 0.5em;
+    font-weight: normal;
+    display: inline-block;
+    border: 1px solid #cecece;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.layer-form .layer-image-upload {
+    width: 100%;
+    height: 350px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px dashed #cecece;
+    background: url("../img/upload.png") center center no-repeat;
+}
+
+.layer-form .hidden-file-input {
+    display: none;
+}
+
 /* 商品信息 */
 #goods-form {
     width: 95%;
@@ -251,7 +291,7 @@
     border-radius: 5px;
 }
 
-#goods-form .goods-image-upload {
+#goods-form .goods-image-upload, #user-form .user-avatar-upload {
     width: 100%;
     height: 350px;
     cursor: pointer;
@@ -264,3 +304,8 @@
     display: none;
 }
 
+/* 用户表单 */
+#user-form .user-avatar-upload {
+    width: 128px;
+    height: 128px;
+}
