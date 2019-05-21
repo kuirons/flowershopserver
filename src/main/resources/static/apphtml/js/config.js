@@ -31,5 +31,9 @@ var url = {
         add: '/homepageclassify/insert',
         list: '/homepageclassify/allinfos',
         delete: '/homepageclassify/deleteById'
+    },
+    comment: {
+        delete: '/comment/delete',
+        list: '/comment/queryByVendor'
     }
 };
