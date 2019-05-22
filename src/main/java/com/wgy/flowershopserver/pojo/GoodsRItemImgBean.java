@@ -1,23 +1,23 @@
 package com.wgy.flowershopserver.pojo;
 
 public class GoodsRItemImgBean {
-  private int id;
-  private int goodsitemid;
+  private Integer id;
+  private Integer goodsitemid;
   private String imgurl;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public int getGoodsitemid() {
+  public Integer getGoodsitemid() {
     return goodsitemid;
   }
 
-  public void setGoodsitemid(int goodsitemid) {
+  public void setGoodsitemid(Integer goodsitemid) {
     this.goodsitemid = goodsitemid;
   }
 

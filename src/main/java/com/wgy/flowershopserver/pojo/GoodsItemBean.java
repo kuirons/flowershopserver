@@ -4,12 +4,12 @@ import java.util.List;
 
 /** 单个商品数据 */
 public class GoodsItemBean {
-  private int id;
+  private Integer id;
 
   /** 所属的类别 * */
-  private int categoryId;
+  private Integer categoryId;
   /** 主页类别，如果为-1表示不在首页展示 */
-  private int campaignId;
+  private Integer campaignId;
 
   private String name;
   private String imgUrl;
@@ -22,27 +22,27 @@ public class GoodsItemBean {
   /** 主页详细信息图片列表 */
   List<GoodsRItemImgBean> detailInfosImgUrl;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public int getCategoryId() {
+  public Integer getCategoryId() {
     return categoryId;
   }
 
-  public void setCategoryId(int categoryId) {
+  public void setCategoryId(Integer categoryId) {
     this.categoryId = categoryId;
   }
 
-  public int getCampaignId() {
+  public Integer getCampaignId() {
     return campaignId;
   }
 
-  public void setCampaignId(int campaignId) {
+  public void setCampaignId(Integer campaignId) {
     this.campaignId = campaignId;
   }
 
