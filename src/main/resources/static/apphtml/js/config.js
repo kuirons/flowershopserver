@@ -25,12 +25,17 @@ var url = {
     category: {
         add: '/category/create',
         list: '/category/allinfos',
-        delete: '/category/deletebyid'
+        delete: '/category/deletebyid',
     },
     classify: {
         add: '/homepageclassify/insert',
         list: '/homepageclassify/allinfos',
         delete: '/homepageclassify/deleteById'
+    },
+    classifyImage: {
+        add: '/goodsinfo/insert',
+        list: '/goodsinfo/allinfos',
+        delete: '/goodsinfo/deleteByBelong2Title'
     },
     comment: {
         delete: '/comment/delete',

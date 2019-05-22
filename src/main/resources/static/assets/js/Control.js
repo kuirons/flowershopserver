@@ -25,7 +25,6 @@ FlowerShop.Control.prototype.init = {
         if (imageUploadBtn === null || typeof imageUploadBtn === "undefined") {
             return false;
         }
-        var isCategory = imageUploadBtn.classList.contains('category-image-box');
         var imageUploadBox = topDocument.querySelector('.image-upload-box');
         var maxFileSize = imageUploadBtn.getAttribute('data-max-file-size') !== null ? (parseInt(imageUploadBtn.getAttribute('data-max-file-size')) / 1048576) : '2';
         var promptSize = '图片大小不得超过' + maxFileSize + 'MB';
@@ -112,7 +111,7 @@ FlowerShop.Control.prototype.init = {
                                         {
                                             nodeType: 'input',
                                             placeholder: '请输入图片名称',
-                                            class: (isCategory ? 'hidden-dom ' : '') + 'upload-image-name-ipt'
+                                            class: 'upload-image-name-ipt'
                                         },
                                         {
                                             nodeType: 'a',
@@ -160,15 +159,21 @@ FlowerShop.Control.prototype.initData = {
 
 FlowerShop.Control.prototype.listen = function () {
     var self = this;
+    var clickDom = null;
     var topDocument = window.top.document;
 
     $(document).off('click', '.image-upload').on('click', '.image-upload', function () {
+        clickDom = this;
+        var isCategory = this.classList.contains('category-image-poster');
         var uploadBox = topDocument.querySelector('#image-upload-box');
         if (!uploadBox) {
             self.init.ImageUploadControlDom();
             uploadBox = topDocument.querySelector('#image-upload-box');
         }
-        if (uploadBox !== null && typeof uploadBox !== "undefined" && uploadBox.classList.contains('upload-box-open')) {
+        if (isCategory) {
+            uploadBox.querySelector('.upload-image-name-ipt').classList.add('hidden-dom');
+        }
+        if (uploadBox && uploadBox.classList.contains('upload-box-open')) {
             self.closeUpload();
         } else {
             self.openUpload();
@@ -187,7 +192,6 @@ FlowerShop.Control.prototype.listen = function () {
             var img = this.files[0];
             var imgObject = window.URL.createObjectURL(img);
             var $image = $('.upload-image-crop-box .crop-view-image');
-
 
             // 判断图像的格式是否符合要求
             var uploadBoxBtn = document.querySelector('.image-upload');
@@ -397,62 +401,17 @@ FlowerShop.Control.prototype.listen = function () {
                         }
                     });
                 } else {
-                    // todo - 三张图上传
-                    // var bannerInfo = {
-                    //     id: id,
-                    //     type: 0,
-                    //     imgUrl: '',
-                    //     name: imgName.value.trim()
-                    // };
-                    // var newFile = new File(
-                    //     [blob],
-                    //     file.name.trim(),
-                    //     {
-                    //         type: blob.type,
-                    //         lastModified: Date.now()
-                    //     }
-                    // );
-                    // formData.append('file', newFile);
-                    // formData.append('bannerInfo', JSON.stringify(bannerInfo));
-                    //
-                    // $.ajax({
-                    //     type: 'post',
-                    //     data: formData,
-                    //     url: atob(ajaxTarget),
-                    //     processData: false,
-                    //     contentType: false,
-                    //     complete: function (xhr, textStatus) {
-                    //         var status = xhr.status;
-                    //         var resData = xhr.responseText.length != 0 ? JSON.parse(xhr.responseText) : null;
-                    //         if (status == 200) {
-                    //             layer.alert('上传成功!',
-                    //                 {
-                    //                     icon: 1,
-                    //                     shadeClose: true,
-                    //                     title: '成功'
-                    //                 });
-                    //
-                    //             // todo - 实时刷新上传的图片
-                    //
-                    //
-                    //             // 关闭上传窗口
-                    //             var closeBtn = topDocument.querySelector('.close-upload-btn');
-                    //             if (closeBtn !== null && typeof closeBtn !== "undefined") {
-                    //                 closeBtn.click();
-                    //             } else {
-                    //                 topDocument.querySelector('#image-reset-btn').click();
-                    //                 self.closeUpload();
-                    //             }
-                    //         } else {
-                    //             layer.alert('上传失败, 请重试或联系管理员',
-                    //                 {
-                    //                     icon: 2,
-                    //                     shadeClose: true,
-                    //                     title: '错误'
-                    //                 });
-                    //         }
-                    //     }
-                    // });
+                    var imageDom = clickDom.querySelector('img');
+                    imageDom.src = window.URL.createObjectURL(blob);
+                    clickDom.setAttribute('imgBase64', cas.toDataURL('image/png'));
+                    // 关闭上传窗口
+                    var closeBtn = topDocument.querySelector('.close-upload-btn');
+                    if (closeBtn !== null && typeof closeBtn !== "undefined") {
+                        closeBtn.click();
+                    } else {
+                        topDocument.querySelector('#image-reset-btn').click();
+                        self.closeUpload();
+                    }
                 }
             });
         });

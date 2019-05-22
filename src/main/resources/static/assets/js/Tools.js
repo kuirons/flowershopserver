@@ -93,13 +93,50 @@ FlowerShop.Tools.prototype.getImage = function (target, callback) {
 };
 
 /**
-* 获取DOM字符串中的原数据(需要特定DOM结构)
-*
-* @param rowData
-*/
+ * 获取DOM字符串中的原数据(需要特定DOM结构)
+ *
+ * @param rowData
+ */
 FlowerShop.Tools.prototype.getSource = function (cellValue) {
     var dom = this.strToDom(cellValue);
     return dom[0].getAttribute('data-source');
+};
+
+/**
+ * 将Base64转换为Blob对象
+ *
+ * @param dataUrl
+ * @returns {Blob}
+ */
+FlowerShop.Tools.prototype.dataURLtoBlob = function (dataUrl) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type: mime});
+};
+
+/**
+ * 将Blob对象转换为File对象
+ *
+ * @param theBlob
+ * @param fileName
+ * @returns File
+ */
+FlowerShop.Tools.prototype.blobToFile = function (blob) {
+    var newFile = new File(
+        [blob],
+        blob.name.trim(),
+        {
+            type: blob.type,
+            lastModified: Date.now()
+        }
+    );
+    return newFile;
 };
 
 // 自定义

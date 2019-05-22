@@ -171,22 +171,58 @@ $(document).ready(function () {
             nodeType: 'option'
         }
     };
-    $.get(url.category.list, function (response, status, xhr) {
+    $.get(url.classify.list, function (response) {
         if (response) {
             var optionsArgs = [];
+            var imagesArray = {};
             for (var i = 0; i < response.length; i++) {
                 var optionItem = new categoryOptionArgs();
                 optionItem.value = response[i].id;
-                optionItem.innerText = response[i].name;
+                optionItem.innerText = response[i].title;
                 optionsArgs[i] = optionItem;
+                imagesArray[response[i].title] = [];
             }
+            // 创建DOM
             var optionsDom = FlowerShop.Tools.prototype.createDom(optionsArgs);
             for (var i = 0; i < optionsDom.length; i++) {
                 document.querySelector('.goods-config-box .category-select-box').appendChild(optionsDom[i]);
             }
-            $('.category-select-box').selectpicker({});
+            // 获取类别图片信息并将信息存储到相应DOM上.
+            $.get(url.classifyImage.list, function (imageInfos) {
+                var choiceClassifyImgs = imagesArray[response[0].title];
+                var imagesDom = document.querySelectorAll('.category-edit-box img');
+                for (var j = 0; j < imageInfos.length; j++) {
+                    imagesArray[imageInfos[j].belong2Title].push({title: imageInfos[j].title, image: imageInfos[j].imgUrl});
+                }
+                document.querySelector('.goods-config-box .category-select-box').setAttribute('data-images-info', JSON.stringify(imagesArray));
+                for (var imgIndex = 0; imgIndex < imagesDom.length; imgIndex++) {
+                    if (choiceClassifyImgs.length != 0) {
+                        imagesDom[imgIndex].src = choiceClassifyImgs[imgIndex].image;
+                        imagesDom[imgIndex].title = choiceClassifyImgs[imgIndex].title;
+                    } else {
+                        imagesDom[imgIndex].src = '../assets/img/upload.png';
+                    }
+                }
+                $('.category-select-box').selectpicker({});
+            }, 'json');
         }
     }, "json");
+
+    // 分类改变触发内容的改变
+    $('.category-select-box').change(function () {
+        var title = this.options[this.selectedIndex].text;
+        var imagesDom = document.querySelectorAll('.category-edit-box img');
+        var choiceClassifyImages = JSON.parse(this.getAttribute('data-images-info'))[title];
+        for (var imgIndex = 0; imgIndex < imagesDom.length; imgIndex++) {
+            if (choiceClassifyImages.length != 0) {
+                imagesDom[imgIndex].src = choiceClassifyImages[imgIndex].image;
+                imagesDom[imgIndex].title = choiceClassifyImages[imgIndex].title;
+            } else {
+                imagesDom[imgIndex].src = '../assets/img/upload.png';
+            }
+            imagesDom[imgIndex].removeAttribute('data-image-base64');
+        }
+    });
 
     // 添加分类
     $('.add-category-item').click(function () {
@@ -194,8 +230,8 @@ $(document).ready(function () {
             title: '新增分类',
             shadeClose: true,
         }, function (val, index, element) {
-            var jsonData = JSON.stringify({id: 0, name: val});
-            $.get(url.category.add, {infosJosn: jsonData}, function (response, status, xhr) {
+            var jsonData = JSON.stringify({id: 0, title: val});
+            $.get(url.classify.add, {classinfos: jsonData}, function (response, status, xhr) {
                 if (xhr.status == 200) {
                     window.location.reload();
                 } else {
@@ -205,6 +241,17 @@ $(document).ready(function () {
             });
         });
     });
+
+    // 分类图片上传
+    $('.save-category-item').click(function () {
+        var choiceCategory = document.querySelector('.category-select-box');
+    });
+
+    // 删除当前整个分类
+    $('.delete-category-item').click(function () {
+        var choiceCategory = document.querySelector('.category-select-box');
+    });
+
 });
 
 // 首页导航调整.
