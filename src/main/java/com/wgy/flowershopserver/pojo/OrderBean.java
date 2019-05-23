@@ -1,7 +1,7 @@
 package com.wgy.flowershopserver.pojo;
 
 public class OrderBean {
-  private int id;
+  private Integer id;
   private String userName;
   // 这里直接存json，避免另起一张表
   private String items;
@@ -10,7 +10,7 @@ public class OrderBean {
   private String address;
   // 置空
   private String createTime = "";
-  private int amount;
+  private Integer amount;
   // 1成功，-2失败，0，订单完成
   private String status;
   // 库存信息，默认字段，置空
@@ -25,11 +25,11 @@ public class OrderBean {
     this.deliveryStatus = deliveryStatus;
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -73,11 +73,11 @@ public class OrderBean {
     this.createTime = createTime;
   }
 
-  public int getAmount() {
+  public Integer getAmount() {
     return amount;
   }
 
-  public void setAmount(int amount) {
+  public void setAmount(Integer amount) {
     this.amount = amount;
   }
 

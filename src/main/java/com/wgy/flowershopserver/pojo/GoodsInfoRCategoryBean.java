@@ -2,14 +2,14 @@ package com.wgy.flowershopserver.pojo;
 
 /** 这个表是用来维护首页分类和title关系的 */
 public class GoodsInfoRCategoryBean {
-  private int id;
+  private Integer id;
   private String title;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

@@ -5,19 +5,19 @@ import com.wgy.flowershopserver.utils.JsonUtil;
 /** 首页轮播图bean */
 public class BannerBean {
   /** id 自增 */
-  private int id;
+  private Integer id;
   /** 名称 */
   private String name;
   /** 图片地址 */
   private String imgUrl;
 
-  private int type;
+  private Integer type;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -33,11 +33,11 @@ public class BannerBean {
     return imgUrl;
   }
 
-  public int getType() {
+  public Integer getType() {
     return type;
   }
 
-  public void setType(int type) {
+  public void setType(Integer type) {
     this.type = type;
   }
 

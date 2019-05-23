@@ -2,28 +2,28 @@ package com.wgy.flowershopserver.pojo;
 
 public class OrderRVendorBean {
   // 这里没有记录时间字段，对于订单来说时间字段是很重要的一个字段，也是复杂功能必须的一个字段
-  private int id;
-  private int orderId;
+  private Integer id;
+  private Integer orderId;
   private String vendor;
-  private int status = -1;
+  private Integer status = -1;
   private String buyUser;
   private String address;
-  private int amount;
+  private Integer amount;
   private String payChannel;
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public int getOrderId() {
+  public Integer getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(int orderId) {
+  public void setOrderId(Integer orderId) {
     this.orderId = orderId;
   }
 
@@ -35,11 +35,11 @@ public class OrderRVendorBean {
     this.vendor = vendor;
   }
 
-  public int getStatus() {
+  public Integer getStatus() {
     return status;
   }
 
-  public void setStatus(int status) {
+  public void setStatus(Integer status) {
     this.status = status;
   }
 
@@ -59,11 +59,11 @@ public class OrderRVendorBean {
     this.address = address;
   }
 
-  public int getAmount() {
+  public Integer getAmount() {
     return amount;
   }
 
-  public void setAmount(int amount) {
+  public void setAmount(Integer amount) {
     this.amount = amount;
   }
 

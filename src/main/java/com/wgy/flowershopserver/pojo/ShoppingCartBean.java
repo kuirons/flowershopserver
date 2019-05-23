@@ -3,14 +3,14 @@ package com.wgy.flowershopserver.pojo;
 /** Describe: 购物车商品信息.数据来源于商品数据.但多了数量、是否选中两个 属性 */
 public class ShoppingCartBean extends GoodsItemBean {
 
-  private int count;
+  private Integer count;
   private boolean isChecked = true;
 
-  public int getCount() {
+  public Integer getCount() {
     return count;
   }
 
-  public void setCount(int count) {
+  public void setCount(Integer count) {
     this.count = count;
   }
 

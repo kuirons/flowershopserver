@@ -1,23 +1,23 @@
 package com.wgy.flowershopserver.pojo;
 
 public class WareItemBean {
-  private int wareId;
+  private Integer wareId;
   // 数量
-  private int amount;
+  private Integer amount;
 
-  public int getWareId() {
+  public Integer getWareId() {
     return wareId;
   }
 
-  public void setWareId(int wareId) {
+  public void setWareId(Integer wareId) {
     this.wareId = wareId;
   }
 
-  public int getAmount() {
+  public Integer getAmount() {
     return amount;
   }
 
-  public void setAmount(int amount) {
+  public void setAmount(Integer amount) {
     this.amount = amount;
   }
 }

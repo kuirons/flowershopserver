@@ -8,9 +8,9 @@ public class UserBean {
   /** 一般来说密码是要非对称加密的 */
   private String password;
   /** 用户类型 1.普通用户 2.卖家 */
-  private int type;
+  private Integer type;
   // 模拟货币
-  private int money = 10000;
+  private Integer money = 10000;
 
   private String logo_url;
 
@@ -38,19 +38,19 @@ public class UserBean {
     this.password = password;
   }
 
-  public int getType() {
+  public Integer getType() {
     return type;
   }
 
-  public void setType(int type) {
+  public void setType(Integer type) {
     this.type = type;
   }
 
-  public int getMoney() {
+  public Integer getMoney() {
     return money;
   }
 
-  public void setMoney(int money) {
+  public void setMoney(Integer money) {
     this.money = money;
   }
 
