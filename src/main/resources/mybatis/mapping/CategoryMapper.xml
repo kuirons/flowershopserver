@@ -25,4 +25,9 @@
     <select id="selectAll" resultMap="AllInfoResultMap">
         select * from category
     </select>
+
+    <select id="selectById" resultMap="AllInfoResultMap">
+        select * from category
+        where id=#{id}
+    </select>
 </mapper>

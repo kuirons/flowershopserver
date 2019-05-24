@@ -31,4 +31,9 @@ public class CategoryServiceImpl implements CategoryService {
   public void deleteById(int id) {
     categoryMapper.deleteById(id);
   }
+
+  @Override
+  public List<CategoryBean> selectById(int id) {
+    return categoryMapper.selectById(id);
+  }
 }

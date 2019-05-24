@@ -12,4 +12,6 @@ public interface CategoryService {
   void baseInsert(CategoryBean categoryBean);
 
   void deleteById(int id);
+
+  List<CategoryBean> selectById(int id);
 }

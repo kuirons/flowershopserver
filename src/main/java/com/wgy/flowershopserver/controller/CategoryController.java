@@ -35,4 +35,9 @@ public class CategoryController {
     CategoryBean categoryBean = JsonUtil.getInstance().toObject(infosJson, CategoryBean.class);
     categoryService.baseInsert(categoryBean);
   }
+
+  @RequestMapping("/queryById")
+  public List<CategoryBean> queryById(int id) {
+    return categoryService.selectById(id);
+  }
 }

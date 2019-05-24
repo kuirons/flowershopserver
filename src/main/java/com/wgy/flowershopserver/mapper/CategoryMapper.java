@@ -16,4 +16,6 @@ public interface CategoryMapper {
   void deleteAll();
 
   void deleteById(int id);
+
+  List<CategoryBean> selectById(int id);
 }
