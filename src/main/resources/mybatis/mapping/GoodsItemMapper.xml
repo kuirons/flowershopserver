@@ -13,8 +13,8 @@
         <result column="vendor" property="vendor" jdbcType="VARCHAR"/>
         <collection property="detailInfosImgUrl" ofType="GoodsRItemImgBean" javaType="list">
             <id column="iid" property="id" jdbcType="INTEGER"/>
-            <id column="goodsitemid" property="goodsItemId" jdbcType="INTEGER"/>
-            <id column="iimgurl" property="imgUrl" jdbcType="VARCHAR"/>
+            <id column="goodsitemid" property="goodsitemid" jdbcType="INTEGER"/>
+            <id column="iimgurl" property="imgurl" jdbcType="VARCHAR"/>
         </collection>
     </resultMap>
 
