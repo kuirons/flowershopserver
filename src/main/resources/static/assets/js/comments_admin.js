@@ -79,13 +79,13 @@ $(document).ready(function () {
             reloadAfterSubmit: true
         });
 
-        $("#comments-list").navButtonAdd('#paper-comments-list', {
-            caption: '',
-            title: '删除',
-            position: 'first',
-            buttonicon: 'glyphicon glyphicon-trash',
-            onClickButton: deleteComment,
-        });
+        // $("#comments-list").navButtonAdd('#paper-comments-list', {
+        //     caption: '',
+        //     title: '删除',
+        //     position: 'first',
+        //     buttonicon: 'glyphicon glyphicon-trash',
+        //     onClickButton: deleteComment,
+        // });
 
         // Add responsive to jqGrid
         $(window).bind('resize', function () {
@@ -96,6 +96,6 @@ $(document).ready(function () {
 });
 
 
-function deleteComment () {
-    return false
-}
+// function deleteComment () {
+//     return false
+// }

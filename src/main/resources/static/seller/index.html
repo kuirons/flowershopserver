@@ -25,17 +25,16 @@
     <link rel="stylesheet" href="../assets/css/popup.css">
     <link rel="stylesheet" href="../assets/css/modal.css">
     <link rel="stylesheet" href="../assets/css/control.css">
-    <!--<script>
-        // 先注释
-        // let cookie = document.cookie;
-        // if (cookie.indexOf('userType') < 0) {
-        //     alert('请先登录.');
-        //     window.location.href = '../index.html';
-        // } else if (cookie.indexOf('userType=admin') < 0) {
-        //     alert('即将跳转到卖家页面.');
-        //     window.location.href = '../seller/index.html';
-        // }
-    </script>-->
+    <script>
+        let cookie = document.cookie;
+        if (cookie.indexOf('userType') < 0) {
+            alert('请先登录.');
+            window.location.href = '../index.html';
+        } else if (cookie.indexOf('userType=seller') < 0) {
+            alert('即将跳转到管理员页面');
+            window.location.href = '../admin/index.html';
+        }
+    </script>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -201,18 +200,18 @@
     <script src="../assets/js/plugin/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="../assets/js/plugin/layer/layer.min.js"></script>
 
-<!-- 自定义js -->
-<script src="../apphtml/js/config.js"></script>
-<script src="../assets/js/admin.js?v=4.1.0"></script>
-<script type="text/javascript" src="../assets/js/index.js"></script>
+    <!-- 自定义js -->
+    <script src="../apphtml/js/config.js"></script>
+    <script src="../assets/js/admin.js?v=4.1.0"></script>
+    <script type="text/javascript" src="../assets/js/index.js"></script>
 
-<!-- 第三方插件 -->
-<script src="../assets/js/plugin/pace/pace.min.js"></script>
-<script src="../assets/js/app.js"></script>
-<script src="../assets/js/Bootstrap.js"></script>
-<script src="../assets/js/Control.js"></script>
-<script src="../assets/js/Modal.js"></script>
-<script src="../assets/js/Tools.js"></script>
+    <!-- 第三方插件 -->
+    <script src="../assets/js/plugin/pace/pace.min.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/Bootstrap.js"></script>
+    <script src="../assets/js/Control.js"></script>
+    <script src="../assets/js/Modal.js"></script>
+    <script src="../assets/js/Tools.js"></script>
 </body>
 
 </html>

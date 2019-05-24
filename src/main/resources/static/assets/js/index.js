@@ -93,16 +93,20 @@ $(function () {
                 dataType: 'json',
                 success: function (response, status, xhr) {
                     if (xhr.status == 200 && response.result != 'failed') {
+                        var cookie = 'userType=';
                         switch (loginType) {
                             case 0:
+                                cookie += 'admin';
                                 window.location.href = '/admin/index.html';
                                 break;
                             case 2:
+                                cookie += 'seller';
                                 window.location.href = '/seller/index.html';
                                 break;
                             default:
                                 break;
                         }
+                        document.cookie = cookie;
                     } else {
                         layer.alert(response.message,
                             {

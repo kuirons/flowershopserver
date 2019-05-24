@@ -12,10 +12,12 @@ var url = {
         delete: '/ffsuser/deleteUserByName',
     },
     goods: {
-        add: '/goodsitem/create',
         edit: '/goodsitem/',
+        add: '/goodsitem/create',
+        delete: '/goodsitem/delete',
+        update: '/goodsitem/update',
+        info: '/goodsitem/queryById',
         list: '/goodsitem/selectByVendor',
-        delete: '/goodsitem/delete'
     },
     slider: {
         add: baseUrl + '/banner/insert',
@@ -25,6 +27,7 @@ var url = {
     category: {
         add: '/category/create',
         list: '/category/allinfos',
+        info: '/category/queryById',
         delete: '/category/deletebyid',
     },
     classify: {

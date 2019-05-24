@@ -99,7 +99,12 @@ FlowerShop.Tools.prototype.getImage = function (target, callback) {
  */
 FlowerShop.Tools.prototype.getSource = function (cellValue) {
     var dom = this.strToDom(cellValue);
-    return dom[0].getAttribute('data-source');
+    if (dom) {
+        return dom[0].getAttribute('data-source');
+    } else {
+        return null;
+    }
+    // return $(cellValue).attr('data-source');
 };
 
 /**
@@ -143,4 +148,26 @@ FlowerShop.Tools.prototype.blobToFile = function (blob) {
 function imgLoadFailed(image) {
     image.src = '../assets/img/404.png';
     image.parentNode.classList.add('fadeInDown');
+}
+
+function layerImage (image, rowData) {
+    if (image.src.indexOf(404) >= 0) {
+        return false;
+    }
+    layer.photos({
+        anim: 5, //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        photos: {
+            "start": 0,
+            "id": rowData.id,
+            "title": rowData.name,
+            "data": [
+                {
+                    "src": rowData.imgUrl,
+                    "thumb": rowData.imgUrl,
+                    "pid": 'img_' + rowData.id,
+                    "alt": 'img_' + rowData.name,
+                }
+            ]
+        }
+    });
 }

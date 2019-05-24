@@ -17,31 +17,37 @@ $(document).ready(function () {
             {
                 key: true,
                 name: 'id',
+                index: 'id',
                 search: true,
                 editable: false,
                 sorttype: 'int',
+                formatter: function (cellValue, options, rowObject) {
+                    return '<span data-source="' + cellValue + '">' + options.rowId + '</span>';
+                }
             },
             {
+                search: false,
                 name: 'imgUrl',
                 editable: true,
+                sortable: false,
                 edittype: 'file',
                 editoptions: {enctype: 'multipart/form-data'},
                 index: 'previewImg',
                 formatter: function (cellValue, options, rowObject) {
-                    return '<img src="' + cellValue + '" class="good-preview-image" onerror="imgLoadFailed(this)">';
+                    return '<img src="' + cellValue + '" class="good-preview-image" onerror="imgLoadFailed(this)" onclick=\'layerImage(this, ' + JSON.stringify(rowObject) + ')\'>';
                 }
             },
             {
-                name: 'title',
-                index: 'title',
+                name: 'name',
+                index: 'name',
                 editable: true,
                 edittype: 'text',
                 editrules: {
                     required: true
-                },
-                formatter: function (cellValue, options, rowObject) {
-                    return '<a target="_blank" href="./good_info.html?id=' + rowObject.id + '">' + cellValue + '</a>';
                 }
+                // formatter: function (cellValue, options, rowObject) {
+                //     return '<a target="_blank" href="./good_info.html?id=' + rowObject.id + '">' + cellValue + '</a>';
+                // }
             },
             {
                 name: 'price',
@@ -58,12 +64,21 @@ $(document).ready(function () {
             {
                 align: "left",
                 editable: true,
-                name: 'category',
-                index: 'categoryid',
-                // formatter: function (cellValue, options, rowObject) {
-                //     $.get(url.category.);
-                //     return '<a target="_blank" href="./good_info.html?id=' + rowObject.id + '">' + cellValue + '</a>';
-                // }
+                name: 'categoryId',
+                index: 'categoryId',
+                formatter: function (cellValue, options, rowObject) {
+                    var name = '';
+                    $.ajax({
+                        type: 'get',
+                        async: false,
+                        data: {id: cellValue},
+                        url: url.category.info,
+                        success: function (response, status, xhr) {
+                            name = response[0].name;
+                        }
+                    });
+                    return name;
+                }
             }
         ],
         pager: "#paper-goods-list",
@@ -138,12 +153,12 @@ function showAddGoods() {
         skin: 'add-goods-box',
         btn: ['发布', '重置'],
         yes: function (index, box) {
-            var sale = 0;
-            var price = 0;
             var itemImage = null;
             var infoImage = null;
             var title = box.find('#title input').val();
             var classify = box.find('#classify select').val();
+            var sale = box.find('#sale input').val() ? box.find('#sale input').val() : 0;
+            var price = box.find('#price input').val() ? box.find('#price input').val() : 0;
             if (box.find('#hidden-file-input').length != 0 && box.find('#hidden-file-input')[0].files.length != 0) {
                 itemImage = box.find('#hidden-file-input')[0].files[0];
             }
@@ -163,7 +178,7 @@ function showAddGoods() {
                     price: price,
                     campaignId: 0,
                     categoryId: classify,
-                    detailInfosImgUrl: '[]'
+                    detailInfosImgUrl: []
                 })
             };
             formData.append('detailsInfos', infoImage);
@@ -182,10 +197,12 @@ function showAddGoods() {
                         layer.alert('上传成功!',
                             {
                                 icon: 1,
+                                title: '成功',
                                 shadeClose: true,
-                                title: '成功'
+                                yes: function () {
+                                    window.location.reload();
+                                }
                             });
-                        window.location.reload();
                     } else {
                         layer.alert('上传失败, 请重试或联系管理员',
                             {
@@ -211,13 +228,13 @@ function showAddGoods() {
                 type: 'GET',
                 async: false,
                 dataType: 'json',
-                url: url.classify.list,
+                url: url.category.list,
                 success: function (response, status, xhr) {
                     if (xhr.status == 200) {
                         for (var i = 0; i < response.length; i++) {
                             var optionItem = classifyArgs();
                             optionItem.value = response[i].id;
-                            optionItem.innerText = response[i].title;
+                            optionItem.innerText = response[i].name;
                             box.find('#classify select').append($(FlowerShop.Tools.prototype.createDom({optionItem})[0]));
                         }
                     } else {
@@ -329,67 +346,94 @@ function showAddGoods() {
 
 function showEditGoods() {
     // 获取当前选中的行
-    var gr = $("#goods-list").jqGrid('getGridParam', 'selrow');
-    debugger;
+    var rowId = $('#goods-list').jqGrid('getGridParam', 'selrow');
+    if (!rowId) {
+        layer.alert('未选择商品',
+            {
+                icon: 0,
+                shadeClose: true,
+                title: '警告'
+            });
+        return false;
+    }
 
     layer.closeAll();
     layer.open({
         type: 1,
         shadeClose: true,
-        title: '添加新商品',
+        title: '更新商品',
         skin: 'add-goods-box',
-        btn: ['发布', '重置'],
+        btn: ['更新', '重置'],
         yes: function (index, box) {
-            var sale = 0;
-            var price = 0;
             var itemImage = null;
             var infoImage = null;
+            var sale = box.find('#sale input').val();
+            var price = box.find('#price input').val();
             var title = box.find('#title input').val();
             var classify = box.find('#classify select').val();
+            var goodsInfo = JSON.parse(box.attr('data-info'));
             if (box.find('#hidden-file-input').length != 0 && box.find('#hidden-file-input')[0].files.length != 0) {
                 itemImage = box.find('#hidden-file-input')[0].files[0];
             }
             if (box.find('#info-hidden-file-input').length != 0 && box.find('#info-hidden-file-input')[0].files.length != 0) {
                 infoImage = box.find('#info-hidden-file-input')[0].files;
             }
+            // 后端没做过滤,所以需要检验数据.
+            if (!infoImage && !infoImage) {
+                layer.alert('请选择需要更新的图片',
+                    {
+                        icon: 2,
+                        shadeClose: true,
+                        title: '错误'
+                    });
+                return false;
+            }
 
             // 组合数据
             var formData = new FormData();
             var jsonValue = {
                 goodsItemInfoJson: JSON.stringify({
-                    id: 0,
                     imgUrl: '',
-                    vendor: '',
                     sale: sale,
                     name: title,
                     price: price,
-                    campaignId: 0,
+                    id: goodsInfo.id,
                     categoryId: classify,
-                    detailInfosImgUrl: '[]'
+                    vendor: goodsInfo.vendor,
+                    campaignId: goodsInfo.campaignId,
+                    detailInfosImgUrl: [
+                        {
+                            id: 0,
+                            imgurl: '',
+                            goodsitemid: goodsInfo.id,
+                        }
+                    ]
                 })
             };
             formData.append('detailsInfos', infoImage);
             formData.append('goodsitemfile', itemImage);
-            formData.append('goodsItemInfoJson', jsonValue.goodsItemInfoJson);
+            formData.append('itemjson', jsonValue.goodsItemInfoJson);
             $.ajax({
                 type: 'post',
                 data: formData,
-                url: url.goods.add,
+                url: url.goods.update,
                 processData: false,
                 contentType: false,
                 complete: function (xhr, textStatus) {
                     var status = xhr.status;
                     var resData = xhr.responseText.length != 0 ? JSON.parse(xhr.responseText) : null;
                     if (status == 200) {
-                        layer.alert('上传成功!',
+                        layer.alert('更新成功!',
                             {
                                 icon: 1,
+                                title: '成功',
                                 shadeClose: true,
-                                title: '成功'
+                                yes: function () {
+                                    window.location.reload();
+                                }
                             });
-                        window.location.reload();
                     } else {
-                        layer.alert('上传失败, 请重试或联系管理员',
+                        layer.alert('更新失败, 请重试或联系管理员',
                             {
                                 icon: 2,
                                 shadeClose: true,
@@ -407,19 +451,39 @@ function showEditGoods() {
         area: ['800px', '600px'],
         success: function (box, index) {
             // 初始化创建表单
+            var goodsInfo = {};
+            var rowData = $("#goods-list").jqGrid('getRowData', rowId);
+            var goodsId = FlowerShop.Tools.prototype.getSource(rowData.id);
+            $.ajax({
+                type: 'GET',
+                async: false,
+                dataType: 'json',
+                url: url.goods.info,
+                data: {id: goodsId},
+                success: function (response, status, xhr) {
+                    if (xhr.status == 200) {
+                        if (response) {
+                            goodsInfo = response;
+                        }
+                    } else {
+                        layer.msg('数据获取错误, 请刷新重试');
+                        return false;
+                    }
+                }
+            });
 
             // 初始化类别选择
             $.ajax({
                 type: 'GET',
                 async: false,
                 dataType: 'json',
-                url: url.classify.list,
+                url: url.category.list,
                 success: function (response, status, xhr) {
                     if (xhr.status == 200) {
                         for (var i = 0; i < response.length; i++) {
                             var optionItem = classifyArgs();
                             optionItem.value = response[i].id;
-                            optionItem.innerText = response[i].title;
+                            optionItem.innerText = response[i].name;
                             box.find('#classify select').append($(FlowerShop.Tools.prototype.createDom({optionItem})[0]));
                         }
                     } else {
@@ -430,7 +494,12 @@ function showEditGoods() {
                     layer.msg('error: ' + textStatus);
                 }
             });
-            box.find('#classify select').selectpicker({});
+            // 初始化用户信息
+            box.find('#sale input').val(goodsInfo.sale);
+            box.find('#title input').val(goodsInfo.name);
+            box.find('#price input').val(goodsInfo.price);
+            box.attr('data-info', JSON.stringify(goodsInfo));
+            box.find('#classify select').selectpicker('val', goodsInfo.categoryId);
 
             // 绑定选择图片事件
             box.find('#goods-form .goods-image-upload').click(function () {
@@ -528,8 +597,39 @@ function showEditGoods() {
     });
 }
 
-function deleteGoods () {
-    return false;
+function deleteGoods() {
+    // 获取当前选中的行
+    var rowId = $('#goods-list').jqGrid('getGridParam', 'selrow');
+    if (!rowId) {
+        layer.alert('未选择商品',
+            {
+                icon: 0,
+                shadeClose: true,
+                title: '警告'
+            });
+        return false;
+    }
+    layer.closeAll();
+    var rowData = $("#goods-list").jqGrid('getRowData', rowId);
+    layer.confirm(
+        '确定要删除 ' + rowData.name + ' 商品吗？',
+        {icon: 3, title: '提示'},
+        function (index_1, element) {
+            layer.close(index_1);
+            $.get(url.goods.delete, {id: FlowerShop.Tools.prototype.getSource(rowData.id)}, function () {
+                layer.alert('商品 ' + rowData.name + '已成功删除.',
+                    {
+                        icon: 1,
+                        title: '成功',
+                        shadeClose: true,
+                        yes: function (index_2, element) {
+                            layer.close(index_2);
+                            window.location.reload();
+                        }
+                    });
+            });
+        }
+    );
 }
 
 // 分类选项DOM模板
@@ -555,6 +655,32 @@ var goodsFormArgs = [
                         type: 'text',
                         nodeType: 'input',
                         placeholder: '请输入商品名称'
+                    }
+                ]
+            },
+            {
+                id: 'price',
+                nodeType: 'p',
+                class: 'goods-form-item',
+                innerHTML: [
+                    {
+                        min: 0,
+                        type: 'number',
+                        nodeType: 'input',
+                        placeholder: '请输入商品价格(RMB)'
+                    }
+                ]
+            },
+            {
+                id: 'sale',
+                nodeType: 'p',
+                class: 'goods-form-item',
+                innerHTML: [
+                    {
+                        min: 0,
+                        type: 'number',
+                        nodeType: 'input',
+                        placeholder: '请输入商品库存'
                     }
                 ]
             },

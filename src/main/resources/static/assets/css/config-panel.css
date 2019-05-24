@@ -282,7 +282,7 @@
     margin: 15px 0px;
 }
 
-#goods-form .goods-form-item input[type=text], #goods-form .goods-form-item select {
+#goods-form .goods-form-item input[type=text], #goods-form .goods-form-item input[type=number], #goods-form .goods-form-item select {
     width: 30%;
     height: 30px;
     font-size: 14px;

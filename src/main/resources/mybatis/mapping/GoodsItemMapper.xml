@@ -20,7 +20,7 @@
 
     <insert id="baseInsert" parameterType="GoodsItemBean" useGeneratedKeys="true" keyProperty="id">
     insert into goodsitem(categoryid, campaignid,name,imgUrl,price,sale,vendor)
-    values(#{categoryid},-1,#{name},#{imgUrl},#{price},#{sale},#{vendor})
+    values(#{categoryId},-1,#{name},#{imgUrl},#{price},#{sale},#{vendor})
     </insert>
 
     <!--<delete id="deleteById" parameterType="java.lang.Integer">-->
@@ -85,7 +85,7 @@
 
     <update id="updateAll">
         update goodsitem
-        set categoryid=#{categoryid},campaignid=#{campaignid},name=#{name},imgurl={#imgurl},price=#{price},sale=#{sale},vendor=#{vendor}
+        set categoryid=#{categoryId},campaignid=#{campaignId},name=#{name},imgurl=#{imgUrl},price=#{price},sale=#{sale},vendor=#{vendor}
         where id=#{id}
     </update>
 
