@@ -76,6 +76,6 @@ public class UserController {
   @RequestMapping(value = "/updateUserInfo")
   public void updateUserInfo(String userInfoJson) {
     UserBean userBean = JsonUtil.getInstance().toObject(userInfoJson, UserBean.class);
-    userService.baseInsert(userBean);
+    userService.updateUserInfo(userBean);
   }
 }

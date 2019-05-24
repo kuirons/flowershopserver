@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
   public List<UserBean> selectAll() {
     return userMapper.selectAll();
   }
+
+  @Override
+  public void updateUserInfo(UserBean userBean) {
+    userMapper.updateUserInfo(userBean);
+  }
 }

@@ -14,4 +14,6 @@ public interface UserService {
   void updateMoney(UserBean userBean);
 
   List<UserBean> selectAll();
+
+  void updateUserInfo(UserBean userBean);
 }
