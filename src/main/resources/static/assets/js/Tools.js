@@ -114,11 +114,11 @@ FlowerShop.Tools.prototype.getSource = function (cellValue) {
  * @returns {Blob}
  */
 FlowerShop.Tools.prototype.dataURLtoBlob = function (dataUrl) {
-    var arr = dataurl.split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
+    var arr = dataUrl.split(',');
+    var mime = arr[0].match(/:(.*?);/)[1];
+    var bstr = atob(arr[1]);
+    var n = bstr.length;
+    var u8arr = new Uint8Array(n);
     while (n--) {
         u8arr[n] = bstr.charCodeAt(n);
     }
@@ -132,10 +132,10 @@ FlowerShop.Tools.prototype.dataURLtoBlob = function (dataUrl) {
  * @param fileName
  * @returns File
  */
-FlowerShop.Tools.prototype.blobToFile = function (blob) {
+FlowerShop.Tools.prototype.blobToFile = function (blob, fileName) {
     var newFile = new File(
         [blob],
-        blob.name.trim(),
+        fileName.trim(),
         {
             type: blob.type,
             lastModified: Date.now()
@@ -150,7 +150,7 @@ function imgLoadFailed(image) {
     image.parentNode.classList.add('fadeInDown');
 }
 
-function layerImage (image, rowData) {
+function layerImage(image, rowData) {
     if (image.src.indexOf(404) >= 0) {
         return false;
     }

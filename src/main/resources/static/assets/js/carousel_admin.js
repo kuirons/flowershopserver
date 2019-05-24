@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     // 初始化首页导航列表
-    $.get(url.classify.list, function (response, status) {
+    $.get(url.category.list, function (response, status) {
         for (var i = 0; i < response.length; i++) {
             var navItemArgs = [
                 {
@@ -16,7 +16,7 @@ $(document).ready(function () {
                         },
                         {
                             nodeType: 'span',
-                            innerText: response[i]['title']
+                            innerText: response[i]['name']
                         }
                     ]
                 }
@@ -57,7 +57,7 @@ $(document).ready(function () {
         var orderItemsList = this.parentNode.parentNode;
         var id = this.parentNode.getAttribute('data-list-id');
         var orderItems = orderItemsList.querySelector('.nav-list-order-item');
-        $.get(url.classify.delete, {id: id}, function (respnose, status, xhr) {
+        $.get(url.category.delete, {id: id}, function (respnose, status, xhr) {
             if (xhr.status == 200) {
                 self.parentNode.parentNode.removeChild(self.parentNode);
                 for (var i = 0; i < orderItems.length; i++) {
@@ -68,7 +68,7 @@ $(document).ready(function () {
                     {
                         icon: 0,
                         title: '错误',
-                        shadeClose: tru
+                        shadeClose: true
                     });
             }
         });
@@ -107,8 +107,8 @@ $(document).ready(function () {
                 shadeClose: true,
                 title: '编辑导航条目',
             }, function (val, index, element) {
-                var jsonData = JSON.stringify({id: 0, title: val});
-                $.get(url.classify.add, {classinfos: jsonData}, function (response, status, xhr) {
+                var jsonData = JSON.stringify({id: 0, name: val});
+                $.get(url.category.add, {infosJosn: jsonData}, function (response, status, xhr) {
                     // 成功则回调更改原条目
                     if (xhr.status == 200) {
                         itemIpt.innerText = val;
@@ -192,7 +192,12 @@ $(document).ready(function () {
                 var choiceClassifyImgs = imagesArray[response[0].title];
                 var imagesDom = document.querySelectorAll('.category-edit-box img');
                 for (var j = 0; j < imageInfos.length; j++) {
-                    imagesArray[imageInfos[j].belong2Title].push({title: imageInfos[j].title, image: imageInfos[j].imgUrl});
+                    imagesArray[imageInfos[j].belong2Title].push({
+                        id: imageInfos[j].id,
+                        title: imageInfos[j].title,
+                        image: imageInfos[j].imgUrl,
+                        belong2Title: imageInfos[j].belong2Title
+                    });
                 }
                 document.querySelector('.goods-config-box .category-select-box').setAttribute('data-images-info', JSON.stringify(imagesArray));
                 for (var imgIndex = 0; imgIndex < imagesDom.length; imgIndex++) {
@@ -244,12 +249,95 @@ $(document).ready(function () {
 
     // 分类图片上传
     $('.save-category-item').click(function () {
-        var choiceCategory = document.querySelector('.category-select-box');
+        var inertObjects = [];
+        var formData = new FormData();
+        var posterDomList = document.querySelectorAll('.category-image-poster');
+        var choiceCategory = document.querySelector('.category-select-box select');
+        var classifyArray = JSON.parse(choiceCategory.getAttribute('data-images-info'));
+        for (var i = 0; i < posterDomList.length; i++) {
+            var tmpFile = null;
+            var fileName = posterDomList[i].getAttribute('title');
+            var base64Data = posterDomList[i].getAttribute('data-image');
+            var belong2Title = choiceCategory.options[choiceCategory.selectedIndex].text;
+            if (!base64Data) {
+                layer.alert('请选择所有三张图片',
+                    {
+                        icon: 0,
+                        title: '警告',
+                        shadeClose: true
+                    });
+                return false;
+            }
+            tmpFile = FlowerShop.Tools.prototype.blobToFile(FlowerShop.Tools.prototype.dataURLtoBlob(base64Data), fileName);
+            inertObjects[i] = {
+                id: 0,
+                imgUrl: '',
+                title: tmpFile.name,
+                belong2Title: belong2Title
+            };
+            formData.append('file', tmpFile);
+        }
+        // 整理数据等待上传
+        var tmpArray = classifyArray[choiceCategory.options[choiceCategory.selectedIndex].text];
+        if (tmpArray && tmpArray.length === 3) {
+            inertObjects = tmpArray;
+        }
+        formData.append('inertObjectsJson', JSON.stringify(inertObjects));
+        $.ajax({
+            type: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            url: url.classifyImage.add,
+            complete: function (xhr, textStatus) {
+                var status = xhr.status;
+                var resData = xhr.responseText.length != 0 ? JSON.parse(xhr.responseText) : null;
+                if (status == 200) {
+                    layer.alert('保存成功!',
+                        {
+                            icon: 1,
+                            title: '成功',
+                            shadeClose: true,
+                            yes: function () {
+                                window.location.reload();
+                            }
+                        });
+                } else {
+                    layer.alert('保存失败, 请重试或联系管理员',
+                        {
+                            icon: 2,
+                            title: '错误',
+                            shadeClose: true
+                        });
+                }
+            }
+        });
     });
 
     // 删除当前整个分类
     $('.delete-category-item').click(function () {
-        var choiceCategory = document.querySelector('.category-select-box');
+        var choiceCategory = document.querySelector('.category-select-box select');
+        var belong2Title = choiceCategory.options[choiceCategory.selectedIndex].text;
+        layer.confirm(
+            '确定要删除 ' + belong2Title + ' 分类吗？',
+            {icon: 3, title: '提示'},
+            function (index_1, element) {
+                layer.close(index_1);
+                $.get(url.user.delete, {belong2Title: belong2Title}, function () {
+                    layer.alert('分类 ' + belong2Title + '已成功删除.',
+                        {
+                            icon: 1,
+                            title: '成功',
+                            shadeClose: true,
+                            yes: function (index_2, element) {
+                                layer.close(index_2);
+                                window.location.reload();
+                            }
+                        });
+                });
+            }
+        );
+
     });
 
 });

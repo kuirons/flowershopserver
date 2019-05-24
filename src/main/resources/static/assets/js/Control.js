@@ -159,13 +159,17 @@ FlowerShop.Control.prototype.initData = {
 
 FlowerShop.Control.prototype.listen = function () {
     var self = this;
-    var clickDom = null;
     var topDocument = window.top.document;
 
     $(document).off('click', '.image-upload').on('click', '.image-upload', function () {
-        clickDom = this;
+
+        this.classList.add('category-upload-image-click');
         var isCategory = this.classList.contains('category-image-poster');
         var uploadBox = topDocument.querySelector('#image-upload-box');
+        var iptHiddenDom = uploadBox.querySelector('.upload-image-name-ipt.hidden-dom');
+        if (iptHiddenDom) {
+            iptHiddenDom.classList.remove('hidden-dom');
+        }
         if (!uploadBox) {
             self.init.ImageUploadControlDom();
             uploadBox = topDocument.querySelector('#image-upload-box');
@@ -375,13 +379,9 @@ FlowerShop.Control.prototype.listen = function () {
                                 layer.alert('上传成功!',
                                     {
                                         icon: 1,
-                                        shadeClose: true,
-                                        title: '成功'
+                                        title: '成功',
+                                        shadeClose: true
                                     });
-
-                                // todo - 实时刷新上传的图片
-
-
                                 // 关闭上传窗口
                                 var closeBtn = topDocument.querySelector('.close-upload-btn');
                                 if (closeBtn !== null && typeof closeBtn !== "undefined") {
@@ -390,6 +390,32 @@ FlowerShop.Control.prototype.listen = function () {
                                     topDocument.querySelector('#image-reset-btn').click();
                                     self.closeUpload();
                                 }
+
+                                // 刷新图片
+                                var slideItemArgs = [
+                                    {
+                                        nodeType: 'div',
+                                        class: 'slide-item animated',
+                                        'data-slider-id': resData['id'],
+                                        innerHTML: [
+                                            {
+                                                nodeType: 'i',
+                                                class: 'fa fa-close slider-list-item-delete'
+                                            },
+                                            {
+                                                nodeType: 'img',
+                                                src: resData['imgUrl'],
+                                                alt: resData['name'],
+                                                onerror: 'imgLoadFailed(this);'
+                                            },
+                                            {nodeType: 'h4', innerText: resData['name']},
+                                            {nodeType: 'p'}
+                                        ]
+                                    }
+                                ];
+                                var slideBox = document.querySelector('.slide-config-box') || document.querySelector('#J_iframe').contentDocument.querySelector('.slide-config-box');
+                                var slideItem = FlowerShop.Tools.prototype.createDom(slideItemArgs)[0];
+                                slideBox.insertBefore(slideItem, slideBox.querySelector('.slide-item.add-new'));
                             } else {
                                 layer.alert('上传失败, 请重试或联系管理员',
                                     {
@@ -401,17 +427,21 @@ FlowerShop.Control.prototype.listen = function () {
                         }
                     });
                 } else {
+                    var clickDom = document.querySelector('.category-upload-image-click') || document.querySelector('#J_iframe').contentDocument.querySelector('.category-upload-image-click');
                     var imageDom = clickDom.querySelector('img');
                     imageDom.src = window.URL.createObjectURL(blob);
-                    clickDom.setAttribute('imgBase64', cas.toDataURL('image/png'));
+                    clickDom.setAttribute('title', file.name);
+                    clickDom.setAttribute('data-image', cas.toDataURL('image/png'));
                     // 关闭上传窗口
                     var closeBtn = topDocument.querySelector('.close-upload-btn');
-                    if (closeBtn !== null && typeof closeBtn !== "undefined") {
+                    if (closeBtn) {
                         closeBtn.click();
                     } else {
                         topDocument.querySelector('#image-reset-btn').click();
                         self.closeUpload();
                     }
+                    clickDom.classList.remove('category-upload-image-click');
+                    clickDom.querySelector('.hidden-dom').classList.remove('hidden-dom');
                 }
             });
         });
@@ -442,201 +472,6 @@ FlowerShop.Control.prototype.listen = function () {
             topDocument.querySelector('#image-reset-btn').click();
             self.closeUpload();
         });
-    }
-};
-
-FlowerShop.Control.prototype.createFilterDom = function () {
-    var filterData = FlowerShop.Control.prototype.initData['filter'];
-    var filterBox = document.querySelector('.filter-control-box');
-    var activeSlug = filterBox.getAttribute('data-active-slug');
-    var activeParentSlug = filterBox.getAttribute('data-active-parent-slug');
-    if (typeof filterBox == "undefined" || filterBox == null) {
-        return false;
-    }
-    var filterType = filterBox.getAttribute('data-filter-type');
-    switch (filterType) {
-        case 'enquiry_tax':
-            var locationsHtmlStr = '';
-            var functionsHtmlStr = '';
-            var software_industrysHtmlStr = '';
-
-            var locations = filterData[filterType]['location'];
-            var functions = filterData[filterType]['function'];
-            var software_industrys = filterData[filterType]['software_industry'];
-
-            var locationListDom = $('.filter-control-row[data-tax-type=location] .filter-control-options');
-            var functionListDom = $('.filter-control-row[data-tax-type=function] .filter-control-options');
-            var softIndyListDom = $('.filter-control-row[data-tax-type=software_industry] .filter-control-options');
-
-            for (var idx in locations) {
-                var activeClass = (locations[idx]['slug'] == activeSlug || locations[idx]['slug'] == activeParentSlug) ? 'active-filter-control-item' : '';
-                if (typeof locations[idx]['child'] != "undefined" && locations[idx]['child'] != null) {
-                    locationsHtmlStr += '<li class="filter-control-item ' + activeClass + ' filter-control-item-has-child" data-item-id="' + locations[idx]['term_id'] + '"><a href="//' + window.location.host + '/enquiry/?tax_type=location&tax_slug=' + locations[idx]['slug'] + '">' + locations[idx]['name'] + ' <i class="fa fa-caret-down"></i></a></li>'
-                } else {
-                    locationsHtmlStr += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/enquiry/?tax_type=location&tax_slug=' + locations[idx]['slug'] + '">' + locations[idx]['name'] + '</a></li>'
-                }
-            }
-
-            for (var idx in functions) {
-                var activeClass = (functions[idx]['slug'] == activeSlug || functions[idx]['slug'] == activeParentSlug) ? 'active-filter-control-item' : '';
-                if (typeof functions[idx]['child'] != "undefined" && functions[idx]['child'] != null) {
-                    functionsHtmlStr += '<li class="filter-control-item ' + activeClass + ' filter-control-item-has-child" data-item-id="' + functions[idx]['term_id'] + '"><a href="//' + window.location.host + '/enquiry/?tax_type=function&tax_slug=' + functions[idx]['slug'] + '">' + functions[idx]['name'] + ' <i class="fa fa-caret-down"></i></a></li>'
-                } else {
-                    functionsHtmlStr += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/enquiry/?tax_type=function&tax_slug=' + functions[idx]['slug'] + '">' + functions[idx]['name'] + '</a></li>'
-                }
-            }
-
-            for (var idx in software_industrys) {
-                var activeClass = (software_industrys[idx]['slug'] == activeSlug || software_industrys[idx]['slug'] == activeParentSlug) ? 'active-filter-control-item' : '';
-                if (typeof software_industrys[idx]['child'] != "undefined" && software_industrys[idx]['child'] != null) {
-                    software_industrysHtmlStr += '<li class="filter-control-item ' + activeClass + ' filter-control-item-has-child" data-item-id="' + software_industrys[idx]['term_id'] + '"><a href="//' + window.location.host + '/enquiry/?tax_type=software_industry&tax_slug=' + software_industrys[idx]['slug'] + '">' + software_industrys[idx]['name'] + ' <i class="fa fa-caret-down"></i></a></li>'
-                } else {
-                    software_industrysHtmlStr += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/enquiry/?tax_type=software_industry&tax_slug=' + software_industrys[idx]['slug'] + '">' + software_industrys[idx]['name'] + '</a></li>'
-                }
-            }
-
-            locationListDom.append(locationsHtmlStr);
-            functionListDom.append(functionsHtmlStr);
-            softIndyListDom.append(software_industrysHtmlStr);
-            if (parseInt(locationListDom.css('height')) - 20 > parseInt(locationListDom.find('.filter-control-item').css('height'))) {
-                locationListDom.css('height', 41);
-                locationListDom.parent().append('<span class="filter-control-more" data-extend="0"><i class="fa fa-plus"></i> 展开</span>');
-            }
-
-            if (parseInt(functionListDom.css('height')) - 20 > parseInt(functionListDom.find('.filter-control-item').css('height'))) {
-                functionListDom.css('height', 41);
-                functionListDom.parent().append('<span class="filter-control-more" data-extend="0"><i class="fa fa-plus"></i> 展开</span>');
-            }
-
-            if (parseInt(softIndyListDom.css('height')) - 20 > parseInt(softIndyListDom.find('.filter-control-item').css('height'))) {
-                softIndyListDom.css('height', 41);
-                softIndyListDom.parent().append('<span class="filter-control-more" data-extend="0"><i class="fa fa-plus"></i> 展开</span>');
-            }
-
-            $('.filter-control-more').on('click', function () {
-
-                if ($(this).attr('data-extend') == 0) {
-                    $(this).attr('data-extend', 1);
-                    $(this).prev().css('height', 'auto');
-                    $(this).html('<i class="fa fa-minus"></i> 收起');
-                } else {
-                    $(this).attr('data-extend', 0);
-                    $(this).prev().css('height', 41);
-                    $(this).html('<i class="fa fa-plus"></i> 展开');
-                }
-            });
-
-            var list = $('.filter-control-item-has-child');
-            list.on('mouseenter mouseleave', function (event) {
-
-                if (event.type == 'mouseenter') {
-                    var childHtml = '';
-                    var termId = $(this).attr('data-item-id');
-                    var offTop = parseInt(this.offsetTop) + parseInt(this.offsetHeight) - 5;
-                    var taxType = $(this).parents('.filter-control-row').attr('data-tax-type');
-                    var taxChildData = FlowerShop.Control.prototype.initData['filter'][filterType][taxType][termId]['child'];
-                    for (var idx in taxChildData) {
-                        var activeClass = taxChildData[idx]['slug'] == activeSlug ? 'active-filter-control-item' : '';
-                        childHtml += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/enquiry/?tax_type=' + filterType + '&tax_slug=' + taxChildData[idx]['slug'] + '&tax_parent_slug=' + FlowerShop.Control.prototype.initData['filter'][filterType][taxType][termId]['slug'] + '">' + taxChildData[idx]['name'] + '</a></li>';
-                    }
-                    $(this).append('<div class="filter-control-child-row" style="top: ' + offTop + 'px">' + childHtml + '</div>');
-                } else {
-                    $(this).find('.filter-control-child-row').remove();
-                }
-            });
-
-            break;
-        case 'special_tax':
-            var functionsHtmlStr = '';
-            var specialCatsHtmlStr = '';
-            var software_industrysHtmlStr = '';
-
-            var functions = filterData[filterType]['function'];
-            var specialCats = filterData[filterType]['special_cat'];
-            var software_industrys = filterData[filterType]['software_industry'];
-
-            var functionListDom = $('.filter-control-row[data-tax-type=function] .filter-control-options');
-            var specialCatListDom = $('.filter-control-row[data-tax-type=special_cat] .filter-control-options');
-            var softIndyListDom = $('.filter-control-row[data-tax-type=software_industry] .filter-control-options');
-
-            for (var idx in specialCats) {
-                var activeClass = (specialCats[idx]['slug'] == activeSlug || specialCats[idx]['slug'] == activeParentSlug) ? 'active-filter-control-item' : '';
-                if (typeof specialCats[idx]['child'] != "undefined" && specialCats[idx]['child'] != null) {
-                    specialCatsHtmlStr += '<li class="filter-control-item ' + activeClass + ' filter-control-item-has-child" data-item-id="' + specialCats[idx]['term_id'] + '"><a href="//' + window.location.host + '/special/?tax_type=special_cat&tax_slug=' + specialCats[idx]['slug'] + '">' + specialCats[idx]['name'] + ' <i class="fa fa-caret-down"></i></a></li>'
-                } else {
-                    specialCatsHtmlStr += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/special/?tax_type=special_cat&tax_slug=' + specialCats[idx]['slug'] + '">' + specialCats[idx]['name'] + '</a></li>'
-                }
-            }
-
-            for (var idx in functions) {
-                var activeClass = (functions[idx]['slug'] == activeSlug || functions[idx]['slug'] == activeParentSlug) ? 'active-filter-control-item' : '';
-                if (typeof functions[idx]['child'] != "undefined" && functions[idx]['child'] != null) {
-                    functionsHtmlStr += '<li class="filter-control-item ' + activeClass + ' filter-control-item-has-child" data-item-id="' + functions[idx]['term_id'] + '"><a href="//' + window.location.host + '/special/?tax_type=function&tax_slug=' + functions[idx]['slug'] + '">' + functions[idx]['name'] + ' <i class="fa fa-caret-down"></i></a></li>'
-                } else {
-                    functionsHtmlStr += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/special/?tax_type=function&tax_slug=' + functions[idx]['slug'] + '">' + functions[idx]['name'] + '</a></li>'
-                }
-            }
-
-            for (var idx in software_industrys) {
-                var activeClass = (software_industrys[idx]['slug'] == activeSlug || software_industrys[idx]['slug'] == activeParentSlug) ? 'active-filter-control-item' : '';
-                if (typeof software_industrys[idx]['child'] != "undefined" && software_industrys[idx]['child'] != null) {
-                    software_industrysHtmlStr += '<li class="filter-control-item ' + activeClass + ' filter-control-item-has-child" data-item-id="' + software_industrys[idx]['term_id'] + '"><a href="//' + window.location.host + '/special/?tax_type=software_industry&tax_slug=' + software_industrys[idx]['slug'] + '">' + software_industrys[idx]['name'] + ' <i class="fa fa-caret-down"></i></a></li>'
-                } else {
-                    software_industrysHtmlStr += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/special/?tax_type=software_industry&tax_slug=' + software_industrys[idx]['slug'] + '">' + software_industrys[idx]['name'] + '</a></li>'
-                }
-            }
-
-            functionListDom.append(functionsHtmlStr);
-            specialCatListDom.append(specialCatsHtmlStr);
-            softIndyListDom.append(software_industrysHtmlStr);
-            if (parseInt(functionListDom.css('height')) - 20 > parseInt(functionListDom.find('.filter-control-item').css('height'))) {
-                functionListDom.css('height', 41);
-                functionListDom.parent().append('<span class="filter-control-more" data-extend="0"><i class="fa fa-plus"></i> 展开</span>');
-            }
-
-            if (parseInt(specialCatListDom.css('height')) - 20 > parseInt(specialCatListDom.find('.filter-control-item').css('height'))) {
-                specialCatListDom.css('height', 41);
-                specialCatListDom.parent().append('<span class="filter-control-more" data-extend="0"><i class="fa fa-plus"></i> 展开</span>');
-            }
-
-            if (parseInt(softIndyListDom.css('height')) - 20 > parseInt(softIndyListDom.find('.filter-control-item').css('height'))) {
-                softIndyListDom.css('height', 41);
-                softIndyListDom.parent().append('<span class="filter-control-more" data-extend="0"><i class="fa fa-plus"></i> 展开</span>');
-            }
-
-            $('.filter-control-more').on('click', function () {
-
-                if ($(this).attr('data-extend') == 0) {
-                    $(this).attr('data-extend', 1);
-                    $(this).prev().css('height', 'auto');
-                    $(this).html('<i class="fa fa-minus"></i> 收起');
-                } else {
-                    $(this).attr('data-extend', 0);
-                    $(this).prev().css('height', 41);
-                    $(this).html('<i class="fa fa-plus"></i> 展开');
-                }
-            });
-
-            var list = $('.filter-control-item-has-child');
-            list.on('mouseenter mouseleave', function (event) {
-
-                if (event.type == 'mouseenter') {
-                    var childHtml = '';
-                    var termId = $(this).attr('data-item-id');
-                    var offTop = parseInt(this.offsetTop) + parseInt(this.offsetHeight) - 5;
-                    var taxType = $(this).parents('.filter-control-row').attr('data-tax-type');
-                    var taxChildData = FlowerShop.Control.prototype.initData['filter'][filterType][taxType][termId]['child'];
-                    for (var idx in taxChildData) {
-                        var activeClass = taxChildData[idx]['slug'] == activeSlug ? 'active-filter-control-item' : '';
-                        childHtml += '<li class="filter-control-item ' + activeClass + '"><a href="//' + window.location.host + '/special/?tax_type=' + taxType + '&tax_slug=' + taxChildData[idx]['slug'] + '&tax_parent_slug=' + FlowerShop.Control.prototype.initData['filter'][filterType][taxType][termId]['slug'] + '">' + taxChildData[idx]['name'] + '</a></li>';
-                    }
-                    $(this).append('<div class="filter-control-child-row" style="top: ' + offTop + 'px">' + childHtml + '</div>');
-                } else {
-                    $(this).find('.filter-control-child-row').remove();
-                }
-            });
-
-            break;
     }
 };
 

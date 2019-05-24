@@ -11,7 +11,7 @@
 
     <insert id="baseInsert" parameterType="GoodsInfoBean">
         insert into goodsinfo(title, imgurl,belong2Title)
-        values(#{title}, #{imgurl},#{belong2Title})
+        values(#{title}, #{imgUrl},#{belong2Title})
     </insert>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
