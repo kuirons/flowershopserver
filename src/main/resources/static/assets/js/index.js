@@ -11,8 +11,8 @@ $(function () {
     //粒子背景特效
     if (typeof $('body').particleground != 'undefined') {
         $('body').particleground({
-            dotColor: '#5cbdaa',
-            lineColor: 'deepskyblue'
+            dotColor: 'white',
+            lineColor: '#5cbdaa'
         });
     }
 
