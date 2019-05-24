@@ -12,132 +12,141 @@ $(function () {
     if (typeof $('body').particleground != 'undefined') {
         $('body').particleground({
             dotColor: '#5cbdaa',
-            lineColor: '#5cbdaa'
+            lineColor: 'deepskyblue'
         });
+    }
 
-        // 登陆页面切换
-        $('.login-tab .change-tab').on('click', function () {
-            var firstTab = $(this).parents('.admin_login').children('.login-tab:first-child');
-            if ($(this).hasClass('right-tab')) {
-                firstTab.css('margin-left', 'calc(-100% - 40px)');
-            } else {
-                firstTab.removeAttr('style');
-            }
-        });
+    // 登陆页面切换
+    $('.login-tab .change-tab').on('click', function () {
+        var firstTab = $(this).parents('.admin_login').children('.login-tab:first-child');
+        if ($(this).hasClass('right-tab')) {
+            firstTab.css('margin-left', 'calc(-100% - 40px)');
+        } else {
+            firstTab.removeAttr('style');
+        }
+    });
 
-        $('.submit_btn').on('click', function () {
-            // 登陆请求url
-            var requestUrl = '/ffsuser/login';
-            // 当前选择登陆Tab
-            var loginTab = $(this).parents('.login-tab');
-            var loginType = loginTab.attr('data-type-login') == 'admin' ? 0 : 2;
-            // 提交前校验
-            var user = loginTab.find('.J_username');
-            var passwd = loginTab.find('.J_password');
-            var checkCode = loginTab.find('.J_codetext');
-            var checkCodeBox = loginTab.find('.J_codeimg');
+    // 监听输入事件
+    $('.admin_login').on('keyup', 'input', function (event) {
+        event = event || window.event;
+        var keyCode = event.which || event.keyCode;
+        if (keyCode === 13) {
+            $(this).parents('.login-tab').find('.submit_btn').click();
+        }
+    });
 
-            if (user.val().trim().length == 0) {
-                layer.alert('用户名不能为空.',
-                    {
-                        icon: 0,
-                        shadeClose: true,
-                        title: '警告'
+    $('.submit_btn').on('click', function () {
+        // 登陆请求url
+        var requestUrl = '/ffsuser/login';
+        // 当前选择登陆Tab
+        var loginTab = $(this).parents('.login-tab');
+        var loginType = loginTab.attr('data-type-login') == 'admin' ? 0 : 2;
+        // 提交前校验
+        var user = loginTab.find('.J_username');
+        var passwd = loginTab.find('.J_password');
+        var checkCode = loginTab.find('.J_codetext');
+        var checkCodeBox = loginTab.find('.J_codeimg');
+
+        if (user.val().trim().length == 0) {
+            layer.alert('用户名不能为空.',
+                {
+                    icon: 0,
+                    shadeClose: true,
+                    title: '警告'
+                }
+            );
+            return false;
+        }
+        if (passwd.val().trim().length == 0) {
+            layer.alert('密码不能为空.',
+                {
+                    icon: 0,
+                    shadeClose: true,
+                    title: '警告'
+                }
+            );
+            return false;
+        }
+        if (checkCode.val().trim().length == 0) {
+            layer.alert('验证码不能为空.',
+                {
+                    icon: 0,
+                    shadeClose: true,
+                    title: '警告'
+                }
+            );
+            return false;
+        }
+        if (checkCode.val().toLowerCase().trim() != checkCodeBox.attr('data-check-code')) {
+            layer.alert('请输入正确的验证码.',
+                {
+                    icon: 0,
+                    shadeClose: true,
+                    title: '警告'
+                }
+            );
+            return false;
+        }
+        // 校验完成登陆
+        // 获取表单数据
+        var userInfo = {
+            type: loginType,
+            userName: user.val().trim(),
+            password: passwd.val().trim()
+        };
+        $.ajax({
+            type: 'POST',
+            data: {
+                userinfo: JSON.stringify(userInfo)
+            },
+            url: requestUrl,
+            dataType: 'json',
+            success: function (response, status, xhr) {
+                if (xhr.status == 200 && response.result != 'failed') {
+                    var cookie = 'userType=';
+                    switch (loginType) {
+                        case 0:
+                            cookie += 'admin';
+                            window.location.href = '/admin/index.html';
+                            break;
+                        case 2:
+                            cookie += 'seller';
+                            window.location.href = '/seller/index.html';
+                            break;
+                        default:
+                            break;
                     }
-                );
-                return false;
-            }
-            if (passwd.val().trim().length == 0) {
-                layer.alert('密码不能为空.',
-                    {
-                        icon: 0,
-                        shadeClose: true,
-                        title: '警告'
-                    }
-                );
-                return false;
-            }
-            if (checkCode.val().trim().length == 0) {
-                layer.alert('验证码不能为空.',
-                    {
-                        icon: 0,
-                        shadeClose: true,
-                        title: '警告'
-                    }
-                );
-                return false;
-            }
-            if (checkCode.val().trim() != checkCodeBox.attr('data-check-code')) {
-                layer.alert('请输入正确的验证码.',
-                    {
-                        icon: 0,
-                        shadeClose: true,
-                        title: '警告'
-                    }
-                );
-                return false;
-            }
-            // 校验完成登陆
-            // 获取表单数据
-            var userInfo = {
-                type: loginType,
-                userName: user.val().trim(),
-                password: passwd.val().trim()
-            };
-            $.ajax({
-                type: 'POST',
-                data: {
-                    userinfo: JSON.stringify(userInfo)
-                },
-                url: requestUrl,
-                dataType: 'json',
-                success: function (response, status, xhr) {
-                    if (xhr.status == 200 && response.result != 'failed') {
-                        var cookie = 'userType=';
-                        switch (loginType) {
-                            case 0:
-                                cookie += 'admin';
-                                window.location.href = '/admin/index.html';
-                                break;
-                            case 2:
-                                cookie += 'seller';
-                                window.location.href = '/seller/index.html';
-                                break;
-                            default:
-                                break;
-                        }
-                        document.cookie = cookie;
-                    } else {
-                        layer.alert(response.message,
-                            {
-                                icon: 2,
-                                shadeClose: true,
-                                title: '登陆失败'
-                            }
-                        );
-                    }
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    layer.alert(errorThrown,
+                    document.cookie = cookie;
+                } else {
+                    layer.alert(response.message,
                         {
                             icon: 2,
                             shadeClose: true,
-                            title: '登陆错误'
+                            title: '登陆失败'
                         }
                     );
                 }
-            });
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                layer.alert(errorThrown,
+                    {
+                        icon: 2,
+                        shadeClose: true,
+                        title: '登陆错误'
+                    }
+                );
+            }
         });
+    });
 
-        var codeList = document.querySelectorAll('.J_codeimg');
-        createCode(codeList[0]);
-        createCode(codeList[1]);
+    var codeList = document.querySelectorAll('.J_codeimg');
+    createCode(codeList[0]);
+    createCode(codeList[1]);
 
-        // 验证码刷新
-        $('.J_codeimg').on('click', function () {
-            createCode(this);
-        });
-    }
+    // 验证码刷新
+    $('.J_codeimg').on('click', function () {
+        createCode(this);
+    });
 
 });
 
