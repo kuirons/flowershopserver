@@ -25,8 +25,8 @@ public class OrderServiceImpl implements OrderService {
   @Autowired private GoodsItemServiceImpl goodsItemService;
 
   @Override
-  public void baseInsert(OrderBean orderBean) {
-    orderMapper.baseInsert(orderBean);
+  public int baseInsert(OrderBean orderBean) {
+    return orderMapper.baseInsert(orderBean);
   }
 
   @Override

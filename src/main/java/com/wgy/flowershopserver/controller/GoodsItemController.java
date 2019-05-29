@@ -71,9 +71,7 @@ public class GoodsItemController {
         JsonUtil.getInstance().toObject(goodsItemInfoJson, GoodsItemBean.class);
     // 处理下imgurl
     String gooditemImg =
-        CustomConfig.attributeMap.get("ffsaddress")
-            + File.separator
-            + goodsItemFile.getOriginalFilename();
+        CustomConfig.attributeMap.get("ffsaddress") + "/" + goodsItemFile.getOriginalFilename();
     goodsItemBean.setVendor(userName);
     goodsItemBean.setImgUrl(gooditemImg);
     goodsItemService.baseInsert(goodsItemBean);
@@ -88,7 +86,7 @@ public class GoodsItemController {
             multipartFile -> {
               String detailurl =
                   CustomConfig.attributeMap.get("ffsaddress")
-                      + File.separator
+                      + "/"
                       + multipartFile.getOriginalFilename();
               GoodsRItemImgBean goodsRItemImgBean = new GoodsRItemImgBean();
               goodsRItemImgBean.setGoodsitemid(id);
@@ -116,9 +114,7 @@ public class GoodsItemController {
     MultipartFile goodsItemFile = ((MultipartHttpServletRequest) request).getFile("goodsitemfile");
     if (goodsItemFile != null) {
       String gooditemImg =
-          CustomConfig.attributeMap.get("ffsaddress")
-              + File.separator
-              + goodsItemFile.getOriginalFilename();
+          CustomConfig.attributeMap.get("ffsaddress") + "/" + goodsItemFile.getOriginalFilename();
       goodsItemBean.setImgUrl(gooditemImg);
     }
     goodsItemService.updateAll(goodsItemBean);

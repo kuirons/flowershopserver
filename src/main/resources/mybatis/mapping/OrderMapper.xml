@@ -15,7 +15,7 @@
         <result column="deliveryStatus" property="deliveryStatus" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <insert id="baseInsert" parameterType="OrderBean">
+    <insert id="baseInsert" parameterType="OrderBean" useGeneratedKeys="true" keyProperty="id">
         insert into ffsorder(userName,items,payChannel,address,amount,status,deliveryStatus)
         values(#{userName},#{items},#{payChannel},#{address},#{amount},#{status},#{deliveryStatus})
     </insert>

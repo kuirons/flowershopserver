@@ -45,6 +45,7 @@ public class OrderController {
     orderBean.setStatus(String.valueOf(status));
     orderBean.setUserName(userName);
     orderService.baseInsert(orderBean);
+    if (status == -2) return String.valueOf(status);
     // 开始拆分订单
     List<OrderRVendorBean> orderRVendorBeans = orderRVendorService.splitOrder(orderBean);
     orderRVendorBeans.forEach(orderRVendorService::baseInsert);

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 @Mapper
 public interface OrderMapper {
-  void baseInsert(OrderBean orderBean);
+  int baseInsert(OrderBean orderBean);
 
   List<OrderBean> selectByUserName(String userName);
 

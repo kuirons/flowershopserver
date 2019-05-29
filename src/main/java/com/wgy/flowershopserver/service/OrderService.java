@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface OrderService {
-  void baseInsert(OrderBean orderBean);
+  int baseInsert(OrderBean orderBean);
 
   List<OrderBean> selectByUserName(String userName);
 
