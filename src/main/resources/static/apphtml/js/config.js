@@ -1,4 +1,4 @@
-var baseUrl = "http://127.0.0.1:8090"
+var baseUrl = "http://100.68.69.153:8090"
 var detail = baseUrl + "/goodsitem/queryById"
 var vendorOrder = baseUrl + "/order/selectVendorOrder"
 var sendGoodss = baseUrl + "/order/sendGoods"

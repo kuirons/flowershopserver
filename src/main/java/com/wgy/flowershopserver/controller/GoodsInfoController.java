@@ -63,13 +63,15 @@ public class GoodsInfoController {
         goodsInfoBean -> {
           goodsInfoBean.setImgUrl(
               CustomConfig.attributeMap.get("ffsaddress") + "/" + goodsInfoBean.getImgUrl());
+          String title = goodsInfoBean.getTitle();
+          goodsInfoBean.setTitle(title.split("\\.")[0]);
           goodsInfoService.baseInsert(goodsInfoBean);
         });
     // 将新的belong2Title插入goodsrcategory表
-    String title = goodsInfoBeans.get(0).getBelong2Title();
-    GoodsInfoRCategoryBean goodsInfoRCategoryBean = new GoodsInfoRCategoryBean();
-    goodsInfoRCategoryBean.setTitle(title);
-    goodsInfoRCategoryService.baseInsert(goodsInfoRCategoryBean);
+    //    String title = goodsInfoBeans.get(0).getBelong2Title();
+    //    GoodsInfoRCategoryBean goodsInfoRCategoryBean = new GoodsInfoRCategoryBean();
+    //    goodsInfoRCategoryBean.setTitle(title);
+    //    goodsInfoRCategoryService.baseInsert(goodsInfoRCategoryBean);
   }
 
   // 同样需要对两张表进行操作

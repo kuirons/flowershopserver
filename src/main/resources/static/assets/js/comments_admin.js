@@ -22,7 +22,7 @@ $(document).ready(function () {
                 sorttype: 'int',
             },
             {
-                name: 'goodsId',
+                name: 'goodsName',
                 index: 'goodName',
                 editable: false
                 // formatter:

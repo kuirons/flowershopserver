@@ -1,5 +1,6 @@
 package com.wgy.flowershopserver.controller;
 
+import com.wgy.flowershopserver.dto.CommentDto;
 import com.wgy.flowershopserver.pojo.CommentBean;
 import com.wgy.flowershopserver.pojo.GoodsItemBean;
 import com.wgy.flowershopserver.serviceimpl.CommentServiceImpl;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comment")
@@ -36,7 +38,7 @@ public class CommentController {
   // 前端妖艳得要求，好，满足他
   // 非连表查询
   @RequestMapping("/queryByVendor")
-  public List<CommentBean> queryByVendor(HttpServletRequest request) {
+  public List<CommentDto> queryByVendor(HttpServletRequest request) {
     String vendor = (String) request.getSession().getAttribute("userName");
     vendor = StringUtils.isEmpty(vendor) ? "test" : vendor;
     List<GoodsItemBean> goodsItemBeans = goodsItemService.selectByVendor(vendor);
@@ -44,6 +46,19 @@ public class CommentController {
     for (GoodsItemBean bean : goodsItemBeans) {
       commentBeans.addAll(commentService.selectByGoodsId(bean.getId()));
     }
-    return commentBeans;
+    return commentBeans.stream()
+        .map(
+            commentBean -> {
+              CommentDto commentDto = new CommentDto();
+              commentDto.setId(commentBean.getId());
+              commentDto.setComment(commentBean.getComment());
+              commentDto.setCreateTime(commentBean.getCreateTime());
+              commentDto.setCreateUser(commentBean.getCreateUser());
+              GoodsItemBean goodsItemBean =
+                  goodsItemService.selectById(commentBean.getGoodsId()).get(0);
+              commentDto.setGoodsName(goodsItemBean.getName());
+              return commentDto;
+            })
+        .collect(Collectors.toList());
   }
 }

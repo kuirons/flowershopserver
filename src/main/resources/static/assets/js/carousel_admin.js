@@ -271,7 +271,7 @@ $(document).ready(function () {
             tmpFile = FlowerShop.Tools.prototype.blobToFile(FlowerShop.Tools.prototype.dataURLtoBlob(base64Data), fileName);
             inertObjects[i] = {
                 id: 0,
-                imgUrl: '',
+                imgUrl: fileName,
                 title: tmpFile.name,
                 belong2Title: belong2Title
             };
@@ -323,7 +323,7 @@ $(document).ready(function () {
             {icon: 3, title: '提示'},
             function (index_1, element) {
                 layer.close(index_1);
-                $.get(url.user.delete, {belong2Title: belong2Title}, function () {
+                $.get(url.classifyImage.delete, {belong2Title: belong2Title}, function () {
                     layer.alert('分类 ' + belong2Title + '已成功删除.',
                         {
                             icon: 1,
