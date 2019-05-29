@@ -181,7 +181,9 @@ function showAddGoods() {
                     detailInfosImgUrl: []
                 })
             };
-            formData.append('detailsInfos', infoImage);
+            for (var imgIndex = 0; imgIndex < infoImage.length; imgIndex++) {
+                formData.append('detailsInfos', infoImage[imgIndex]);
+            }
             formData.append('goodsitemfile', itemImage);
             formData.append('goodsItemInfoJson', jsonValue.goodsItemInfoJson);
             $.ajax({
@@ -410,7 +412,9 @@ function showEditGoods() {
                     ]
                 })
             };
-            formData.append('detailsInfos', infoImage);
+            for (var imgIndex = 0; imgIndex < infoImage.length; imgIndex++) {
+                formData.append('detailsInfos', infoImage[imgIndex]);
+            }
             formData.append('goodsitemfile', itemImage);
             formData.append('itemjson', jsonValue.goodsItemInfoJson);
             $.ajax({
