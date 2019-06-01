@@ -42,6 +42,7 @@ var url = {
     },
     comment: {
         delete: '/comment/delete',
-        list: '/comment/queryByVendor'
+        list: '/comment/queryByVendor',
+        goods: '/comment/queryByGoodsId'
     }
 };

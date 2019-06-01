@@ -36,16 +36,20 @@
         <li class="active">
             <a href="#tab1">图文详情</a>
         </li>
+        <li class="active">
+            <a href="#comment-tab">买家评论</a>
+        </li>
     </ul>
     <div class="ptab_container">
-        <div id="tab1" class="ptab_content block">
-        </div>
+        <div id="tab1" class="ptab_content block"></div>
+        <hr>
+        <ul id="comment-tab" class="ptab_content block"></ul>
     </div>
 </div>
 <div class="cart-box">
     <div class="cart-total" id="cart-action">
         <!--<p class="fr mtr10 bottom-button">-->
-            <!--<button class="five_bnt" id="btnAddToCart">&nbsp;&nbsp;加入购物车&nbsp;&nbsp;</button>-->
+        <!--<button class="five_bnt" id="btnAddToCart">&nbsp;&nbsp;加入购物车&nbsp;&nbsp;</button>-->
         <!--</p>-->
         <p class="fr mtr10 bottom-button">
             <button class="two_bnt" id="btnBuy">加入购物车</button>
@@ -55,6 +59,8 @@
 </body>
 <script>
     $(function () {
+        var goodsId = getQueryVariable('id');
+
         $("#btnBuy").click(function () {
             var id = $("#txtWareId").val();
             window.appInterface.buy(id);
@@ -65,7 +71,10 @@
             var id = $("#txtWareId").val();
             window.appInterface.addToCart(id);
         });
-    })
+
+        showComments(goodsId);
+
+    });
 
     function showDetail(id) {
         $("#txtWareId").val(id);
@@ -76,13 +85,43 @@
                 $("#ware_img").attr("src", ware.imgUrl);
                 $("#ware_price").html("￥ " + ware.price);
                 $("#ware_sale_quantity").html(ware.sale);
-                var imgs=ware.detailInfosImgUrl;
+                var imgs = ware.detailInfosImgUrl;
                 imgs.forEach(function (value) {
-                    var imgItem="<p class=\"full-canvas\"><img src=\""+value.imgurl+"\" alt=\"\"></p>"
+                    var imgItem = '<p class="full-canvas"><img src="' + value.imgurl + '" alt=""></p>'
                     $("#tab1").append(imgItem)
                 })
             }
         })
+    }
+
+    function showComments(id) {
+        $("#txtWareId").val(id);
+        $.ajax({
+            url: url.comment.goods + "?goodsId=" + id,
+            success: function (comments, status, xhr) {
+                if (comments) {
+                    for (var i = 0; i < comments.length; i++) {
+                        var tmpDate = new Date(parseInt(comments[i].createTime));
+                        var createDate = tmpDate.getFullYear() + '-' + tmpDate.getMonth() + '-' + tmpDate.getDay() + ' ' + tmpDate.getHours() + ':' + tmpDate.getMinutes() + ':' + tmpDate.getSeconds();
+                        var html = '<li class="comment-item" data-comment-id="' + comments[i].id + '"><span class="comment-item-author">' + comments[i].createUser + '</span><time class="comment-item-date">' + createDate + '</time><p class="comment-item-content">' + comments[i].comment + '</p></li>'
+                        $('#comment-tab').append(html);
+                    }
+                }
+            },
+            dataType: 'json'
+        })
+    }
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return (false);
     }
 </script>
 </html>
